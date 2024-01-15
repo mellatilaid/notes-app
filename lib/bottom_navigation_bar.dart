@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
-import 'package:note_app/views/fovorits_view.dart';
+import 'package:note_app/views/my_notes_view.dart';
 import 'package:note_app/views/notes_collections_view.dart';
 import 'package:note_app/views/reminders_view.dart';
 import 'package:note_app/views/to_do_list_view.dart';
@@ -23,7 +23,7 @@ class _HomePageNavState extends State<HomePageNav> {
   }
 
   final List _page = [
-    const FavoritsView(),
+    const MyNotesView(),
     const NotesCollectionsView(),
     const AddNotesView(),
     const ToDoListView(),
@@ -34,13 +34,13 @@ class _HomePageNavState extends State<HomePageNav> {
     return Scaffold(
       body: _page[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xffFF9D9D),
+        selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         onTap: _navigatedBottmBar,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.note),
+            icon: Icon(Icons.notes),
             label: 'Notes',
           ),
           BottomNavigationBarItem(
@@ -49,10 +49,10 @@ class _HomePageNavState extends State<HomePageNav> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.add,
+              Icons.add_circle,
               color: kPrimaryColor,
             ),
-            label: 'add note',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_box),
