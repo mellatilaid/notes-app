@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/my_notes_view_body.dart';
+import 'package:note_app/widgets/notes_view_body.dart';
 
 class MyNotesView extends StatelessWidget {
   const MyNotesView({super.key});
@@ -17,7 +17,7 @@ class MyNotesView extends StatelessWidget {
         ],
       ),
       drawer: const Drawer(),
-      body: const MyNotesViewBody(),
+      body: const NotesViewBody(),
     );
   }
 }

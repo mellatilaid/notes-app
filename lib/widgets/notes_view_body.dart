@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyNotesViewBody extends StatelessWidget {
-  const MyNotesViewBody({super.key});
+class NotesViewBody extends StatelessWidget {
+  const NotesViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
