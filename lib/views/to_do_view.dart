@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/add_note_view_body.dart';
+import 'package:note_app/widgets/to_do_view_body.dart';
 
-class AddNotesView extends StatelessWidget {
-  const AddNotesView({super.key});
+class ToDoView extends StatelessWidget {
+  const ToDoView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,13 +11,13 @@ class AddNotesView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         elevation: 0,
-        title: const Text('My Notes'),
+        title: const Text('My To Dos'),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
         ],
       ),
       drawer: const Drawer(),
-      body: const AddNoteViewBody(),
+      body: const ToDoViewBody(),
     );
   }
 }

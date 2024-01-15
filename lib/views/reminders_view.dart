@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/reminder_view_body.dart';
 
 class RemindersView extends StatelessWidget {
   const RemindersView({super.key});
@@ -7,11 +8,16 @@ class RemindersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text('My Remiders'),
+        elevation: 0,
+        title: const Text('Reminders'),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        ],
       ),
+      drawer: const Drawer(),
+      body: const ReminderViewBody(),
     );
   }
 }

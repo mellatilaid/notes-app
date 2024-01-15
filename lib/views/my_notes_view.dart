@@ -6,8 +6,18 @@ class MyNotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: MyNotesViewBody(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        elevation: 0,
+        title: const Text('My Notes'),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        ],
+      ),
+      drawer: const Drawer(),
+      body: const MyNotesViewBody(),
     );
   }
 }

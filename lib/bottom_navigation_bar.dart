@@ -4,7 +4,7 @@ import 'package:note_app/views/add_notes_view.dart';
 import 'package:note_app/views/my_notes_view.dart';
 import 'package:note_app/views/notes_collections_view.dart';
 import 'package:note_app/views/reminders_view.dart';
-import 'package:note_app/views/to_do_list_view.dart';
+import 'package:note_app/views/to_do_view.dart';
 
 class HomePageNav extends StatefulWidget {
   const HomePageNav({super.key});
@@ -26,7 +26,7 @@ class _HomePageNavState extends State<HomePageNav> {
     const MyNotesView(),
     const NotesCollectionsView(),
     const AddNotesView(),
-    const ToDoListView(),
+    const ToDoView(),
     const RemindersView(),
   ];
   @override
