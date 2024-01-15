@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/views/my_notes_view.dart';
+import 'package:note_app/bottom_navigation_bar.dart';
 
 void main() {
   runApp(const NotesApp());
@@ -15,7 +15,7 @@ class NotesApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyNotesView(),
+      home: const HomePageNav(),
     );
   }
 }

@@ -7,6 +7,8 @@ class AddNotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         centerTitle: true,
         title: const Text('Add Note'),
       ),

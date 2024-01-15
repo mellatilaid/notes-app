@@ -7,8 +7,10 @@ class FavoritsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: const Text('My Collections'),
+        title: const Text('My Notes'),
       ),
     );
   }
