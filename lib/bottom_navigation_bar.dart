@@ -55,11 +55,11 @@ class _HomePageNavState extends State<HomePageNav> {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.check_box),
+            icon: Icon(Icons.task_alt),
             label: 'To Do',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock_clock_outlined),
+            icon: Icon(Icons.notification_add),
             label: 'Reminder',
           ),
         ],
