@@ -11,7 +11,7 @@ class CustomNoteItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        padding: const EdgeInsets.only(top: 16, bottom: 16, left: 16),
+        padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           color: kPrimaryColor,
@@ -19,10 +19,31 @@ class CustomNoteItem extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const CustomNoteTitle(),
+            ListTile(
+              contentPadding: const EdgeInsets.all(0),
+              title: const Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'note title',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              trailing: IconButton(
+                padding: const EdgeInsets.only(right: 8),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                ),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(right: 16, top: 16),
+              padding: const EdgeInsets.only(right: 16, top: 8),
               child: Text(
                 '22/03/2002',
                 style: TextStyle(
@@ -30,44 +51,6 @@ class CustomNoteItem extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomNoteTitle extends StatelessWidget {
-  const CustomNoteTitle({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      title: const Padding(
-        padding: EdgeInsets.only(bottom: 12),
-        child: Text(
-          'note title',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      subtitle: Text(
-        'note subtitle',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.black.withOpacity(0.6),
-        ),
-      ),
-      trailing: IconButton(
-        padding: const EdgeInsets.only(right: 8),
-        onPressed: () {},
-        icon: const Icon(
-          Icons.delete,
-          color: Colors.black,
         ),
       ),
     );
