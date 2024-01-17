@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/add_note_cubit/add_note_cubit_states.dart';
 
 import '../cubits/add_note_cubit/add_note_cubit.dart';
 import '../helper/const.dart';
 import '../models/note_model.dart';
+import 'colors_list_view.dart';
 import 'custom_action_button.dart';
 import 'custom_text_field.dart';
 
@@ -43,19 +45,25 @@ class _AddNoteFormState extends State<AddNoteForm> {
             },
           ),
         ),
-        CustomActionButton(
-          title: 'Save Note',
-          onPressed: () {
-            NoteModel note = NoteModel(
-              title: titleController.text,
-              content: contentController.text,
-              date: DateTime.now().toString(),
-              color: Colors.amber.value,
-            );
+        const ColorsListView(),
+        BlocBuilder<AddNoteCubit, AddNoteState>(
+          builder: (context, state) {
+            return CustomActionButton(
+              isLoading: state is AddNoteLaoding ? true : false,
+              title: 'Save Note',
+              onPressed: () {
+                NoteModel note = NoteModel(
+                  title: titleController.text,
+                  content: contentController.text,
+                  date: DateTime.now().toString(),
+                  color: Colors.amber.value,
+                );
 
-            BlocProvider.of<AddNoteCubit>(context).addNote(note: note);
+                BlocProvider.of<AddNoteCubit>(context).addNote(note: note);
+              },
+              backGroundColor: kPrimaryColor,
+            );
           },
-          backGroundColor: kPrimaryColor,
         ),
       ],
     );

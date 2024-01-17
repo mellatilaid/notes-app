@@ -27,7 +27,7 @@ class CustomActionButton extends StatelessWidget {
               height: 22,
               width: 22,
               child: CircularProgressIndicator(
-                color: Colors.black,
+                color: kforeGroundColor,
               ),
             )
           : Text(
