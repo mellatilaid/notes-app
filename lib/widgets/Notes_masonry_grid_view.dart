@@ -10,6 +10,7 @@ class NotesMasonryGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MasonryGridView.count(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       crossAxisCount: 2,
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,

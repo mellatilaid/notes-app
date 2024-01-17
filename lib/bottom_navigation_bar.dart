@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/const.dart';
-import 'package:note_app/views/add_notes_view.dart';
 import 'package:note_app/views/notes_collections_view.dart';
 import 'package:note_app/views/notes_view.dart';
 import 'package:note_app/views/reminders_view.dart';
@@ -25,7 +23,6 @@ class _HomePageNavState extends State<HomePageNav> {
   final List _page = [
     const MyNotesView(),
     const NotesCollectionsView(),
-    const AddNotesView(),
     const ToDoView(),
     const RemindersView(),
   ];
@@ -46,13 +43,6 @@ class _HomePageNavState extends State<HomePageNav> {
           BottomNavigationBarItem(
             icon: Icon(Icons.folder),
             label: 'Collections',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_circle,
-              color: kPrimaryColor,
-            ),
-            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.task_alt),
