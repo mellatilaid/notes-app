@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/const.dart';
+import 'package:note_app/widgets/custom_action_button.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
 class AddNoteViewBody extends StatelessWidget {
@@ -6,21 +8,26 @@ class AddNoteViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          CustomTextField(
+          const CustomTextField(
             hintText: 'Title',
           ),
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
-          Expanded(
+          const Expanded(
             child: CustomTextField(
-              hintText: 'content',
+              hintText: 'Content',
               isExpand: true,
             ),
+          ),
+          CustomActionButton(
+            title: 'Save Note',
+            onPressed: () {},
+            backGroundColor: kPrimaryColor,
           ),
         ],
       ),

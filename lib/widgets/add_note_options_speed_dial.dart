@@ -13,9 +13,11 @@ class AddNoteOptionsSpeedDial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
+      elevation: 10,
       icon: Icons.add,
       backgroundColor: kPrimaryColor,
       foregroundColor: Colors.white,
+      buttonSize: const Size(50, 50),
       spaceBetweenChildren: 8,
       children: [
         customSpeedDialChild(
