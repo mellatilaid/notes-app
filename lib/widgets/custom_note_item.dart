@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 
 class CustomNoteItem extends StatelessWidget {
@@ -17,7 +16,7 @@ class CustomNoteItem extends StatelessWidget {
         padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: kPrimaryColor,
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
