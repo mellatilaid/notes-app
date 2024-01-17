@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension Navigation on BuildContext {
+extension PushExtension on BuildContext {
   toView(view) {
     return Navigator.push(
       this,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/views/add_notes_view.dart';
 
 import '../helper/const.dart';
 
@@ -17,9 +19,11 @@ class AddNoteOptionsSpeedDial extends StatelessWidget {
       spaceBetweenChildren: 8,
       children: [
         customSpeedDialChild(
-          icon: const Icon(Icons.text_fields),
-          label: 'Add Text',
-        ),
+            icon: const Icon(Icons.text_fields),
+            label: 'Add Text',
+            onTap: () {
+              context.toView(const AddNotesView());
+            }),
         customSpeedDialChild(
           icon: const Icon(Icons.mic),
           label: 'Add Voice',

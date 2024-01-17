@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../helper/const.dart';
 
 class CustomTextField extends StatelessWidget {
-  final double verPadding;
   final String hintText;
-  final int maxLines;
+  final int? maxLines;
+  final bool isExpand;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
   const CustomTextField({
     super.key,
-    this.verPadding = 16,
     required this.hintText,
-    this.maxLines = 1,
+    this.maxLines,
     this.onSaved,
     this.onChanged,
+    this.isExpand = false,
   });
 
   @override
@@ -30,19 +30,20 @@ class CustomTextField extends StatelessWidget {
         }
       },
       cursorColor: kPrimaryColor,
+      expands: isExpand,
+      textAlignVertical: TextAlignVertical.top,
       maxLines: maxLines,
+      minLines: null,
       decoration: InputDecoration(
         hintText: hintText,
         labelStyle: const TextStyle(color: kPrimaryColor),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.grey,
+            color: Colors.transparent,
           ),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.green,
-          ),
+          borderSide: BorderSide(color: Colors.transparent),
         ),
         errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(
