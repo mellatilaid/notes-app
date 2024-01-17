@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:note_app/cubits/add_note_cubit/add_note_cubit_states.dart';
 import 'package:note_app/widgets/add_note_form.dart';
 
 class AddNoteViewBody extends StatelessWidget {
@@ -6,9 +9,20 @@ class AddNoteViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: AddNoteForm(),
+    return BlocConsumer<AddNoteCubit, AddNoteState>(
+      listener: (context, state) {
+        if (state is AddNoteSuccuss || state is AddNoteEmpty) {
+          Navigator.pop(context);
+        } else if (state is AddNoteFailure) {
+          print('failure');
+        }
+      },
+      builder: (context, state) {
+        return const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: AddNoteForm(),
+        );
+      },
     );
   }
 }

@@ -16,11 +16,15 @@ class AddNoteForm extends StatefulWidget {
 
 class _AddNoteFormState extends State<AddNoteForm> {
   String? title, content;
+  TextEditingController titleController = TextEditingController(text: '');
+  TextEditingController contentController = TextEditingController(text: '');
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CustomTextField(
+          controller: titleController,
           hintText: 'Title',
           onSaved: (data) {
             title = data;
@@ -31,6 +35,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
         ),
         Expanded(
           child: CustomTextField(
+            controller: contentController,
             hintText: 'Content',
             isExpand: true,
             onSaved: (data) {
@@ -42,11 +47,12 @@ class _AddNoteFormState extends State<AddNoteForm> {
           title: 'Save Note',
           onPressed: () {
             NoteModel note = NoteModel(
-              title: title ?? '',
-              content: content ?? '',
+              title: titleController.text,
+              content: contentController.text,
               date: DateTime.now().toString(),
               color: Colors.amber.value,
             );
+
             BlocProvider.of<AddNoteCubit>(context).addNote(note: note);
           },
           backGroundColor: kPrimaryColor,

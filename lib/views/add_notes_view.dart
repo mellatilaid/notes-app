@@ -20,7 +20,6 @@ class AddNotesView extends StatelessWidget {
             IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           ],
         ),
-        drawer: const Drawer(),
         body: const AddNoteViewBody(),
       ),
     );

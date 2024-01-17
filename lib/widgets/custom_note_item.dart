@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/models/note_model.dart';
 
 class CustomNoteItem extends StatelessWidget {
+  final NoteModel note;
   const CustomNoteItem({
     super.key,
+    required this.note,
   });
 
   @override
@@ -23,19 +26,22 @@ class CustomNoteItem extends StatelessWidget {
           children: [
             ListTile(
               contentPadding: const EdgeInsets.all(0),
-              title: const Padding(
-                padding: EdgeInsets.only(bottom: 8),
+              title: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  'note title',
-                  style: TextStyle(
-                    fontSize: 24,
+                  note.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                   ),
                 ),
               ),
               trailing: IconButton(
                 padding: const EdgeInsets.only(right: 8),
-                onPressed: () {},
+                onPressed: () {
+                  note.delete();
+                },
                 icon: const Icon(
                   Icons.delete,
                   color: Colors.black,
