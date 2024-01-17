@@ -9,4 +9,6 @@ class AddNoteFailure extends AddNoteState {
   AddNoteFailure({required this.errMessage});
 }
 
+class AddNoteEmpty extends AddNoteState {}
+
 class AddNoteLaoding extends AddNoteState {}
