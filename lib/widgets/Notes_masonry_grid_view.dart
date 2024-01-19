@@ -40,8 +40,8 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
         return MasonryGridView.count(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           crossAxisCount: 2,
-          mainAxisSpacing: 2,
-          crossAxisSpacing: 4,
+          mainAxisSpacing: 6,
+          crossAxisSpacing: 12,
           itemCount: notesBox.length,
           itemBuilder: (context, index) {
             NoteModel note = notesBox.getAt(index) as NoteModel;

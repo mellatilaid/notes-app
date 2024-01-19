@@ -5,10 +5,12 @@ import 'package:note_app/models/note_model.dart';
 class CustomNoteItem extends StatelessWidget {
   final NoteModel note;
   final bool isNoteSelected;
+  final bool isDefault;
   const CustomNoteItem({
     super.key,
     required this.note,
     this.isNoteSelected = false,
+    this.isDefault = true,
   });
 
   @override
@@ -16,17 +18,10 @@ class CustomNoteItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16),
-        margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           color: Color(note.color),
-          borderRadius: BorderRadius.circular(16),
-          border: isNoteSelected
-              ? Border.all(
-                  color: Colors.red,
-                  width: 2,
-                )
-              : null,
+          borderRadius: BorderRadius.circular(8),
+          border: _setBorderColor(),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -37,9 +32,11 @@ class CustomNoteItem extends StatelessWidget {
               Text(
                 note.title,
                 textAlign: TextAlign.start,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: kforeGroundColor,
+                  color: (Color(note.color) == Colors.transparent)
+                      ? Colors.white
+                      : kforeGroundColor,
                 ),
               ),
               const SizedBox(
@@ -49,7 +46,9 @@ class CustomNoteItem extends StatelessWidget {
                 '22/03/2002',
                 textAlign: TextAlign.end,
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
+                  color: (Color(note.color) == Colors.transparent)
+                      ? Colors.white
+                      : Colors.black.withOpacity(0.6),
                   fontSize: 12,
                 ),
               ),
@@ -58,5 +57,21 @@ class CustomNoteItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Border? _setBorderColor() {
+    if (isNoteSelected) {
+      return Border.all(
+        color: Colors.red,
+        width: 2,
+      );
+    } else if (Color(note.color) == Colors.transparent) {
+      return Border.all(
+        color: Colors.grey,
+        width: 2,
+      );
+    } else {
+      return null;
+    }
   }
 }
