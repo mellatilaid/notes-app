@@ -15,35 +15,41 @@ class MyNotesView extends StatelessWidget {
       child: BlocBuilder<DeleteNoteCubit, DeleteNoteState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              elevation: 0,
-              leading: state.isSelected
-                  ? BackButton(
-                      onPressed: () =>
-                          BlocProvider.of<DeleteNoteCubit>(context).set(false),
-                    )
-                  : null,
-              title: state.isSelected ? null : const Text('My Notes'),
-              actions: state.isSelected
-                  ? [
+            appBar: state.isSelected
+                ? AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    leading: state.isSelected
+                        ? BackButton(
+                            onPressed: () =>
+                                BlocProvider.of<DeleteNoteCubit>(context)
+                                  ..set(false)
+                                  ..selectedNotedIndex = -1,
+                          )
+                        : null,
+                    actions: [
                       IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.delete_outline),
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.send_sharp),
+                        icon: const Icon(Icons.send),
                       ),
-                    ]
-                  : [
+                    ],
+                  )
+                : AppBar(
+                    backgroundColor: Colors.transparent,
+                    centerTitle: true,
+                    elevation: 0,
+                    title: const Text('My Notes'),
+                    actions: [
                       IconButton(
                         onPressed: () {},
                         icon: const Icon(Icons.search),
                       ),
                     ],
-            ),
+                  ),
             drawer: state.isSelected ? null : const Drawer(),
             body: const NotesViewBody(),
             floatingActionButton: const AddNoteOptionsSpeedDial(),

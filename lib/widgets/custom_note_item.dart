@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 
-class CustomNoteItem extends StatefulWidget {
+class CustomNoteItem extends StatelessWidget {
   final NoteModel note;
+  final bool isNoteSelected;
   const CustomNoteItem({
     super.key,
     required this.note,
+    this.isNoteSelected = false,
   });
 
-  @override
-  State<CustomNoteItem> createState() => _CustomNoteItemState();
-}
-
-class _CustomNoteItemState extends State<CustomNoteItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      onLongPress: () {
-        BlocProvider.of<DeleteNoteCubit>(context).set(true);
-      },
       child: Container(
         padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: Color(widget.note.color),
+          color: Color(note.color),
           borderRadius: BorderRadius.circular(16),
+          border: isNoteSelected
+              ? Border.all(
+                  color: Colors.red,
+                  width: 2,
+                )
+              : null,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -38,7 +36,7 @@ class _CustomNoteItemState extends State<CustomNoteItem> {
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  widget.note.title,
+                  note.title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -49,7 +47,7 @@ class _CustomNoteItemState extends State<CustomNoteItem> {
               trailing: IconButton(
                 padding: const EdgeInsets.only(right: 8),
                 onPressed: () {
-                  widget.note.delete();
+                  note.delete();
                 },
                 icon: const Icon(
                   Icons.delete,

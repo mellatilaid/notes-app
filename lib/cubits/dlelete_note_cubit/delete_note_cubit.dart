@@ -6,11 +6,16 @@ class DeleteNoteCubit extends Cubit<DeleteNoteState> {
   DeleteNoteCubit() : super(DeleteNoteState(isSelected: false));
 
   bool isNoteSelected = false;
+  int selectedNotedIndex = -1;
   NoteModel? noteModel;
   set(bool value) {
     isNoteSelected = value;
 
-    emit(DeleteNoteState(isSelected: isNoteSelected));
+    emit(
+      DeleteNoteState(
+        isSelected: isNoteSelected,
+      ),
+    );
   }
 
   deleteNote({required NoteModel note}) {

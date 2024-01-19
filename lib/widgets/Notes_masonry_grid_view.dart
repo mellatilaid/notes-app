@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
+import 'package:note_app/cubits/dlelete_note_cubit/delete_note_states.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/custom_note_item.dart';
@@ -16,12 +21,15 @@ class NotesMasonryGridView extends StatefulWidget {
 
 class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
   late Box<NoteModel> notesBox;
+  late int isNoteSelected;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     notesBox = Hive.box<NoteModel>(kNoteBox);
+    isNoteSelected =
+        BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex;
   }
 
   @override
@@ -42,8 +50,24 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
           itemCount: notesBox.length,
           itemBuilder: (context, index) {
             NoteModel note = notesBox.getAt(index) as NoteModel;
-            return CustomNoteItem(
-              note: note,
+            return BlocBuilder<DeleteNoteCubit, DeleteNoteState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onLongPress: () {
+                    log('${BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex}');
+                    BlocProvider.of<DeleteNoteCubit>(context)
+                      ..set(true)
+                      ..selectedNotedIndex = index;
+                    log('${BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex}');
+                  },
+                  child: CustomNoteItem(
+                    isNoteSelected: BlocProvider.of<DeleteNoteCubit>(context)
+                            .selectedNotedIndex ==
+                        index,
+                    note: note,
+                  ),
+                );
+              },
             );
           },
         );
