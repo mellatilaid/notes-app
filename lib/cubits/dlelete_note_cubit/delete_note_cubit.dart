@@ -5,20 +5,20 @@ import 'package:note_app/models/note_model.dart';
 class DeleteNoteCubit extends Cubit<DeleteNoteState> {
   DeleteNoteCubit() : super(DeleteNoteState(isSelected: false));
 
-  bool isNoteSelected = false;
-  int selectedNotedIndex = -1;
+  bool _isNoteSelected = false;
+  int selectedNoteIndex = -1;
   NoteModel? noteModel;
   set(bool value) {
-    isNoteSelected = value;
+    _isNoteSelected = value;
 
     emit(
       DeleteNoteState(
-        isSelected: isNoteSelected,
+        isSelected: _isNoteSelected,
       ),
     );
   }
 
   deleteNote({required NoteModel note}) {
-    isNoteSelected ? note.delete() : '';
+    _isNoteSelected ? note.delete() : '';
   }
 }

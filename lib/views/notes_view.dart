@@ -24,7 +24,7 @@ class MyNotesView extends StatelessWidget {
                             onPressed: () =>
                                 BlocProvider.of<DeleteNoteCubit>(context)
                                   ..set(false)
-                                  ..selectedNotedIndex = -1,
+                                  ..selectedNoteIndex = -1,
                           )
                         : null,
                     actions: [
@@ -34,7 +34,7 @@ class MyNotesView extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.send),
+                        icon: const Icon(Icons.ios_share_outlined),
                       ),
                     ],
                   )

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -21,15 +19,12 @@ class NotesMasonryGridView extends StatefulWidget {
 
 class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
   late Box<NoteModel> notesBox;
-  late int isNoteSelected;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     notesBox = Hive.box<NoteModel>(kNoteBox);
-    isNoteSelected =
-        BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex;
   }
 
   @override
@@ -54,15 +49,13 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
               builder: (context, state) {
                 return GestureDetector(
                   onLongPress: () {
-                    log('${BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex}');
                     BlocProvider.of<DeleteNoteCubit>(context)
                       ..set(true)
-                      ..selectedNotedIndex = index;
-                    log('${BlocProvider.of<DeleteNoteCubit>(context).selectedNotedIndex}');
+                      ..selectedNoteIndex = index;
                   },
                   child: CustomNoteItem(
                     isNoteSelected: BlocProvider.of<DeleteNoteCubit>(context)
-                            .selectedNotedIndex ==
+                            .selectedNoteIndex ==
                         index,
                     note: note,
                   ),

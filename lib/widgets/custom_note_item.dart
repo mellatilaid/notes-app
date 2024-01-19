@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 
 class CustomNoteItem extends StatelessWidget {
@@ -27,43 +28,33 @@ class CustomNoteItem extends StatelessWidget {
                 )
               : null,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  note.title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                note.title,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: kforeGroundColor,
                 ),
               ),
-              trailing: IconButton(
-                padding: const EdgeInsets.only(right: 8),
-                onPressed: () {
-                  note.delete();
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.black,
-                ),
+              const SizedBox(
+                height: 16,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16, top: 8),
-              child: Text(
+              Text(
                 '22/03/2002',
+                textAlign: TextAlign.end,
                 style: TextStyle(
-                    color: Colors.black.withOpacity(0.6), fontSize: 16),
+                  color: Colors.black.withOpacity(0.6),
+                  fontSize: 12,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
