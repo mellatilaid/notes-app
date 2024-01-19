@@ -18,7 +18,9 @@ class DeleteNoteCubit extends Cubit<DeleteNoteState> {
     );
   }
 
-  deleteNote({required NoteModel note}) {
-    _isNoteSelected ? note.delete() : '';
+  deleteNote() {
+    noteModel?.delete();
+    noteModel = null;
+    selectedNoteIndex = -1;
   }
 }

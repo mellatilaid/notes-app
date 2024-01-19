@@ -51,7 +51,8 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
                   onLongPress: () {
                     BlocProvider.of<DeleteNoteCubit>(context)
                       ..set(true)
-                      ..selectedNoteIndex = index;
+                      ..selectedNoteIndex = index
+                      ..noteModel = note;
                   },
                   child: CustomNoteItem(
                     isNoteSelected: BlocProvider.of<DeleteNoteCubit>(context)

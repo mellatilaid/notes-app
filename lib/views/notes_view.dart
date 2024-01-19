@@ -29,7 +29,7 @@ class MyNotesView extends StatelessWidget {
                         : null,
                     actions: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () => _deleteNote(context),
                         icon: const Icon(Icons.delete_outline),
                       ),
                       IconButton(
@@ -57,5 +57,11 @@ class MyNotesView extends StatelessWidget {
         },
       ),
     );
+  }
+
+  _deleteNote(BuildContext context) {
+    BlocProvider.of<DeleteNoteCubit>(context)
+      ..deleteNote()
+      ..set(false);
   }
 }
