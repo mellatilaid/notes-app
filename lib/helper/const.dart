@@ -14,3 +14,5 @@ const List<Color> kColors = [
   Color(0xffefa48b),
   Color(0xffc6d8af)
 ];
+
+bool isClicked = false;

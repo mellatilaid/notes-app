@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 
-class CustomNoteItem extends StatelessWidget {
+class CustomNoteItem extends StatefulWidget {
   final NoteModel note;
   const CustomNoteItem({
     super.key,
@@ -9,14 +11,22 @@ class CustomNoteItem extends StatelessWidget {
   });
 
   @override
+  State<CustomNoteItem> createState() => _CustomNoteItemState();
+}
+
+class _CustomNoteItemState extends State<CustomNoteItem> {
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
+      onLongPress: () {
+        BlocProvider.of<DeleteNoteCubit>(context).set(true);
+      },
       child: Container(
         padding: const EdgeInsets.only(top: 4, bottom: 8, left: 16),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: Color(note.color),
+          color: Color(widget.note.color),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -28,7 +38,7 @@ class CustomNoteItem extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  note.title,
+                  widget.note.title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -39,7 +49,7 @@ class CustomNoteItem extends StatelessWidget {
               trailing: IconButton(
                 padding: const EdgeInsets.only(right: 8),
                 onPressed: () {
-                  note.delete();
+                  widget.note.delete();
                 },
                 icon: const Icon(
                   Icons.delete,
