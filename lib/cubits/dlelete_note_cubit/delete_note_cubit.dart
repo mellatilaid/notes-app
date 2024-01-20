@@ -7,6 +7,7 @@ class DeleteNoteCubit extends Cubit<DeleteNoteState> {
 
   bool _isNoteSelected = false;
   int selectedNoteIndex = -1;
+  bool isLongPressed = false;
   NoteModel? noteModel;
   set(bool value) {
     _isNoteSelected = value;

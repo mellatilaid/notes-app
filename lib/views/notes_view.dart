@@ -52,7 +52,8 @@ class MyNotesView extends StatelessWidget {
                   ),
             drawer: state.isSelected ? null : const Drawer(),
             body: const NotesViewBody(),
-            floatingActionButton: const AddNoteOptionsSpeedDial(),
+            floatingActionButton:
+                state.isSelected ? null : const AddNoteOptionsSpeedDial(),
           );
         },
       ),

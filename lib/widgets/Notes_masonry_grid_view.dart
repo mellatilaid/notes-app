@@ -6,7 +6,8 @@ import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import 'package:note_app/cubits/dlelete_note_cubit/delete_note_states.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
-import 'package:note_app/widgets/custom_note_item.dart';
+
+import 'custom_dismissible_note.dart';
 
 class NotesMasonryGridView extends StatefulWidget {
   const NotesMasonryGridView({
@@ -54,11 +55,9 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
                       ..selectedNoteIndex = index
                       ..noteModel = note;
                   },
-                  child: CustomNoteItem(
-                    isNoteSelected: BlocProvider.of<DeleteNoteCubit>(context)
-                            .selectedNoteIndex ==
-                        index,
+                  child: CustomDismissibleNote(
                     note: note,
+                    index: index,
                   ),
                 );
               },
