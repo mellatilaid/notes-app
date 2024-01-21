@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
-import 'package:note_app/helper/const.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 
 import '../cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import '../models/note_model.dart';
@@ -18,14 +19,13 @@ class CustomDismissibleNote extends StatefulWidget {
 
   final NoteModel note;
   final int index;
-  final Box<NoteModel> notesBox;
+  final List<NoteModel> notesBox;
 
   @override
   State<CustomDismissibleNote> createState() => _CustomDismissibleNoteState();
 }
 
 class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
-  final Box<NoteModel> notesBox = Hive.box<NoteModel>(kNoteBox);
   bool isUndoPressed = false;
   bool isDeleting = false;
 
@@ -70,9 +70,9 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
   }
 
   deleteNote({required BuildContext context, required int index}) async {
-    await widget.notesBox.deleteAt(index);
+    BlocProvider.of<NotesCubit>(context).removeFromNotes(index: index);
     final snackBar = SnackBar(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 5),
       backgroundColor: Colors.transparent,
       content: const Text(
         'Note deleted',
@@ -84,10 +84,19 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
         label: 'Undo',
         onPressed: () async {
           isUndoPressed = true;
-          await widget.notesBox.putAt(index, widget.note);
+          isDeleting = false;
         },
       ),
     );
+    Timer(const Duration(seconds: 5), () {
+      if (isUndoPressed) {
+        isUndoPressed = false;
+        isDeleting = false;
+      } else {
+        widget.note.delete();
+      }
+    });
+
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

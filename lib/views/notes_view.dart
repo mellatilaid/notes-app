@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import 'package:note_app/cubits/dlelete_note_cubit/delete_note_states.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/notes_view_body.dart';
 
@@ -64,5 +65,6 @@ class MyNotesView extends StatelessWidget {
     BlocProvider.of<DeleteNoteCubit>(context)
       ..deleteNote()
       ..set(false);
+    BlocProvider.of<NotesCubit>(context).fetchAllNotesState();
   }
 }
