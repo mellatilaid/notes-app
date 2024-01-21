@@ -20,18 +20,18 @@ class NotesMasonryGridView extends StatefulWidget {
 
 class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
   late Box<NoteModel> notesBox;
-
+  late Box<NoteModel> copyNotes;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     notesBox = Hive.box<NoteModel>(kNoteBox);
+    copyNotes = notesBox;
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: notesBox.listenable(),
+      valueListenable: copyNotes.listenable(),
       builder: (context, Box<dynamic> notes, _) {
         if (notesBox.isEmpty) {
           return const Center(
@@ -45,7 +45,8 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
           crossAxisSpacing: 12,
           itemCount: notesBox.length,
           itemBuilder: (context, index) {
-            NoteModel note = notesBox.getAt(index) as NoteModel;
+            NoteModel note = copyNotes.getAt(index) as NoteModel;
+
             return BlocBuilder<DeleteNoteCubit, DeleteNoteState>(
               builder: (context, state) {
                 return GestureDetector(
@@ -54,8 +55,10 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
                       ..set(true)
                       ..selectedNoteIndex = index
                       ..noteModel = note;
+                    print(notesBox.values);
                   },
                   child: CustomDismissibleNote(
+                    notesBox: notesBox,
                     note: note,
                     index: index,
                   ),

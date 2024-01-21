@@ -1,54 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:note_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:note_app/helper/const.dart';
 
 import '../cubits/dlelete_note_cubit/delete_note_cubit.dart';
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
-class CustomDismissibleNote extends StatelessWidget {
+class CustomDismissibleNote extends StatefulWidget {
   const CustomDismissibleNote({
     super.key,
     required this.note,
     required this.index,
+    required this.notesBox,
   });
 
   final NoteModel note;
   final int index;
+  final Box<NoteModel> notesBox;
+
+  @override
+  State<CustomDismissibleNote> createState() => _CustomDismissibleNoteState();
+}
+
+class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
+  final Box<NoteModel> notesBox = Hive.box<NoteModel>(kNoteBox);
+  bool isUndoPressed = false;
+  bool isDeleting = false;
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: Key(note.title),
-      background: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.red,
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
+      child: Dismissible(
+        key: Key(widget.note.title),
+        background: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.red,
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                Icons.delete,
+                size: 30,
+                color: Colors.white,
+              ),
+              Icon(
+                Icons.delete,
+                size: 30,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(
-              Icons.delete,
-              size: 30,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.delete,
-              size: 30,
-              color: Colors.white,
-            ),
-          ],
+        onDismissed: (direction) {
+          deleteNote(context: context, index: widget.index);
+        },
+        child: CustomNoteItem(
+          isNoteSelected:
+              BlocProvider.of<DeleteNoteCubit>(context).selectedNoteIndex ==
+                  widget.index,
+          note: widget.note,
         ),
-      ),
-      onDismissed: (direction) {
-        note.delete();
-      },
-      child: CustomNoteItem(
-        isNoteSelected:
-            BlocProvider.of<DeleteNoteCubit>(context).selectedNoteIndex ==
-                index,
-        note: note,
       ),
     );
+  }
+
+  deleteNote({required BuildContext context, required int index}) async {
+    await widget.notesBox.deleteAt(index);
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 10),
+      backgroundColor: Colors.transparent,
+      content: const Text(
+        'Note deleted',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () async {
+          isUndoPressed = true;
+          await widget.notesBox.putAt(index, widget.note);
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
