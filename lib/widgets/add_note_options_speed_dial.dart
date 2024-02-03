@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/views/add_notes_view.dart';
 
@@ -12,29 +15,33 @@ class AddNoteOptionsSpeedDial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SpeedDial(
-      elevation: 10,
-      icon: Icons.add,
-      backgroundColor: kPrimaryColor,
-      foregroundColor: Colors.white,
-      buttonSize: const Size(50, 50),
-      spaceBetweenChildren: 8,
-      children: [
-        customSpeedDialChild(
-            icon: const Icon(Icons.text_fields),
-            label: 'Add Text',
-            onTap: () {
-              context.toView(const AddNotesView());
-            }),
-        customSpeedDialChild(
-          icon: const Icon(Icons.mic),
-          label: 'Add Voice',
-        ),
-        customSpeedDialChild(
-          icon: const Icon(Icons.image),
-          label: 'Add Image',
-        ),
-      ],
+    return BlocBuilder<NotesCubit, NotesState>(
+      builder: (context, state) {
+        return SpeedDial(
+          elevation: 10,
+          icon: Icons.add,
+          backgroundColor: kPrimaryColor,
+          foregroundColor: Colors.white,
+          buttonSize: const Size(50, 50),
+          spaceBetweenChildren: 8,
+          children: [
+            customSpeedDialChild(
+                icon: const Icon(Icons.text_fields),
+                label: 'Add Text',
+                onTap: () {
+                  context.toView(const AddNotesView());
+                }),
+            customSpeedDialChild(
+              icon: const Icon(Icons.mic),
+              label: 'Add Voice',
+            ),
+            customSpeedDialChild(
+              icon: const Icon(Icons.image),
+              label: 'Add Image',
+            ),
+          ],
+        );
+      },
     );
   }
 

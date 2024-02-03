@@ -28,6 +28,13 @@ class CustomDismissibleNote extends StatefulWidget {
 class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
   bool isUndoPressed = false;
   bool isDeleting = false;
+  late NotesCubit notesCubit;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    notesCubit = context.read<NotesCubit>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +78,7 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
 
   deleteNote({required BuildContext context, required int index}) async {
     BlocProvider.of<NotesCubit>(context).removeFromNotes(index: index);
+
     final snackBar = SnackBar(
       duration: const Duration(seconds: 5),
       backgroundColor: Colors.transparent,
@@ -85,6 +93,7 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
         onPressed: () async {
           isUndoPressed = true;
           isDeleting = false;
+          notesCubit.addToNotes(index: index, note: widget.note);
         },
       ),
     );

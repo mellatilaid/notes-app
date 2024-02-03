@@ -6,5 +6,6 @@ class InitialState extends NotesState {}
 
 class NotesSuccuss extends NotesState {
   final List<NoteModel> notes;
-  NotesSuccuss({required this.notes});
+  final bool isAbsorbing;
+  NotesSuccuss({required this.notes, this.isAbsorbing = false});
 }
