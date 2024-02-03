@@ -14,12 +14,14 @@ class CustomDismissibleNote extends StatefulWidget {
     super.key,
     required this.note,
     required this.index,
-    required this.notesBox,
+    required this.notes,
+    required this.itemKey,
   });
 
   final NoteModel note;
   final int index;
-  final List<NoteModel> notesBox;
+  final List<NoteModel> notes;
+  final Key itemKey;
 
   @override
   State<CustomDismissibleNote> createState() => _CustomDismissibleNoteState();
@@ -29,6 +31,7 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
   bool isUndoPressed = false;
   bool isDeleting = false;
   late NotesCubit notesCubit;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -41,26 +44,16 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
     return BlocProvider(
       create: (context) => AddNoteCubit(),
       child: Dismissible(
-        key: Key(widget.note.title),
+        key: widget.itemKey,
         background: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: Colors.red,
           ),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                Icons.delete,
-                size: 30,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.delete,
-                size: 30,
-                color: Colors.white,
-              ),
-            ],
+          child: const Center(
+            child: Icon(
+              Icons.delete,
+            ),
           ),
         ),
         onDismissed: (direction) {

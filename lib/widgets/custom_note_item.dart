@@ -15,44 +15,47 @@ class CustomNoteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color(note.color),
-          borderRadius: BorderRadius.circular(8),
-          border: _setBorderColor(),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                note.title,
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: (Color(note.color) == Colors.transparent)
-                      ? Colors.white
-                      : kforeGroundColor,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(note.color),
+            borderRadius: BorderRadius.circular(8),
+            border: _setBorderColor(),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  note.title,
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: (Color(note.color) == Colors.transparent)
+                        ? Colors.white
+                        : kforeGroundColor,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                '22/03/2002',
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  color: (Color(note.color) == Colors.transparent)
-                      ? Colors.white
-                      : Colors.black.withOpacity(0.6),
-                  fontSize: 12,
+                const SizedBox(
+                  height: 16,
                 ),
-              ),
-            ],
+                Text(
+                  '22/03/2002',
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                    color: (Color(note.color) == Colors.transparent)
+                        ? Colors.white
+                        : Colors.black.withOpacity(0.6),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

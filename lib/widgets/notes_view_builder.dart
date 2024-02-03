@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:note_app/cubits/dlelete_note_cubit/delete_note_cubit.dart';
-import 'package:note_app/cubits/dlelete_note_cubit/delete_note_states.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/models/note_model.dart';
 
-import 'custom_dismissible_note.dart';
+import 'notes_list_view.dart';
 
-class NotesMasonryGridView extends StatefulWidget {
-  const NotesMasonryGridView({
+class NotesViewBuilder extends StatefulWidget {
+  const NotesViewBuilder({
     super.key,
   });
 
   @override
-  State<NotesMasonryGridView> createState() => _NotesMasonryGridViewState();
+  State<NotesViewBuilder> createState() => _NotesViewBuilderState();
 }
 
-class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
+class _NotesViewBuilderState extends State<NotesViewBuilder> {
   late List<NoteModel> notes;
 
   @override
@@ -27,7 +24,20 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
       builder: (context, state) {
         if (state is NotesSuccuss) {
           notes = state.notes;
-          return MasonryGridView.count(
+          return NotesListView(
+            notes: notes,
+          );
+        } else {
+          return const Center(
+            child: Text('oops there was a problem'),
+          );
+        }
+      },
+    );
+  }
+}
+
+/*MasonryGridView.count(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             crossAxisCount: 2,
             mainAxisSpacing: 6,
@@ -46,6 +56,7 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
                         ..noteModel = notes[index];
                     },
                     child: CustomDismissibleNote(
+                      itemKey: ValueKey<int>(index),
                       notesBox: notes,
                       note: notes[index],
                       index: index,
@@ -54,13 +65,6 @@ class _NotesMasonryGridViewState extends State<NotesMasonryGridView> {
                 },
               );
             },
-          );
-        } else {
-          return const Center(
-            child: Text('oops there was a problem'),
-          );
-        }
-      },
-    );
-  }
-}
+          )*/
+
+
