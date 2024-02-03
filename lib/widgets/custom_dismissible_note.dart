@@ -56,8 +56,9 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
             ),
           ),
         ),
-        onDismissed: (direction) {
+        confirmDismiss: (direction) async {
           deleteNote(context: context, index: widget.index);
+          return null;
         },
         child: CustomNoteItem(
           isNoteSelected:
@@ -70,10 +71,12 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
   }
 
   deleteNote({required BuildContext context, required int index}) async {
-    BlocProvider.of<NotesCubit>(context).removeFromNotes(index: index);
-
+    Timer timer = Timer(const Duration(seconds: 3), () {
+      widget.note.delete();
+      notesCubit.removeFromNotes(index: index);
+    });
     final snackBar = SnackBar(
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 3),
       backgroundColor: Colors.transparent,
       content: const Text(
         'Note deleted',
@@ -86,19 +89,12 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
         onPressed: () async {
           isUndoPressed = true;
           isDeleting = false;
-          notesCubit.addToNotes(index: index, note: widget.note);
+          timer.cancel();
         },
       ),
     );
-    Timer(const Duration(seconds: 5), () {
-      if (isUndoPressed) {
-        isUndoPressed = false;
-        isDeleting = false;
-      } else {
-        widget.note.delete();
-      }
-    });
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    return true;
   }
 }

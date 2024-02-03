@@ -13,7 +13,7 @@ class AddNoteViewBody extends StatelessWidget {
     return BlocConsumer<AddNoteCubit, AddNoteState>(
       listener: (context, state) {
         if (state is AddNoteSuccuss || state is AddNoteEmpty) {
-          BlocProvider.of<NotesCubit>(context).fetchAllNotesState();
+          BlocProvider.of<NotesCubit>(context).fetchAllNotes();
           Navigator.pop(context);
         } else if (state is AddNoteFailure) {}
       },

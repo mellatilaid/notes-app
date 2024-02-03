@@ -65,6 +65,6 @@ class MyNotesView extends StatelessWidget {
     BlocProvider.of<DeleteNoteCubit>(context)
       ..deleteNote()
       ..set(false);
-    BlocProvider.of<NotesCubit>(context).fetchAllNotesState();
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 }
