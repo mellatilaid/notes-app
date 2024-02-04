@@ -1,4 +1,4 @@
-enum SlidableAction {
+enum NoteSlidableAction {
   delete,
   share,
 }

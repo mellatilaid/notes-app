@@ -13,7 +13,10 @@ class NotesListView extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: notes.length,
       itemBuilder: (context, index) {
-        return CustomSlidableNote(note: notes[index]);
+        return CustomSlidableNote(
+          note: notes[index],
+          index: index,
+        );
       },
     );
   }
