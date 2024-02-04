@@ -38,38 +38,47 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Slidable(
         key: ValueKey<int>(widget.index),
-        startActionPane: ActionPane(motion: const StretchMotion(), children: [
-          SlidableAction(
-            onPressed: (context) => _onDimissed(
-              context,
-              widget.index,
-              NoteSlidableAction.delete,
+        startActionPane: ActionPane(
+            dismissible: DismissiblePane(
+              onDismissed: () => _onDismissed(),
             ),
-            borderRadius: BorderRadius.circular(8),
-            backgroundColor: const Color(0xFFFE4A49),
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-            label: 'Delete',
-          ),
-          SlidableAction(
-            onPressed: (context) => _onDimissed(
-              context,
-              widget.index,
-              NoteSlidableAction.share,
-            ),
-            borderRadius: BorderRadius.circular(8),
-            backgroundColor: const Color(0xFF21B7CA),
-            foregroundColor: Colors.white,
-            icon: Icons.share,
-            label: 'Share',
-          ),
-        ]),
+            extentRatio: 0.6,
+            motion: const StretchMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) => _onSlidableActionTapped(
+                  context,
+                  widget.index,
+                  NoteSlidableAction.delete,
+                ),
+                borderRadius: BorderRadius.circular(8),
+                backgroundColor: const Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: 'Delete',
+              ),
+              SlidableAction(
+                onPressed: (context) => _onSlidableActionTapped(
+                  context,
+                  widget.index,
+                  NoteSlidableAction.share,
+                ),
+                borderRadius: BorderRadius.circular(8),
+                backgroundColor: const Color(0xFF21B7CA),
+                foregroundColor: Colors.white,
+                icon: Icons.share,
+                label: 'Share',
+              ),
+            ]),
         child: CustomNoteItem(note: widget.note),
       ),
     );
   }
 
-  _onDimissed(BuildContext context, int index, NoteSlidableAction action) {
+  //this fucntion triggred when one of slidable action button
+  //tapped (delete, share)
+  _onSlidableActionTapped(
+      BuildContext context, int index, NoteSlidableAction action) {
     switch (action) {
       case NoteSlidableAction.delete:
         _deleteNote(context);
@@ -101,5 +110,11 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  //this function triggred when the note is dissmissed
+  _onDismissed() {
+    widget.note.delete();
+    notesCubit.removeFromNotes(index: widget.index);
   }
 }
