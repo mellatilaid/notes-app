@@ -28,8 +28,6 @@ class CustomDismissibleNote extends StatefulWidget {
 }
 
 class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
-  bool isUndoPressed = false;
-  bool isDeleting = false;
   late NotesCubit notesCubit;
 
   @override
@@ -57,7 +55,7 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
           ),
         ),
         confirmDismiss: (direction) async {
-          deleteNote(context: context, index: widget.index);
+          _deleteNote(context: context, index: widget.index);
           return null;
         },
         child: CustomNoteItem(
@@ -70,13 +68,13 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
     );
   }
 
-  deleteNote({required BuildContext context, required int index}) async {
-    Timer timer = Timer(const Duration(seconds: 3), () {
+  _deleteNote({required BuildContext context, required int index}) async {
+    Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
       notesCubit.removeFromNotes(index: index);
     });
     final snackBar = SnackBar(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
       backgroundColor: Colors.transparent,
       content: const Text(
         'Note deleted',
@@ -87,8 +85,6 @@ class _CustomDismissibleNoteState extends State<CustomDismissibleNote> {
       action: SnackBarAction(
         label: 'Undo',
         onPressed: () async {
-          isUndoPressed = true;
-          isDeleting = false;
           timer.cancel();
         },
       ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/models/note_model.dart';
 
+import 'custom_dismissible_note.dart';
 import 'notes_list_view.dart';
 
 class NotesViewBuilder extends StatefulWidget {
@@ -37,34 +39,28 @@ class _NotesViewBuilderState extends State<NotesViewBuilder> {
   }
 }
 
-/*MasonryGridView.count(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            crossAxisCount: 2,
-            mainAxisSpacing: 6,
-            crossAxisSpacing: 12,
-            itemCount: notes.length,
-            itemBuilder: (context, index) {
-              //NoteModel note = copyNotes.getAt(index) as NoteModel;
+class NotesGridView extends StatelessWidget {
+  final List<NoteModel> notes;
+  const NotesGridView({super.key, required this.notes});
 
-              return BlocBuilder<DeleteNoteCubit, DeleteNoteState>(
-                builder: (context, state) {
-                  return GestureDetector(
-                    onLongPress: () {
-                      BlocProvider.of<DeleteNoteCubit>(context)
-                        ..set(true)
-                        ..selectedNoteIndex = index
-                        ..noteModel = notes[index];
-                    },
-                    child: CustomDismissibleNote(
-                      itemKey: ValueKey<int>(index),
-                      notesBox: notes,
-                      note: notes[index],
-                      index: index,
-                    ),
-                  );
-                },
-              );
-            },
-          )*/
+  @override
+  Widget build(BuildContext context) {
+    return MasonryGridView.count(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      crossAxisCount: 2,
+      mainAxisSpacing: 6,
+      crossAxisSpacing: 12,
+      itemCount: notes.length,
+      itemBuilder: (context, index) {
+        //NoteModel note = copyNotes.getAt(index) as NoteModel;
 
-
+        return CustomDismissibleNote(
+          itemKey: ValueKey<int>(index),
+          notes: notes,
+          note: notes[index],
+          index: index,
+        );
+      },
+    );
+  }
+}
