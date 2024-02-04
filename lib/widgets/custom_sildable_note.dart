@@ -37,7 +37,7 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Slidable(
-        key: ValueKey<int>(widget.index),
+        key: UniqueKey(),
         startActionPane: ActionPane(
             dismissible: DismissiblePane(
               onDismissed: () => _onDismissed(),
@@ -88,9 +88,11 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
   }
 
   _deleteNote(BuildContext context) {
+    final NoteModel note = widget.note;
+    notesCubit.removeFromNotes(index: widget.index);
+
     Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
-      notesCubit.removeFromNotes(index: widget.index);
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -105,6 +107,8 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
         label: 'Undo',
         onPressed: () async {
           timer.cancel();
+
+          notesCubit.addToNotes(index: widget.index, note: note);
         },
       ),
     );

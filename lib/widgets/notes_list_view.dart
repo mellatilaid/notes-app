@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/custom_sildable_note.dart';
 
 import '../models/note_model.dart';
-import 'custom_sildable_note.dart';
 
 class NotesListView extends StatelessWidget {
   final List<NoteModel> notes;

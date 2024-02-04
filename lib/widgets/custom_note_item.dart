@@ -43,7 +43,7 @@ class CustomNoteItem extends StatelessWidget {
                 height: 16,
               ),
               Text(
-                '22/03/2002',
+                note.date,
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   color: (Color(note.color) == Colors.transparent)

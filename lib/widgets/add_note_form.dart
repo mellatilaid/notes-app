@@ -55,7 +55,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 NoteModel note = NoteModel(
                   title: titleController.text,
                   content: contentController.text,
-                  date: DateTime.now().toString(),
+                  date: _formatDate(time: DateTime.now()),
                   color: Colors.amber.value,
                 );
 
@@ -67,5 +67,15 @@ class _AddNoteFormState extends State<AddNoteForm> {
         ),
       ],
     );
+  }
+
+  String _formatDate({required DateTime time}) {
+    final year = time.year.toString();
+
+    final String month = time.month.toString();
+
+    final String day = time.day.toString();
+
+    return '$day/$month/$year';
   }
 }
