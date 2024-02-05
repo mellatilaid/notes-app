@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/views/search_notes_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/notes_view_body.dart';
 
@@ -15,7 +17,9 @@ class MyNotesView extends StatelessWidget {
         title: const Text('My Notes'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.toView(const SearchNotesView());
+            },
             icon: const Icon(Icons.search),
           ),
         ],
