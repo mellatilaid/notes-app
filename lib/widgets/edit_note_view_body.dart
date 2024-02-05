@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:note_app/models/note_model.dart';
 
 import '../helper/const.dart';
-import 'colors_list_view.dart';
 import 'custom_action_button.dart';
 import 'custom_text_field.dart';
+import 'edit_note_colors_list_view.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   final NoteModel note;
@@ -52,7 +52,9 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
               },
             ),
           ),
-          const ColorsListView(),
+          EditNoteColorsListView(
+            note: widget.note,
+          ),
           CustomActionButton(
             title: 'Save Edit',
             onPressed: () {
