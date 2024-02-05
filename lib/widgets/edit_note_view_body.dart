@@ -15,7 +15,6 @@ class EditNoteViewBody extends StatefulWidget {
 }
 
 class _EditNoteViewBodyState extends State<EditNoteViewBody> {
-  String? title, content;
   late TextEditingController titleController;
   late TextEditingController contentController;
   @override
@@ -24,8 +23,14 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     super.initState();
     titleController = TextEditingController(text: widget.note.title);
     contentController = TextEditingController(text: widget.note.content);
-    title = titleController.text;
-    content = contentController.text;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
   }
 
   @override
@@ -36,9 +41,6 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
         children: [
           CustomTextField(
             controller: titleController,
-            onSaved: (data) {
-              title = data;
-            },
           ),
           const SizedBox(
             height: 4,
@@ -47,9 +49,6 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             child: CustomTextField(
               controller: contentController,
               isExpand: true,
-              onSaved: (data) {
-                content = data;
-              },
             ),
           ),
           EditNoteColorsListView(

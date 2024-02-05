@@ -17,9 +17,15 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
-  String? title, content;
   TextEditingController titleController = TextEditingController(text: '');
   TextEditingController contentController = TextEditingController(text: '');
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +34,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
         CustomTextField(
           controller: titleController,
           hintText: 'Title',
-          onSaved: (data) {
-            title = data;
-          },
         ),
         const SizedBox(
           height: 4,
@@ -40,9 +43,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
             controller: contentController,
             hintText: 'Content',
             isExpand: true,
-            onSaved: (data) {
-              content = data;
-            },
           ),
         ),
         const ColorsListView(),
@@ -52,14 +52,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
               isLoading: state is AddNoteLaoding ? true : false,
               title: 'Save Note',
               onPressed: () {
-                NoteModel note = NoteModel(
-                  title: titleController.text,
-                  content: contentController.text,
-                  date: _formatDate(time: DateTime.now()),
-                  color: Colors.amber.value,
-                );
-
-                BlocProvider.of<AddNoteCubit>(context).addNote(note: note);
+                _addNote();
               },
               backGroundColor: kPrimaryColor,
             );
@@ -77,5 +70,16 @@ class _AddNoteFormState extends State<AddNoteForm> {
     final String day = time.day.toString();
 
     return '$day/$month/$year';
+  }
+
+  _addNote() {
+    NoteModel note = NoteModel(
+      title: titleController.text,
+      content: contentController.text,
+      date: _formatDate(time: DateTime.now()),
+      color: Colors.amber.value,
+    );
+
+    BlocProvider.of<AddNoteCubit>(context).addNote(note: note);
   }
 }
