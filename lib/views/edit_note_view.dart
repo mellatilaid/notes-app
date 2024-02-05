@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/note_model.dart';
 
 import '../widgets/edit_note_view_body.dart';
 
 class EditNoteView extends StatelessWidget {
-  const EditNoteView({super.key});
+  final NoteModel note;
+  const EditNoteView({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,9 @@ class EditNoteView extends StatelessWidget {
         centerTitle: true,
         title: const Text('Edit Note'),
       ),
-      body: const EditNoteViewBody(),
+      body: EditNoteViewBody(
+        note: note,
+      ),
     );
   }
 }

@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/views/edit_note_view.dart';
 
 class CustomNoteItem extends StatelessWidget {
   final NoteModel note;
-  final bool isNoteSelected;
-  final bool isDefault;
+
   const CustomNoteItem({
     super.key,
     required this.note,
-    this.isNoteSelected = false,
-    this.isDefault = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.toView(EditNoteView(
+          note: note,
+        ));
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Color(note.color),
@@ -60,12 +63,7 @@ class CustomNoteItem extends StatelessWidget {
   }
 
   Border? _setBorderColor() {
-    if (isNoteSelected) {
-      return Border.all(
-        color: Colors.red,
-        width: 2,
-      );
-    } else if (Color(note.color) == Colors.transparent) {
+    if (Color(note.color) == Colors.transparent) {
       return Border.all(
         color: Colors.grey,
         width: 2,

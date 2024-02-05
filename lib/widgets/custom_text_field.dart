@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../helper/const.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String hintText;
+  final String? hintText;
   final int? maxLines;
   final bool isExpand;
   final Function(String?)? onSaved;
@@ -11,7 +11,7 @@ class CustomTextField extends StatefulWidget {
   TextEditingController controller;
   CustomTextField({
     super.key,
-    required this.hintText,
+    this.hintText,
     this.maxLines,
     this.onSaved,
     this.onChanged,
