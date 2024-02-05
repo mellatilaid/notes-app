@@ -24,6 +24,8 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     super.initState();
     titleController = TextEditingController(text: widget.note.title);
     contentController = TextEditingController(text: widget.note.content);
+    title = titleController.text;
+    content = contentController.text;
   }
 
   @override
@@ -52,12 +54,21 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           ),
           const ColorsListView(),
           CustomActionButton(
-            title: 'Save Note',
-            onPressed: () {},
+            title: 'Save Edit',
+            onPressed: () {
+              _saveEdit();
+              Navigator.pop(context);
+            },
             backGroundColor: kPrimaryColor,
           ),
         ],
       ),
     );
+  }
+
+  _saveEdit() {
+    widget.note.title = titleController.text;
+    widget.note.content = contentController.text;
+    widget.note.save();
   }
 }
