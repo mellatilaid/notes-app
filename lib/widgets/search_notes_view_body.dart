@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:note_app/cubits/search_note_cubit/search_note_cubit.dart';
+import 'package:note_app/cubits/search_note_cubit/search_note_state.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/notes_list_view.dart';
 import 'package:note_app/widgets/search_text_field.dart';
@@ -23,14 +26,23 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
         children: [
           SearchTextField(
             onChanged: (data) {
-              _searchNotes(data);
+              BlocProvider.of<SearchNoteCubit>(context).searchNotes(data);
             },
           ),
           const SizedBox(
             height: 32,
           ),
           Expanded(
-            child: NotesListView(notes: notes),
+            child: BlocBuilder<SearchNoteCubit, SearchNoteState>(
+              builder: (context, state) {
+                if (state is SearchInitialState) {
+                  return const Center(
+                    child: Text('Search Your Notes'),
+                  );
+                }
+                return NotesListView(notes: notes);
+              },
+            ),
           ),
         ],
       ),
