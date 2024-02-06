@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/search_note_cubit/search_note_cubit.dart';
 import 'package:note_app/widgets/search_notes_view_body.dart';
 
 class SearchNotesView extends StatelessWidget {
@@ -6,8 +8,11 @@ class SearchNotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SearchNotesViewBody(),
+    return BlocProvider(
+      create: (context) => SearchNoteCubit(),
+      child: const Scaffold(
+        body: SearchNotesViewBody(),
+      ),
     );
   }
 }
