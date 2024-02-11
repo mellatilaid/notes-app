@@ -11,12 +11,10 @@ import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
 class SearchViewSlidbleNote extends StatefulWidget {
-  final NotesCubitSource notesCubitSource;
   const SearchViewSlidbleNote({
     super.key,
     required this.note,
     required this.index,
-    required this.notesCubitSource,
   });
 
   final NoteModel note;
@@ -28,11 +26,13 @@ class SearchViewSlidbleNote extends StatefulWidget {
 
 class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
   late SearchNoteCubit searchNoteCubit;
+  late NotesCubit notesCubit;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     searchNoteCubit = context.read<SearchNoteCubit>();
+    notesCubit = context.read<NotesCubit>();
   }
 
   @override
@@ -96,7 +96,7 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
     searchNoteCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
-      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+      notesCubit.fetchAllNotes();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -124,5 +124,6 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
   _onDismissed() {
     widget.note.delete();
     searchNoteCubit.removeFromNotes(index: widget.index);
+    notesCubit.fetchAllNotes();
   }
 }
