@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/new_folder_dialag.dart';
 import 'package:note_app/widgets/notes_collections_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
@@ -20,8 +21,15 @@ class NotesCollectionsView extends StatelessWidget {
       ),
       drawer: const Drawer(),
       body: const NotesCollectionsViewBody(),
-      floatingActionButton: const CustomFlaotingActionButton(
-        child: Icon(Icons.add),
+      floatingActionButton: CustomFlaotingActionButton(
+        child: const Icon(Icons.add),
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const NewFolderDialog();
+              });
+        },
       ),
     );
   }
