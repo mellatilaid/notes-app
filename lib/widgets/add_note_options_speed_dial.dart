@@ -22,7 +22,6 @@ class AddNoteOptionsSpeedDial extends StatelessWidget {
           icon: Icons.add,
           backgroundColor: kPrimaryColor,
           foregroundColor: Colors.white,
-          buttonSize: const Size(50, 50),
           spaceBetweenChildren: 8,
           children: [
             customSpeedDialChild(
