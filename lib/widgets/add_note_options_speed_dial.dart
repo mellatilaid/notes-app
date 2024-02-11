@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
-import 'package:note_app/extensions/push_navigation_extension.dart';
-import 'package:note_app/views/add_notes_view.dart';
 
 import '../helper/const.dart';
 
 class AddNoteOptionsSpeedDial extends StatelessWidget {
+  final List<SpeedDialChild> dialChilds;
   const AddNoteOptionsSpeedDial({
     super.key,
+    required this.dialChilds,
   });
 
   @override
@@ -24,22 +24,7 @@ class AddNoteOptionsSpeedDial extends StatelessWidget {
           foregroundColor: Colors.white,
           buttonSize: const Size(50, 50),
           spaceBetweenChildren: 8,
-          children: [
-            customSpeedDialChild(
-                icon: const Icon(Icons.text_fields),
-                label: 'Add Text',
-                onTap: () {
-                  context.toView(const AddNotesView());
-                }),
-            customSpeedDialChild(
-              icon: const Icon(Icons.mic),
-              label: 'Add Voice',
-            ),
-            customSpeedDialChild(
-              icon: const Icon(Icons.image),
-              label: 'Add Image',
-            ),
-          ],
+          children: dialChilds.map((e) => e).toList(),
         );
       },
     );
