@@ -27,7 +27,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
           children: [
             SearchTextField(
               onChanged: (data) {
-                _searchNotes(data);
+                BlocProvider.of<SearchNoteCubit>(context).searchNotes(data);
               },
             ),
             const SizedBox(
