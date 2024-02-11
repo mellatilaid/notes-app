@@ -24,14 +24,15 @@ class SearchNoteCubit extends Cubit<SearchNoteState> {
 
       emit(SearchSecussState(notes: notes!));
     }
-    addToNotes({required int index, required NoteModel note}) {
-      notes!.insert(index, note);
-      emit(SearchSecussState(notes: notes!));
-    }
+  }
 
-    removeFromNotes({required int index}) {
-      notes!.removeAt(index);
-      emit(SearchSecussState(notes: notes!));
-    }
+  addToNotes({required int index, required NoteModel note}) {
+    notes!.insert(index, note);
+    emit(SearchSecussState(notes: notes!));
+  }
+
+  removeFromNotes({required int index}) {
+    notes!.removeAt(index);
+    emit(SearchSecussState(notes: notes!));
   }
 }

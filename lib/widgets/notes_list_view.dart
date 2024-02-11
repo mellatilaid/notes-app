@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/slidable_note_enum.dart';
 import 'package:note_app/widgets/custom_sildable_note.dart';
 
 import '../models/note_model.dart';
 
 class NotesListView extends StatelessWidget {
   final List<NoteModel> notes;
-  const NotesListView({super.key, required this.notes});
+  final NotesCubitSource notesCubitSource;
+  const NotesListView(
+      {super.key, required this.notes, required this.notesCubitSource});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class NotesListView extends StatelessWidget {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         return CustomSlidableNote(
+          notesCubitSource: notesCubitSource,
           note: notes[index],
           index: index,
         );

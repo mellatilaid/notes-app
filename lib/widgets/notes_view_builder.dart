@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
+import 'package:note_app/helper/slidable_note_enum.dart';
 import 'package:note_app/models/note_model.dart';
 
 import 'notes_list_view.dart';
@@ -26,6 +27,7 @@ class _NotesViewBuilderState extends State<NotesViewBuilder> {
           notes = state.notes;
 
           return NotesListView(
+            notesCubitSource: NotesCubitSource.notesCubit,
             notes: notes,
           );
         } else {

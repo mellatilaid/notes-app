@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/search_note_cubit/search_note_cubit.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
 class CustomSlidableNote extends StatefulWidget {
+  final NotesCubitSource notesCubitSource;
   const CustomSlidableNote({
     super.key,
     required this.note,
     required this.index,
+    required this.notesCubitSource,
   });
 
   final NoteModel note;
@@ -25,6 +28,7 @@ class CustomSlidableNote extends StatefulWidget {
 
 class _CustomSlidableNoteState extends State<CustomSlidableNote> {
   late NotesCubit notesCubit;
+  late SearchNoteCubit searchNoteCubit;
   @override
   void initState() {
     // TODO: implement initState
@@ -89,8 +93,17 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
 
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
-    notesCubit.removeFromNotes(index: widget.index);
 
+    switch (widget.notesCubitSource) {
+      case NotesCubitSource.notesCubit:
+        notesCubit.removeFromNotes(index: widget.index);
+        break;
+      case NotesCubitSource.searchCubit:
+        searchNoteCubit = context.read<SearchNoteCubit>();
+        searchNoteCubit.removeFromNotes(index: widget.index);
+        notesCubit.removeFromNotes(index: widget.index);
+      default:
+    }
     Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
     });
@@ -108,7 +121,16 @@ class _CustomSlidableNoteState extends State<CustomSlidableNote> {
         onPressed: () async {
           timer.cancel();
 
-          notesCubit.addToNotes(index: widget.index, note: note);
+          switch (widget.notesCubitSource) {
+            case NotesCubitSource.notesCubit:
+              notesCubit.addToNotes(index: widget.index, note: note);
+              break;
+            case NotesCubitSource.searchCubit:
+              searchNoteCubit.addToNotes(index: widget.index, note: note);
+              notesCubit.addToNotes(index: widget.index, note: note);
+              break;
+            default:
+          }
         },
       ),
     );
