@@ -7,7 +7,7 @@ import '../../models/note_model.dart';
 
 class SearchNoteCubit extends Cubit<SearchNoteState> {
   SearchNoteCubit() : super(SearchInitialState());
-
+  List<NoteModel>? notes;
   searchNotes(String query) {
     emit(SearchInitialState());
 
@@ -16,12 +16,13 @@ class SearchNoteCubit extends Cubit<SearchNoteState> {
     List<NoteModel> notesFromBox = notesBox.values.toList();
 
     if (query.isNotEmpty) {
-      final suggestions = notesFromBox.where((note) {
+      notes = notesFromBox.where((note) {
         final noteTitle = note.title.toLowerCase();
         final input = query.toLowerCase();
         return noteTitle.contains(input);
       }).toList();
-      emit(SearchSecussState(notes: suggestions));
+
+      emit(SearchSecussState(notes: notes!));
     }
   }
 }

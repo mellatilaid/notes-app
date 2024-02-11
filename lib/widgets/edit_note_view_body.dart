@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/models/note_model.dart';
 
 import '../helper/const.dart';
@@ -71,5 +73,6 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     widget.note.title = titleController.text;
     widget.note.content = contentController.text;
     widget.note.save();
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 }
