@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
-import 'package:note_app/widgets/custom_sildable_note.dart';
+import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
 import '../models/note_model.dart';
 
@@ -17,7 +17,6 @@ class NotesListView extends StatelessWidget {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         return NotesViewSlidableNote(
-          notesCubitSource: notesCubitSource,
           note: notes[index],
           index: index,
         );

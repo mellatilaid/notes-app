@@ -27,13 +27,12 @@ class SearchViewSlidbleNote extends StatefulWidget {
 }
 
 class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
-  late NotesCubit notesCubit;
   late SearchNoteCubit searchNoteCubit;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    notesCubit = context.read<NotesCubit>();
+    searchNoteCubit = context.read<SearchNoteCubit>();
   }
 
   @override
@@ -94,18 +93,10 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
 
-    switch (widget.notesCubitSource) {
-      case NotesCubitSource.notesCubit:
-        notesCubit.removeFromNotes(index: widget.index);
-        break;
-      case NotesCubitSource.searchCubit:
-        searchNoteCubit = context.read<SearchNoteCubit>();
-        searchNoteCubit.removeFromNotes(index: widget.index);
-        notesCubit.removeFromNotes(index: widget.index);
-      default:
-    }
+    searchNoteCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
+      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -121,16 +112,7 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
         onPressed: () async {
           timer.cancel();
 
-          switch (widget.notesCubitSource) {
-            case NotesCubitSource.notesCubit:
-              notesCubit.addToNotes(index: widget.index, note: note);
-              break;
-            case NotesCubitSource.searchCubit:
-              searchNoteCubit.addToNotes(index: widget.index, note: note);
-              notesCubit.addToNotes(index: widget.index, note: note);
-              break;
-            default:
-          }
+          searchNoteCubit.addToNotes(index: widget.index, note: note);
         },
       ),
     );
@@ -141,6 +123,6 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
   //this function triggred when the note is dissmissed
   _onDismissed() {
     widget.note.delete();
-    notesCubit.removeFromNotes(index: widget.index);
+    searchNoteCubit.removeFromNotes(index: widget.index);
   }
 }
