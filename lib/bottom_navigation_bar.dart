@@ -47,7 +47,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
               icon: Icon(Icons.collections), label: 'My Folders'),
           BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'To Do'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.remember_me), label: 'Remider Me'),
+              icon: Icon(Icons.add_alert_rounded), label: 'Remider Me'),
         ],
       ),
     );

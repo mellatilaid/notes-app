@@ -84,9 +84,13 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
       case NoteSlidableAction.delete:
         _deleteNote(context);
         break;
+      case NoteSlidableAction.share:
+        _shareNote();
       default:
     }
   }
+
+  _shareNote() {}
 
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
