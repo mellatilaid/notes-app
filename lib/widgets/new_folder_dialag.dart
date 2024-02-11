@@ -19,9 +19,16 @@ class _NewFolderDialogState extends State<NewFolderDialog> {
       content: TextFormField(
         controller: _controller,
         decoration: const InputDecoration(
-          hintText: 'Enter the folder name',
-        ),
+            hintText: 'Enter the folder name',
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+              color: kPrimaryColor,
+            ))),
       ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      elevation: 10,
       actions: [
         TextButton(
           child: const Text(
@@ -39,8 +46,6 @@ class _NewFolderDialogState extends State<NewFolderDialog> {
             style: TextStyle(color: kPrimaryColor),
           ),
           onPressed: () {
-            // Create a new folder with the user input and an empty list of notes
-
             Navigator.pop(context);
           },
         ),
