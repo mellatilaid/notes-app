@@ -4,23 +4,18 @@ import 'package:note_app/views/notes_view.dart';
 import 'package:note_app/views/reminders_view.dart';
 import 'package:note_app/views/to_do_view.dart';
 
-class HomePageNav extends StatefulWidget {
-  const HomePageNav({super.key});
-  static String id = 'homePageNav';
+class BottomNavPage extends StatefulWidget {
+  const BottomNavPage({super.key});
+  static String id = 'bottomNavigationPage';
   @override
-  State<HomePageNav> createState() => _HomePageNavState();
+  State<BottomNavPage> createState() => _BottomNavPageState();
 }
 
-class _HomePageNavState extends State<HomePageNav> {
-  var _selectedIndex = 0;
+class _BottomNavPageState extends State<BottomNavPage> {
+  int _pageSelected = 0;
+  final _pageController = PageController();
 
-  _navigatedBottmBar(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  final List _page = [
+  final _pages = [
     const MyNotesView(),
     const NotesCollectionsView(),
     const ToDoView(),
@@ -29,29 +24,30 @@ class _HomePageNavState extends State<HomePageNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _page[_selectedIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _pageSelected = index;
+          });
+        },
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
-        currentIndex: _selectedIndex,
-        onTap: _navigatedBottmBar,
+        currentIndex: _pageSelected,
+        onTap: (index) {
+          _pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 200), curve: Curves.ease);
+        },
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'My Notes'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notes),
-            label: 'Notes',
-          ),
+              icon: Icon(Icons.collections), label: 'My Folders'),
+          BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'To Do'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.folder),
-            label: 'Collections',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.task_alt),
-            label: 'To Do',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notification_add),
-            label: 'Reminder',
-          ),
+              icon: Icon(Icons.remember_me), label: 'Remider Me'),
         ],
       ),
     );
