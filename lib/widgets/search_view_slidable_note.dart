@@ -10,9 +10,9 @@ import 'package:note_app/helper/slidable_note_enum.dart';
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
-class NotesViewSlidableNote extends StatefulWidget {
+class SearchViewSlidbleNote extends StatefulWidget {
   final NotesCubitSource notesCubitSource;
-  const NotesViewSlidableNote({
+  const SearchViewSlidbleNote({
     super.key,
     required this.note,
     required this.index,
@@ -23,10 +23,10 @@ class NotesViewSlidableNote extends StatefulWidget {
   final int index;
 
   @override
-  State<NotesViewSlidableNote> createState() => _NotesViewSlidableNoteState();
+  State<SearchViewSlidbleNote> createState() => _SearchViewSlidbleNoteState();
 }
 
-class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
+class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
   late NotesCubit notesCubit;
   late SearchNoteCubit searchNoteCubit;
   @override

@@ -16,7 +16,7 @@ class NotesListView extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: notes.length,
       itemBuilder: (context, index) {
-        return CustomSlidableNote(
+        return NotesViewSlidableNote(
           notesCubitSource: notesCubitSource,
           note: notes[index],
           index: index,
