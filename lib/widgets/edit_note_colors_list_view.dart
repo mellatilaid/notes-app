@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../helper/const.dart';
 import '../models/note_model.dart';
-import 'colors_list_view.dart';
+import 'color_item.dart';
 
 class EditNoteColorsListView extends StatefulWidget {
   final NoteModel note;
