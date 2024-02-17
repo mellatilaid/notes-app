@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/widgets/notes_collections_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
+import '../widgets/new_folder_bottom_sheet.dart';
 
 class NotesCollectionsView extends StatelessWidget {
   const NotesCollectionsView({super.key});
@@ -23,22 +24,20 @@ class NotesCollectionsView extends StatelessWidget {
       floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),
         onTap: () {
-          showBottomSheet(
-              context: context,
-              builder: (context) {
-                return const NewFolderBottomSheet();
-              });
+          showModalBottomSheet(
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+            ),
+            context: context,
+            builder: (context) {
+              return const NewFolderBottomSheet();
+            },
+          );
         },
       ),
     );
-  }
-}
-
-class NewFolderBottomSheet extends StatelessWidget {
-  const NewFolderBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
