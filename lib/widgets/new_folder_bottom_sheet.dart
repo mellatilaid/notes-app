@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/folders_colors_list_view.dart';
 
-import 'colors_list_view.dart';
 import 'new_folder_text_field.dart';
 
 class NewFolderBottomSheet extends StatefulWidget {
@@ -27,7 +27,10 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: NewFolderTextField(controller: _controller),
           ),
-          const ColorsListView(),
+          const SizedBox(
+            height: 8,
+          ),
+          const FoldersColorsListView(),
         ],
       ),
     );
