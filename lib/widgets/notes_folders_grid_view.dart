@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/custom_folder_item.dart';
 
 class FoldersGridView extends StatelessWidget {
   const FoldersGridView({super.key});
@@ -11,11 +12,11 @@ class FoldersGridView extends StatelessWidget {
         crossAxisCount: 3,
         crossAxisSpacing: 20,
         mainAxisSpacing: 30,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.6,
       ),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const Text('oops');
+        return const CustomFolderItem();
       },
     );
   }

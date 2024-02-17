@@ -22,7 +22,10 @@ class CustomFolderItem extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        const Text('FOLDER Title'),
+        const Text(
+          'FOLDER Title mellati laid',
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
