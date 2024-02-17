@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/const.dart';
+import 'package:note_app/widgets/custom_action_button.dart';
 import 'package:note_app/widgets/custom_text_button.dart';
 import 'package:note_app/widgets/folders_colors_list_view.dart';
 
@@ -59,6 +61,14 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
           CustomTextButton(
             title: 'Gallery',
             onPressed: () {},
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          CustomActionButton(
+            title: 'Create Folder',
+            onPressed: () {},
+            backGroundColor: kPrimaryColor,
           ),
         ],
       ),

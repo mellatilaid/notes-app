@@ -15,8 +15,7 @@ class NewFolderTextField extends StatelessWidget {
     return TextFormField(
       controller: _controller,
       decoration: InputDecoration(
-        labelText: 'Enter the folder name',
-        labelStyle: const TextStyle(color: kPrimaryColor),
+        hintText: 'Enter the folder name',
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(

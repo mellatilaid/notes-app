@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/const.dart';
 
 class CustomTextButton extends StatelessWidget {
   final String title;
@@ -15,7 +16,10 @@ class CustomTextButton extends StatelessWidget {
       width: double.infinity,
       child: TextButton(
         onPressed: onPressed,
-        child: Text(title),
+        child: Text(
+          title,
+          style: const TextStyle(color: kPrimaryColor),
+        ),
       ),
     );
   }

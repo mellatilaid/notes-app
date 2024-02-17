@@ -24,9 +24,7 @@ class NotesApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => NotesCubit(),
       child: MaterialApp(
-        theme: ThemeData(
-          brightness: Brightness.dark,
-        ),
+        theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
         debugShowCheckedModeBanner: false,
         home: const BottomNavPage(),
       ),
