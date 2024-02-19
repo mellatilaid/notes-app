@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const Color kPrimaryColor = Color(0xffBC6D6D);
 const Color kforeGroundColor = Color(0xff242424);
 const String kNoteBox = 'notes_box';
+const String kFoldersBox = 'folders_box';
 const List<Color> kColors = [
   Colors.transparent,
   Color(0xff6BC9BA),

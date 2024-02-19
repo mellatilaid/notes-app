@@ -5,6 +5,7 @@ import 'package:note_app/bottom_navigation_bar.dart';
 import 'package:note_app/cubits/add_note_cubit/simple_add_note_cubit_abserver.dart';
 import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/models/folder_model.dart';
 
 import 'models/note_model.dart';
 
@@ -13,6 +14,8 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<NoteModel>(kNoteBox);
+  Hive.registerAdapter(FolderModelAdapter());
+  await Hive.openBox<FolderModel>(kFoldersBox);
   runApp(const NotesApp());
 }
 
