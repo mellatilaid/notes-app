@@ -23,7 +23,11 @@ class _FoldersColorsListViewState extends State<FoldersColorsListView> {
             itemCount: kColors.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    itemSelected = index;
+                  });
+                },
                 child: ColorItem(
                   itemColor: kColors[index],
                   isItemSelected: itemSelected == index,

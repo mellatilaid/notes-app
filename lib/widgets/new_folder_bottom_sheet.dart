@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/custom_action_button.dart';
 import 'package:note_app/widgets/custom_text_button.dart';
 import 'package:note_app/widgets/folders_colors_list_view.dart';
@@ -17,7 +18,7 @@ class NewFolderBottomSheet extends StatefulWidget {
 }
 
 class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _folderTitleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              NewFolderTextField(controller: _controller),
+              NewFolderTextField(controller: _folderTitleController),
               const SizedBox(
                 height: 8,
               ),
@@ -80,7 +81,9 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
               ),
               CustomActionButton(
                 title: 'Create Folder',
-                onPressed: () {},
+                onPressed: () {
+                  _addFolder(folderTitle: _folderTitleController.text);
+                },
                 backGroundColor: kPrimaryColor,
               ),
             ],
@@ -88,5 +91,15 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
         ),
       ),
     );
+  }
+
+  _addFolder({required String folderTitle}) {
+    final FolderModel folder = FolderModel(
+      title: folderTitle,
+      color: kColors.first.value,
+      folders: [],
+      notes: [],
+    );
+    BlocProvider.of<AddFolderCubit>(context).addFolder(folder: folder);
   }
 }
