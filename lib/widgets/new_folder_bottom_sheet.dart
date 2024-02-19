@@ -63,7 +63,7 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
             onPressed: () {},
           ),
           const SizedBox(
-            height: 16,
+            height: 32,
           ),
           CustomActionButton(
             title: 'Create Folder',
