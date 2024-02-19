@@ -1,6 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:note_app/models/note_model.dart';
 
+part 'folder_model.g.dart';
+
 @HiveType(typeId: 1)
 class FolderModel {
   @HiveField(0)
