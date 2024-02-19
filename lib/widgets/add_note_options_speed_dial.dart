@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit_states.dart';
+import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/views/add_notes_view.dart';
 

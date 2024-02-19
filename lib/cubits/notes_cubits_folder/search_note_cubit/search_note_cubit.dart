@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:note_app/cubits/search_note_cubit/search_note_state.dart';
+import 'package:note_app/cubits/notes_cubits_folder/search_note_cubit/search_note_state.dart';
 
-import '../../helper/const.dart';
-import '../../models/note_model.dart';
+import '../../../helper/const.dart';
+import '../../../models/note_model.dart';
 
 class SearchNoteCubit extends Cubit<SearchNoteState> {
   SearchNoteCubit() : super(SearchInitialState());
