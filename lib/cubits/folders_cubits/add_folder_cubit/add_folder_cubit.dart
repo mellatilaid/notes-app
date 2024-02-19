@@ -5,7 +5,7 @@ import 'package:note_app/models/folder_model.dart';
 
 import 'add_folder_states.dart';
 
-class AddFolderCubit extends Cubit<AddFolderCubitState> {
+class AddFolderCubit extends Cubit<AddFolderState> {
   AddFolderCubit() : super(InitialState());
 
   addFolder({required FolderModel folder}) async {

@@ -1,12 +1,12 @@
-class AddFolderCubitState {}
+class AddFolderState {}
 
-class InitialState extends AddFolderCubitState {}
+class InitialState extends AddFolderState {}
 
-class AddFolderLoadingState extends AddFolderCubitState {}
+class AddFolderLoadingState extends AddFolderState {}
 
-class SucussAddFolderState extends AddFolderCubitState {}
+class SucussAddFolderState extends AddFolderState {}
 
-class FailureAddFolderState extends AddFolderCubitState {
+class FailureAddFolderState extends AddFolderState {
   final String errMessage;
   FailureAddFolderState({required this.errMessage});
 }
