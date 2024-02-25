@@ -79,12 +79,21 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
               const SizedBox(
                 height: 32,
               ),
-              CustomActionButton(
-                title: 'Create Folder',
-                onPressed: () {
-                  _addFolder(folderTitle: _folderTitleController.text);
+              BlocBuilder<AddFolderCubit, AddFolderState>(
+                builder: (context, state) {
+                  return CustomActionButton(
+                    isLoading: (state is AddFolderLoadingState) ? true : false,
+                    title: 'Create Folder',
+                    onPressed: () {
+                      final addFolderCubit = context.read<AddFolderCubit>();
+                      _addFolder(
+                        folderTitle: _folderTitleController.text,
+                        addFolderCubit: addFolderCubit,
+                      );
+                    },
+                    backGroundColor: kPrimaryColor,
+                  );
                 },
-                backGroundColor: kPrimaryColor,
               ),
             ],
           ),
@@ -93,13 +102,14 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
     );
   }
 
-  _addFolder({required String folderTitle}) {
+  _addFolder(
+      {required String folderTitle, required AddFolderCubit addFolderCubit}) {
     final FolderModel folder = FolderModel(
       title: folderTitle,
       color: kColors.first.value,
       folders: [],
       notes: [],
     );
-    BlocProvider.of<AddFolderCubit>(context).addFolder(folder: folder);
+    addFolderCubit.addFolder(folder: folder);
   }
 }

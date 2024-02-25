@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import 'package:note_app/helper/const.dart';
 
 import 'color_item.dart';
@@ -27,6 +29,8 @@ class _FoldersColorsListViewState extends State<FoldersColorsListView> {
                   setState(() {
                     itemSelected = index;
                   });
+                  BlocProvider.of<AddFolderCubit>(context).folderColer =
+                      kColors[index].value;
                 },
                 child: ColorItem(
                   itemColor: kColors[index],

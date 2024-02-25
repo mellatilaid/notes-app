@@ -7,12 +7,13 @@ import 'add_folder_states.dart';
 
 class AddFolderCubit extends Cubit<AddFolderState> {
   AddFolderCubit() : super(InitialState());
-
+  int folderColer = kColors.first.value;
   addFolder({required FolderModel folder}) async {
     emit(AddFolderLoadingState());
 
     try {
       final foldersBox = Hive.box<FolderModel>(kFoldersBox);
+      folder.color = folderColer;
       await foldersBox.add(folder);
       emit(SucussAddFolderState());
     } catch (e) {
