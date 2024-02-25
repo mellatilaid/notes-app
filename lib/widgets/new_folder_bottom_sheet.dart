@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
+import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/custom_action_button.dart';
@@ -90,6 +91,7 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
                         folderTitle: _folderTitleController.text,
                         addFolderCubit: addFolderCubit,
                       );
+                      BlocProvider.of<FoldersCubit>(context).fetchAllFolders();
                     },
                     backGroundColor: kPrimaryColor,
                   );
