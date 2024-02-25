@@ -18,7 +18,9 @@ class FoldersGridView extends StatelessWidget {
       ),
       itemCount: folders.length,
       itemBuilder: (context, index) {
-        return const CustomFolderItem();
+        return CustomFolderItem(
+          folder: folders[index],
+        );
       },
     );
   }

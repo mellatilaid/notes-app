@@ -5,7 +5,7 @@ const Color kforeGroundColor = Color(0xff242424);
 const String kNoteBox = 'notes_box';
 const String kFoldersBox = 'folders_box';
 const List<Color> kColors = [
-  Colors.transparent,
+  Colors.blue,
   Color(0xff6BC9BA),
   Color(0xffc8d96f),
   Color(0xffd4d2a5),
