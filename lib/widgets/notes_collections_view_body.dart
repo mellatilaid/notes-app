@@ -4,14 +4,24 @@ import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit
 
 import 'notes_folders_grid_view.dart';
 
-class NotesCollectionsViewBody extends StatelessWidget {
+class NotesCollectionsViewBody extends StatefulWidget {
   const NotesCollectionsViewBody({super.key});
 
   @override
+  State<NotesCollectionsViewBody> createState() =>
+      _NotesCollectionsViewBodyState();
+}
+
+class _NotesCollectionsViewBodyState extends State<NotesCollectionsViewBody> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<FoldersCubit>(context).fetchAllFolders();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FoldersCubit(),
-      child: const FoldersGridView(),
-    );
+    return const FoldersGridView();
   }
 }
