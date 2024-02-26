@@ -14,6 +14,10 @@ class NewFolderTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
+      validator: (value) {
+        validateFolderTitle(value);
+        return null;
+      },
       decoration: InputDecoration(
         hintText: 'Enter the folder name',
         focusedBorder: OutlineInputBorder(
@@ -28,7 +32,32 @@ class NewFolderTextField extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: kPrimaryColor,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: Colors.red,
+          ),
+        ),
       ),
     );
+  }
+
+  String? validateFolderTitle(String? value) {
+    // Check if the value is empty
+    if (value?.isEmpty ?? true) {
+      return 'Please enter a folder title';
+    }
+    // Check if the value is longer than 20 characters
+    if (value?.isNotEmpty ?? (value!.length >= 15)) {
+      return 'Folder title cannot be longer than 15 characters';
+    }
+    // Return null if the value is valid
+    return null;
   }
 }
