@@ -16,11 +16,11 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
   final TextEditingController _folderTitleController = TextEditingController();
 
   @override
-  void dispose() {
+  /*void dispose() {
     // TODO: implement dispose
     super.dispose();
     _folderTitleController.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,9 @@ class _NewFolderBottomSheetState extends State<NewFolderBottomSheet> {
             right: 16,
             bottom: MediaQuery.of(context).viewInsets.bottom + 16,
           ),
-          child: AddFolderForm(folderTitleController: _folderTitleController),
+          child: AddFolderForm(
+            folderTitleController: _folderTitleController,
+          ),
         ),
       ),
     );
