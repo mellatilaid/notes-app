@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:note_app/models/folder_model.dart';
+
+import 'custom_list_tile.dart';
 
 class CustomFolderItem extends StatefulWidget {
   final FolderModel folder;
@@ -22,13 +22,13 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
     entry = OverlayEntry(
       builder: (context) {
         return Positioned(
-          width: size.width + 20,
-          height: 250,
+          width: 200,
           child: CompositedTransformFollower(
-              link: layerLink,
-              showWhenUnlinked: false,
-              offset: Offset(0, size.height - 24),
-              child: buildOverlay()),
+            link: layerLink,
+            showWhenUnlinked: false,
+            offset: Offset(0, size.height - 24),
+            child: buildOverlay(),
+          ),
         );
       },
     );
@@ -41,28 +41,26 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
   }
 
   Widget buildOverlay() {
-    return const Material(
-      elevation: 10,
-      color: Colors.white,
-      borderRadius: BorderRadius.only(
+    return Material(
+      elevation: 20,
+      color: const Color.fromARGB(255, 48, 48, 48),
+      borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(0),
         topRight: Radius.circular(16),
         bottomLeft: Radius.circular(16),
         bottomRight: Radius.circular(16),
       ),
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ListTile(
-              title: Text('mellati laid'),
+            CustomListTile(
+              title: 'Edit',
+              leading: const Icon(Icons.edit),
+              onTap: () {
+                hideOverlay();
+              },
             ),
-            ListTile(
-              title: Text('mellati laid'),
-            ),
-            ListTile(
-              title: Text('mellati laid'),
-            )
           ],
         ),
       ),
@@ -78,9 +76,6 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
           child: GestureDetector(
             onLongPress: () {
               showOverlay();
-              Timer(const Duration(seconds: 2), () {
-                hideOverlay();
-              });
             },
             child: CompositedTransformTarget(
               link: layerLink,
