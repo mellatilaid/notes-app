@@ -4,7 +4,7 @@ import 'package:note_app/models/note_model.dart';
 part 'folder_model.g.dart';
 
 @HiveType(typeId: 1)
-class FolderModel {
+class FolderModel extends HiveObject {
   @HiveField(0)
   String title;
   @HiveField(1)

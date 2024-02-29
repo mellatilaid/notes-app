@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/folder_model.dart';
-import 'package:note_app/widgets/custom_action_button.dart';
-import 'package:note_app/widgets/custom_text_button.dart';
 
+import 'custom_alert_dialag.dart';
 import 'custom_list_tile.dart';
 
 class CustomFolderItem extends StatefulWidget {
@@ -71,19 +70,8 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return AlertDialog(
-                        content: const Text(
-                            'Are you sure, you wanna delete the folder'),
-                        actions: [
-                          CustomActionButton(
-                              title: 'Delete',
-                              onPressed: () {},
-                              backGroundColor: Colors.red),
-                          CustomTextButton(
-                            title: 'Cancel',
-                            onPressed: () {},
-                          ),
-                        ],
+                      return CustomAlertDialag(
+                        folder: widget.folder,
                       );
                     });
               },
