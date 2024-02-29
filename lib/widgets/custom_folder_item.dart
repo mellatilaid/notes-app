@@ -19,15 +19,30 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
     final overlay = Overlay.of(context);
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
+    final position = renderBox.localToGlobal(Offset.zero);
+    double dx = 0;
+    double dy = size.height - 24;
+    setOverlayOffset() {
+      final Size screenSize = MediaQuery.of(context).size;
+
+      if (screenSize.width - position.dx < 200) {
+        dx = (screenSize.width - position.dx);
+      }
+      if (screenSize.height - (position.dy + size.height) < 200) {
+        dy = 0;
+      }
+    }
 
     entry = OverlayEntry(
       builder: (context) {
+        setOverlayOffset();
         return Positioned(
           width: 200,
+          height: 150,
           child: CompositedTransformFollower(
             link: layerLink,
             showWhenUnlinked: false,
-            offset: Offset(0, size.height - 24),
+            offset: Offset(-dx, dy),
             child: buildOverlay(),
           ),
         );
@@ -68,12 +83,13 @@ class _CustomFolderItemState extends State<CustomFolderItem> {
               onTap: () {
                 hideOverlay();
                 showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomAlertDialag(
-                        folder: widget.folder,
-                      );
-                    });
+                  context: context,
+                  builder: (context) {
+                    return CustomAlertDialag(
+                      folder: widget.folder,
+                    );
+                  },
+                );
               },
             ),
           ],

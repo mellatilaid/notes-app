@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 
 import '../models/folder_model.dart';
 import 'custom_action_button.dart';
@@ -15,23 +17,30 @@ class CustomAlertDialag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: const Text(
-        'Are you sure, you wanna delete the folder',
+      content: Text(
+        "Are you sure, you wanna delete '${folder.title}' folder",
         textAlign: TextAlign.center,
       ),
       actions: [
         CustomActionButton(
             title: 'Delete',
             onPressed: () {
-              folder.delete();
-              Navigator.pop(context);
+              _deleteFolder(context: context);
             },
             backGroundColor: Colors.red),
         CustomTextButton(
           title: 'Cancel',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ],
     );
+  }
+
+  _deleteFolder({required BuildContext context}) {
+    folder.delete();
+    Navigator.pop(context);
+    BlocProvider.of<FoldersCubit>(context).fetchAllFolders();
   }
 }
