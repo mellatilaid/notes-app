@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/folder_model.dart';
-import 'package:note_app/widgets/custom_folder_item.dart';
+import 'package:note_app/widgets/folder_overlay_options.dart';
 
 class FoldersGridView extends StatelessWidget {
   final List<FolderModel> folders;
@@ -18,7 +18,7 @@ class FoldersGridView extends StatelessWidget {
       ),
       itemCount: folders.length,
       itemBuilder: (context, index) {
-        return CustomFolderItem(
+        return FolderOverlayOptions(
           folder: folders[index],
         );
       },
