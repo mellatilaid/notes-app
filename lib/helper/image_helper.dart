@@ -12,11 +12,10 @@ class ImageHelper {
   final ImagePicker _imagePicker;
   final ImageCropper _imageCroper;
 
-  Future<XFile?> pickImage(
-      {required ImageSource source, int imageQuilty = 100}) async {
+  Future<XFile?> pickImage() async {
     try {
       final pickedImage = await _imagePicker.pickImage(
-          source: source, imageQuality: imageQuilty);
+          source: ImageSource.gallery, imageQuality: 50);
       if (pickedImage != null) {
         return pickedImage;
       } else {

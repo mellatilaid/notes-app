@@ -5,6 +5,7 @@ import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
 import '../cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import '../helper/const.dart';
+import '../helper/image_helper.dart';
 import '../models/folder_model.dart';
 import 'custom_action_button.dart';
 import 'custom_text_button.dart';
@@ -26,7 +27,7 @@ class AddFolderForm extends StatefulWidget {
 class _AddFolderFormState extends State<AddFolderForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
+  String? coverImagePath;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -67,7 +68,9 @@ class _AddFolderFormState extends State<AddFolderForm> {
           ),
           CustomTextButton(
             title: 'Gallery',
-            onPressed: () {},
+            onPressed: () async {
+              await _imagePicker(context: context);
+            },
           ),
           const SizedBox(
             height: 32,
@@ -105,9 +108,18 @@ class _AddFolderFormState extends State<AddFolderForm> {
     final FolderModel folder = FolderModel(
       title: folderTitle,
       color: kColors.first.value,
+      coverPath: coverImagePath,
       folders: [],
       notes: [],
     );
     addFolderCubit.addFolder(folder: folder);
+  }
+
+  _imagePicker({required BuildContext context}) async {
+    final pickedImage = await ImageHelper().pickImage();
+
+    if (pickedImage != null) {
+      coverImagePath = pickedImage.path;
+    }
   }
 }

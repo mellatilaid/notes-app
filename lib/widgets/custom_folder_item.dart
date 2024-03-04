@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:note_app/models/folder_model.dart';
 
@@ -21,6 +23,14 @@ class CustomFolderItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Color(folder.color),
+                image: (folder.coverPath != null)
+                    ? DecorationImage(
+                        image: FileImage(
+                          File(folder.coverPath!),
+                        ),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(16),
                   bottomRight: Radius.circular(16),
