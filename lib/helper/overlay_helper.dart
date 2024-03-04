@@ -37,7 +37,7 @@ class OverlayHelper {
         setOverlayOffset();
         return Positioned(
           width: 200,
-          height: 150,
+          height: 130,
           child: CompositedTransformFollower(
             link: layerLink,
             showWhenUnlinked: false,
@@ -57,6 +57,7 @@ class OverlayHelper {
 
   Widget buildOverlay() {
     return Material(
+      key: GlobalKey(),
       elevation: 20,
       color: const Color.fromARGB(255, 48, 48, 48),
       borderRadius: const BorderRadius.only(
