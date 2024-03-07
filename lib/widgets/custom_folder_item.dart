@@ -23,7 +23,8 @@ class CustomFolderItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Color(folder.color),
-                image: (folder.coverPath != null)
+                image: (folder.coverPath != null &&
+                        File(folder.coverPath!).existsSync())
                     ? DecorationImage(
                         image: FileImage(
                           File(folder.coverPath!),
