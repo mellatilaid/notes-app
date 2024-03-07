@@ -1,39 +1,19 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/custom_rounded_icon.dart';
 
 import '../models/folder_model.dart';
+import 'custom_folder_cover_item.dart';
 
-class CustomFolderCoverItem extends StatelessWidget {
+class FolderCoverStack extends StatelessWidget {
   final FolderModel folderModel;
-  const CustomFolderCoverItem({super.key, required this.folderModel});
+  const FolderCoverStack({super.key, required this.folderModel});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          width: 100,
-          height: 150,
-          decoration: BoxDecoration(
-            image: (folderModel.coverPath != null &&
-                    File(folderModel.coverPath!).existsSync())
-                ? DecorationImage(
-                    image: FileImage(
-                      File(folderModel.coverPath!),
-                    ),
-                    fit: BoxFit.cover,
-                  )
-                : null,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(16),
-              bottomRight: Radius.circular(16),
-            ),
-            border: Border.all(color: Color(folderModel.color)),
-          ),
-        ),
+        CustomFolderCoverItem(folderModel: folderModel),
         const Positioned(
           top: -10,
           left: -10,

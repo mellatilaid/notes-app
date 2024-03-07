@@ -48,7 +48,7 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomFolderCoverItem(folderModel: widget.folder),
+          FolderCoverStack(folderModel: widget.folder),
           const SizedBox(
             height: 16,
           ),
