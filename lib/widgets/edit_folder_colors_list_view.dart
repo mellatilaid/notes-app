@@ -14,13 +14,15 @@ class EditFolderColorsListView extends StatefulWidget {
 }
 
 class _EditFolderColorsListViewState extends State<EditFolderColorsListView> {
-  late int itemSelected;
+  int itemSelected = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    itemSelected = kColors.indexOf(Color(widget.folder.color));
+    if (widget.folder.color != Colors.blue.value) {
+      itemSelected = kColors.indexOf(Color(widget.folder.color));
+    }
   }
 
   @override

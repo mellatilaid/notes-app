@@ -8,6 +8,7 @@ import 'package:note_app/widgets/edit_folder_colors_list_view.dart';
 
 import '../helper/image_helper.dart';
 import 'custom_text_button.dart';
+import 'folder_cover_stack.dart';
 import 'new_folder_text_field.dart';
 
 class EditFolderBottomSheet extends StatefulWidget {
@@ -47,6 +48,10 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          CustomFolderCoverItem(folderModel: widget.folder),
+          const SizedBox(
+            height: 16,
+          ),
           NewFolderTextField(controller: _folderNameController),
           const SizedBox(
             height: 8,
@@ -114,74 +119,5 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
     if (pickedImage != null) {
       folderCoverPath = pickedImage.path;
     }
-  }
-}
-
-class EditFolderBottomSheetBody extends StatefulWidget {
-  const EditFolderBottomSheetBody({super.key});
-
-  @override
-  State<EditFolderBottomSheetBody> createState() =>
-      _EditFolderBottomSheetBodyState();
-}
-
-class _EditFolderBottomSheetBodyState extends State<EditFolderBottomSheetBody> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        NewFolderTextField(controller: _controller),
-        const SizedBox(
-          height: 8,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Row(
-          children: [
-            Expanded(
-                child: Divider(
-              height: 2,
-              color: Colors.grey.withOpacity(0.5),
-            )),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Text('Upload Folder Cover'),
-            ),
-            Expanded(
-              child: Divider(
-                height: 2,
-                color: Colors.grey.withOpacity(0.5),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        CustomTextButton(
-          title: 'Gallery',
-          onPressed: () {},
-        ),
-        const SizedBox(
-          height: 32,
-        ),
-        CustomActionButton(
-          title: 'Save Edit',
-          onPressed: () {},
-          backGroundColor: kPrimaryColor,
-        ),
-      ],
-    );
   }
 }
