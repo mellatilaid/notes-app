@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/custom_rounded_icon.dart';
 
 import '../models/folder_model.dart';
 
@@ -36,9 +37,8 @@ class CustomFolderCoverItem extends StatelessWidget {
         const Positioned(
           top: -10,
           left: -10,
-          child: Icon(
-            Icons.remove_sharp,
-            color: Colors.red,
+          child: CustomRoundedIcon(
+            icon: Icons.delete,
           ),
         ),
       ],
