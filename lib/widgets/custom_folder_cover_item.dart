@@ -4,25 +4,33 @@ import 'package:flutter/material.dart';
 
 import '../models/folder_model.dart';
 
-class CustomFolderCoverItem extends StatelessWidget {
+class CustomFolderCoverItem extends StatefulWidget {
+  final VoidCallback? updateState;
   const CustomFolderCoverItem({
     super.key,
     required this.folderModel,
+    this.updateState,
   });
 
   final FolderModel folderModel;
 
+  @override
+  State<CustomFolderCoverItem> createState() => _CustomFolderCoverItemState();
+}
+
+class _CustomFolderCoverItemState extends State<CustomFolderCoverItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 100,
       height: 150,
       decoration: BoxDecoration(
-        image: (folderModel.coverPath != null &&
-                File(folderModel.coverPath!).existsSync())
+        color: Color(widget.folderModel.color),
+        image: (widget.folderModel.coverPath != null &&
+                File(widget.folderModel.coverPath!).existsSync())
             ? DecorationImage(
                 image: FileImage(
-                  File(folderModel.coverPath!),
+                  File(widget.folderModel.coverPath!),
                 ),
                 fit: BoxFit.cover,
               )
@@ -31,7 +39,7 @@ class CustomFolderCoverItem extends StatelessWidget {
           topRight: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
-        border: Border.all(color: Color(folderModel.color)),
+        border: Border.all(color: Color(widget.folderModel.color)),
       ),
     );
   }

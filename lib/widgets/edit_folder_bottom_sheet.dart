@@ -58,6 +58,7 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
           ),
           EditFolderColorsListView(
             folder: widget.folder,
+            onChnagedColor: _changeColor,
           ),
           const SizedBox(
             height: 8,
@@ -119,5 +120,12 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
     if (pickedImage != null) {
       folderCoverPath = pickedImage.path;
     }
+  }
+
+  void _changeColor() {
+    // update the state of the widget
+    setState(() {
+      // change the _folderColor variable to a new color
+    });
   }
 }

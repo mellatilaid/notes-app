@@ -6,7 +6,9 @@ import 'color_item.dart';
 
 class EditFolderColorsListView extends StatefulWidget {
   final FolderModel folder;
-  const EditFolderColorsListView({super.key, required this.folder});
+  final Function onChnagedColor;
+  const EditFolderColorsListView(
+      {super.key, required this.folder, required this.onChnagedColor});
 
   @override
   State<EditFolderColorsListView> createState() =>
@@ -41,6 +43,7 @@ class _EditFolderColorsListViewState extends State<EditFolderColorsListView> {
                     itemSelected = index;
                   });
                   widget.folder.color = kColors[index].value;
+                  widget.onChnagedColor();
                 },
                 child: ColorItem(
                   itemColor: kColors[index],
