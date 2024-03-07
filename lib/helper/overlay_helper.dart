@@ -77,9 +77,12 @@ class OverlayHelper {
               onTap: () {
                 hideOverlay();
                 showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) {
-                    return const EditFolderBottomSheet();
+                    return EditFolderBottomSheet(
+                      folder: folder,
+                    );
                   },
                 );
               },

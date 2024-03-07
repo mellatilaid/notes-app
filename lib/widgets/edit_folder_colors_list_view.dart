@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/models/folder_model.dart';
 
-import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import '../helper/const.dart';
 import 'color_item.dart';
 
 class EditFolderColorsListView extends StatefulWidget {
-  final int folderColor;
-  const EditFolderColorsListView({super.key, required this.folderColor});
+  final FolderModel folder;
+  const EditFolderColorsListView({super.key, required this.folder});
 
   @override
   State<EditFolderColorsListView> createState() =>
@@ -21,7 +20,7 @@ class _EditFolderColorsListViewState extends State<EditFolderColorsListView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    itemSelected = kColors.indexOf(Color(widget.folderColor));
+    itemSelected = kColors.indexOf(Color(widget.folder.color));
   }
 
   @override
@@ -39,8 +38,7 @@ class _EditFolderColorsListViewState extends State<EditFolderColorsListView> {
                   setState(() {
                     itemSelected = index;
                   });
-                  BlocProvider.of<AddFolderCubit>(context).folderColer =
-                      kColors[index].value;
+                  widget.folder.color = kColors[index].value;
                 },
                 child: ColorItem(
                   itemColor: kColors[index],

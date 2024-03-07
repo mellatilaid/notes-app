@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/custom_action_button.dart';
 import 'package:note_app/widgets/edit_folder_colors_list_view.dart';
 
+import '../helper/image_helper.dart';
 import 'custom_text_button.dart';
 import 'new_folder_text_field.dart';
 
@@ -17,7 +20,7 @@ class EditFolderBottomSheet extends StatefulWidget {
 
 class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
   final TextEditingController _folderNameController = TextEditingController();
-
+  String? folderCoverPath;
   @override
   void initState() {
     // TODO: implement initState
@@ -49,7 +52,7 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
             height: 8,
           ),
           EditFolderColorsListView(
-            folderColor: widget.folder.color,
+            folder: widget.folder,
           ),
           const SizedBox(
             height: 8,
@@ -78,19 +81,39 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
           ),
           CustomTextButton(
             title: 'Gallery',
-            onPressed: () {},
+            onPressed: () async {
+              await _imagePicker(context: context);
+            },
           ),
           const SizedBox(
             height: 32,
           ),
           CustomActionButton(
             title: 'Save Edit',
-            onPressed: () {},
+            onPressed: () {
+              _saveFolderEdit(folder: widget.folder);
+              Navigator.pop(context);
+            },
             backGroundColor: kPrimaryColor,
           ),
         ],
       ),
     );
+  }
+
+  _saveFolderEdit({required FolderModel folder}) {
+    folder.title = _folderNameController.text;
+    folder.coverPath = folderCoverPath;
+    folder.save();
+    BlocProvider.of<FoldersCubit>(context).fetchAllFolders();
+  }
+
+  _imagePicker({required BuildContext context}) async {
+    final pickedImage = await ImageHelper().pickImage();
+
+    if (pickedImage != null) {
+      folderCoverPath = pickedImage.path;
+    }
   }
 }
 
