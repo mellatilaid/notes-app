@@ -5,15 +5,16 @@ import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import '../helper/const.dart';
 import 'color_item.dart';
 
-class FoldersColorsListView extends StatefulWidget {
+class EditFolderColorsListView extends StatefulWidget {
   final int folderColor;
-  const FoldersColorsListView({super.key, required this.folderColor});
+  const EditFolderColorsListView({super.key, required this.folderColor});
 
   @override
-  State<FoldersColorsListView> createState() => _FoldersColorsListViewState();
+  State<EditFolderColorsListView> createState() =>
+      _EditFolderColorsListViewState();
 }
 
-class _FoldersColorsListViewState extends State<FoldersColorsListView> {
+class _EditFolderColorsListViewState extends State<EditFolderColorsListView> {
   late int itemSelected;
 
   @override
