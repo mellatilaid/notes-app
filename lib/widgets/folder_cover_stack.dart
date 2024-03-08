@@ -20,7 +20,6 @@ class _FolderCoverStackState extends State<FolderCoverStack> {
       children: [
         CustomFolderCoverItem(
           folderModel: widget.folderModel,
-          updateState: _onDelete,
         ),
         (widget.folderModel.coverPath != null)
             ? Positioned(

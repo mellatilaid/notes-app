@@ -38,78 +38,81 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 16,
-        left: 16,
-        right: 16,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FolderCoverStack(folderModel: widget.folder),
-          const SizedBox(
-            height: 16,
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 16,
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
           ),
-          NewFolderTextField(controller: _folderNameController),
-          const SizedBox(
-            height: 8,
-          ),
-          EditFolderColorsListView(
-            folder: widget.folder,
-            onChnagedColor: _changeColor,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                  child: Divider(
-                height: 2,
-                color: Colors.grey.withOpacity(0.5),
-              )),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('Upload Folder Cover'),
+              FolderCoverStack(folderModel: widget.folder),
+              const SizedBox(
+                height: 16,
               ),
-              Expanded(
-                child: Divider(
-                  height: 2,
-                  color: Colors.grey.withOpacity(0.5),
-                ),
+              NewFolderTextField(controller: _folderNameController),
+              const SizedBox(
+                height: 8,
+              ),
+              EditFolderColorsListView(
+                folder: widget.folder,
+                onChnagedColor: _changeColor,
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Divider(
+                    height: 2,
+                    color: Colors.grey.withOpacity(0.5),
+                  )),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Text('Upload Folder Cover'),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      height: 2,
+                      color: Colors.grey.withOpacity(0.5),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              CustomTextButton(
+                title: 'Gallery',
+                onPressed: () async {
+                  await _imagePicker(context: context);
+                },
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              CustomActionButton(
+                title: 'Save Edit',
+                onPressed: () {
+                  _saveFolderEdit(folder: widget.folder);
+                  Navigator.pop(context);
+                },
+                backGroundColor: kPrimaryColor,
               ),
             ],
           ),
-          const SizedBox(
-            height: 8,
-          ),
-          CustomTextButton(
-            title: 'Gallery',
-            onPressed: () async {
-              await _imagePicker(context: context);
-            },
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          CustomActionButton(
-            title: 'Save Edit',
-            onPressed: () {
-              _saveFolderEdit(folder: widget.folder);
-              Navigator.pop(context);
-            },
-            backGroundColor: kPrimaryColor,
-          ),
-        ],
+        ),
       ),
     );
   }
 
   _saveFolderEdit({required FolderModel folder}) {
     folder.title = _folderNameController.text;
-    folder.coverPath = folderCoverPath;
     folder.save();
     BlocProvider.of<FoldersCubit>(context).fetchAllFolders();
   }
@@ -118,14 +121,13 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
     final pickedImage = await ImageHelper().pickImage();
 
     if (pickedImage != null) {
-      folderCoverPath = pickedImage.path;
+      widget.folder.coverPath = pickedImage.path;
+      setState(() {});
     }
   }
 
   void _changeColor() {
     // update the state of the widget
-    setState(() {
-      // change the _folderColor variable to a new color
-    });
+    setState(() {});
   }
 }

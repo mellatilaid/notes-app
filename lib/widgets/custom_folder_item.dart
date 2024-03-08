@@ -22,21 +22,23 @@ class CustomFolderItem extends StatelessWidget {
             onLongPress: onTap,
             child: Container(
               decoration: BoxDecoration(
-                color: Color(folder.color),
-                image: (folder.coverPath != null &&
-                        File(folder.coverPath!).existsSync())
-                    ? DecorationImage(
-                        image: FileImage(
-                          File(folder.coverPath!),
-                        ),
-                        fit: BoxFit.cover,
-                      )
-                    : null,
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-              ),
+                  color: Color(folder.color),
+                  image: (folder.coverPath != null &&
+                          File(folder.coverPath!).existsSync())
+                      ? DecorationImage(
+                          image: FileImage(
+                            File(folder.coverPath!),
+                          ),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                  border: Border.all(
+                    color: Color(folder.color),
+                  )),
             ),
           ),
         ),

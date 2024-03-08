@@ -24,7 +24,7 @@ class CustomRoundedIcon extends StatelessWidget {
         child: Icon(
           icon,
           color: Colors.white,
-          size: 20,
+          size: 25,
         ),
       ),
     );

@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import '../models/folder_model.dart';
 
 class CustomFolderCoverItem extends StatefulWidget {
-  final VoidCallback? updateState;
   const CustomFolderCoverItem({
     super.key,
     required this.folderModel,
-    this.updateState,
   });
 
   final FolderModel folderModel;
@@ -39,7 +37,9 @@ class _CustomFolderCoverItemState extends State<CustomFolderCoverItem> {
           topRight: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
-        border: Border.all(color: Color(widget.folderModel.color)),
+        border: Border.all(
+          color: Color(widget.folderModel.color),
+        ),
       ),
     );
   }
