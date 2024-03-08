@@ -22,7 +22,9 @@ class CustomFolderItem extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onLongPress: onTap,
-            onTap: () => context.toView(const FolderContentView()),
+            onTap: () => context.toView(FolderContentView(
+              folder: folder,
+            )),
             child: Container(
               decoration: BoxDecoration(
                   color: Color(folder.color),
