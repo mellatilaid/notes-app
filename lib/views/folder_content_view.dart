@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/widgets/folder_sub_folders_body.dart';
 
-import '../widgets/folder_content_view_body.dart';
+import '../widgets/folder_subnotes_body.dart';
 
 class FolderContentView extends StatelessWidget {
   const FolderContentView({super.key});
@@ -12,6 +13,7 @@ class FolderContentView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           bottom: const TabBar(
             labelColor: kPrimaryColor,
             indicatorColor: kPrimaryColor,
@@ -25,7 +27,10 @@ class FolderContentView extends StatelessWidget {
             ],
           ),
         ),
-        body: const FolderContentViewBody(),
+        body: const TabBarView(children: [
+          FolderSubNotesBody(),
+          FolderSubFoldersBody(),
+        ]),
       ),
     );
   }
