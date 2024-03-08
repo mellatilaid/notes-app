@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/folder_model.dart';
+import 'package:note_app/views/folder_content_view.dart';
 
 class CustomFolderItem extends StatelessWidget {
   final FolderModel folder;
@@ -20,6 +22,7 @@ class CustomFolderItem extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onLongPress: onTap,
+            onTap: () => context.toView(const FolderContentView()),
             child: Container(
               decoration: BoxDecoration(
                   color: Color(folder.color),
