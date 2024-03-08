@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/notes_collections_view_body.dart';
+import 'package:note_app/widgets/folders_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
 import '../widgets/new_folder_bottom_sheet.dart';
 
-class NotesCollectionsView extends StatelessWidget {
-  const NotesCollectionsView({super.key});
+class FoldersView extends StatelessWidget {
+  const FoldersView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class NotesCollectionsView extends StatelessWidget {
         ],
       ),
       drawer: const Drawer(),
-      body: const NotesCollectionsViewBody(),
+      body: const FoldersViewBody(),
       floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),
         onTap: () {

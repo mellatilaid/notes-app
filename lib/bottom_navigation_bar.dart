@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/views/notes_collections_view.dart';
+import 'package:note_app/views/folders_view.dart';
 import 'package:note_app/views/notes_view.dart';
 import 'package:note_app/views/reminders_view.dart';
 import 'package:note_app/views/to_do_view.dart';
@@ -17,7 +17,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
   final _pages = [
     const MyNotesView(),
-    const NotesCollectionsView(),
+    const FoldersView(),
     const ToDoView(),
     const RemindersView(),
   ];
