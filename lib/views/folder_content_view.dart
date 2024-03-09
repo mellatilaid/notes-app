@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
+import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/folder_sub_folders_body.dart';
 
 import '../widgets/folder_subnotes_body.dart';
@@ -36,12 +37,15 @@ class FolderContentView extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(children: [
-          FolderSubNotesBody(
-            folder: folder,
-          ),
-          const FolderSubFoldersBody(),
-        ]),
+        body: TabBarView(
+          children: [
+            FolderSubNotesBody(
+              folder: folder,
+            ),
+            const FolderSubFoldersBody(),
+          ],
+        ),
+        floatingActionButton: const AddNoteOptionsSpeedDial(),
       ),
     );
   }
