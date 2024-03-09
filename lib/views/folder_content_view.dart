@@ -9,7 +9,7 @@ import 'package:note_app/widgets/folder_sub_folders_body.dart';
 
 import '../widgets/folder_subnotes_body.dart';
 
-class FolderContentView extends StatelessWidget {
+class FolderContentView extends StatefulWidget {
   final FolderModel folder;
   //final int index;
   const FolderContentView({
@@ -19,13 +19,18 @@ class FolderContentView extends StatelessWidget {
   });
 
   @override
+  State<FolderContentView> createState() => _FolderContentViewState();
+}
+
+class _FolderContentViewState extends State<FolderContentView> {
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(folder.title),
+          title: Text(widget.folder.title),
           centerTitle: true,
           bottom: const TabBar(
             labelColor: kPrimaryColor,
@@ -43,7 +48,7 @@ class FolderContentView extends StatelessWidget {
         body: TabBarView(
           children: [
             FolderSubNotesBody(
-              folder: folder,
+              folder: widget.folder,
             ),
             const FolderSubFoldersBody(),
           ],
@@ -51,9 +56,14 @@ class FolderContentView extends StatelessWidget {
         floatingActionButton: AddNoteOptionsSpeedDial(
           speedDials: [
             customSpeedDialChild(
-                onTap: () => context.toView(const AddSubNoteView()),
-                icon: const Icon(Icons.text_fields),
-                label: 'Add Text'),
+              onTap: () => context.toView(
+                AddSubNoteView(
+                  folder: widget.folder,
+                ),
+              ),
+              icon: const Icon(Icons.text_fields),
+              label: 'Add Text',
+            ),
             customSpeedDialChild(
                 icon: const Icon(Icons.voice_chat), label: 'Add Voice'),
             customSpeedDialChild(

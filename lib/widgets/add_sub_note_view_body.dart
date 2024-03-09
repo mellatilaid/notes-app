@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
 
 import '../helper/const.dart';
@@ -7,21 +8,25 @@ import 'custom_action_button.dart';
 import 'custom_text_field.dart';
 
 class AddSubNoteViewBody extends StatefulWidget {
-  const AddSubNoteViewBody({super.key});
+  final FolderModel folder;
+
+  const AddSubNoteViewBody({super.key, required this.folder});
 
   @override
   State<AddSubNoteViewBody> createState() => _AddSubNoteViewBodyState();
 }
 
 class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
-  TextEditingController titleController = TextEditingController(text: '');
-  TextEditingController contentController = TextEditingController(text: '');
+  final TextEditingController _titleController =
+      TextEditingController(text: '');
+  final TextEditingController _contentController =
+      TextEditingController(text: '');
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    titleController.dispose();
-    contentController.dispose();
+    _titleController.dispose();
+    _contentController.dispose();
   }
 
   @override
@@ -29,7 +34,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
     return Column(
       children: [
         CustomTextField(
-          controller: titleController,
+          controller: _titleController,
           hintText: 'Title',
         ),
         const SizedBox(
@@ -37,7 +42,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
         ),
         Expanded(
           child: CustomTextField(
-            controller: contentController,
+            controller: _contentController,
             hintText: 'Content',
             isExpand: true,
           ),
@@ -47,6 +52,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
           title: 'Save Note',
           onPressed: () {
             _addNote();
+            Navigator.pop(context);
           },
           backGroundColor: kPrimaryColor,
         ),
@@ -65,11 +71,16 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
   }
 
   _addNote() {
-    NoteModel note = NoteModel(
-      title: titleController.text,
-      content: contentController.text,
-      date: _formatDate(time: DateTime.now()),
-      color: Colors.amber.value,
-    );
+    if (_contentController.text.isNotEmpty ||
+        _titleController.text.isNotEmpty) {
+      NoteModel note = NoteModel(
+        title: _titleController.text,
+        content: _contentController.text,
+        date: _formatDate(time: DateTime.now()),
+        color: Colors.amber.value,
+      );
+      widget.folder.notes.add(note);
+      widget.folder.save();
+    }
   }
 }

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/add_sub_note_view_body.dart';
 
 class AddSubNoteView extends StatelessWidget {
-  const AddSubNoteView({super.key});
+  final FolderModel folder;
+
+  const AddSubNoteView({
+    super.key,
+    required this.folder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +17,9 @@ class AddSubNoteView extends StatelessWidget {
         centerTitle: true,
         title: const Text('Add Note'),
       ),
-      body: const AddSubNoteViewBody(),
+      body: AddSubNoteViewBody(
+        folder: folder,
+      ),
     );
   }
 }
