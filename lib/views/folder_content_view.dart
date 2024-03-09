@@ -36,7 +36,10 @@ class _FolderContentViewState extends State<FolderContentView> {
         builder: (context, state) {
           if (state is InitialState) {
             return const Center(
-              child: Text('Add Your Sub Notes'),
+              child: Text(
+                'Add Your Sub Notes',
+                style: TextStyle(fontSize: 18),
+              ),
             );
           } else if (state is SucussState) {
             return FolderSubNotesBody(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
 
@@ -52,6 +54,8 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
           title: 'Save Note',
           onPressed: () {
             _addNote();
+            BlocProvider.of<SubNotesCubit>(context)
+                .fetchSubNotes(folder: widget.folder);
             Navigator.pop(context);
           },
           backGroundColor: kPrimaryColor,
