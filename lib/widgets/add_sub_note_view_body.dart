@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
 
 import '../helper/const.dart';
 import '../models/note_model.dart';
-import 'colors_list_view.dart';
 import 'custom_action_button.dart';
 import 'custom_text_field.dart';
 
@@ -42,7 +42,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
             isExpand: true,
           ),
         ),
-        const ColorsListView(),
+        const AddSubNoteColorsListView(),
         CustomActionButton(
           title: 'Save Note',
           onPressed: () {

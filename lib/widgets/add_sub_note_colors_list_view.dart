@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../helper/const.dart';
 import 'color_item.dart';
 
-class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key});
+class AddSubNoteColorsListView extends StatefulWidget {
+  const AddSubNoteColorsListView({super.key});
 
   @override
-  State<ColorsListView> createState() => _ColorsListViewState();
+  State<AddSubNoteColorsListView> createState() => _AddSubNoteColorsListViewState();
 }
 
-class _ColorsListViewState extends State<ColorsListView> {
+class _AddSubNoteColorsListViewState extends State<AddSubNoteColorsListView> {
   int itemSelected = 0;
   @override
   Widget build(BuildContext context) {
