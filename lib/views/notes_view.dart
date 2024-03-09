@@ -30,7 +30,7 @@ class MyNotesView extends StatelessWidget {
       floatingActionButton: AddNoteOptionsSpeedDial(
         speedDials: [
           customSpeedDialChild(
-              icon: const Icon(Icons.text_decrease), label: 'Add Text'),
+              icon: const Icon(Icons.text_fields), label: 'Add Text'),
           customSpeedDialChild(
               icon: const Icon(Icons.voice_chat), label: 'Add Voice'),
           customSpeedDialChild(
