@@ -81,10 +81,8 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
         title: _titleController.text,
         content: _contentController.text,
         date: _formatDate(time: DateTime.now()),
-        color: kColors[1].value,
+        color: kColors[0].value,
       );
-      widget.folder.notes.add(note);
-      widget.folder.save();
     }
   }
 }
