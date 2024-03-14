@@ -22,6 +22,10 @@ class AddSubNoteCubit extends Cubit<AddSubNoteState> {
       } catch (e) {
         emit(FailureState(errMessage: e.toString()));
       }
+    } else {
+      emit(
+        FailureState(errMessage: 'i did not find the folder in the box'),
+      );
     }
   }
 }
