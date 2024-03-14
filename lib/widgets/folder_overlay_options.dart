@@ -6,9 +6,11 @@ import '../helper/overlay_helper.dart';
 
 class FolderOverlayOptions extends StatefulWidget {
   final FolderModel folder;
+  final int folderIndex;
   const FolderOverlayOptions({
     super.key,
     required this.folder,
+    required this.folderIndex,
   });
 
   @override
@@ -34,6 +36,7 @@ class _FolderOverlayOptionsState extends State<FolderOverlayOptions> {
     return CompositedTransformTarget(
       link: layerLink,
       child: CustomFolderItem(
+        folderIndex: widget.folderIndex,
         folder: widget.folder,
         onTap: () {
           overlayHelper.showOverlay();

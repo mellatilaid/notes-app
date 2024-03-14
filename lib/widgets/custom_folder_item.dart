@@ -7,11 +7,13 @@ import 'package:note_app/views/folder_content_view.dart';
 
 class CustomFolderItem extends StatelessWidget {
   final FolderModel folder;
+  final int folderIndex;
   final VoidCallback onTap;
   const CustomFolderItem({
     super.key,
     required this.folder,
     required this.onTap,
+    required this.folderIndex,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomFolderItem extends StatelessWidget {
             onLongPress: onTap,
             onTap: () => context.toView(FolderContentView(
               folder: folder,
+              folderIndex: folderIndex,
             )),
             child: Container(
               decoration: BoxDecoration(

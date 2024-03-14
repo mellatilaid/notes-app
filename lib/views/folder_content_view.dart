@@ -12,11 +12,11 @@ import '../widgets/folder_subnotes_body.dart';
 
 class FolderContentView extends StatefulWidget {
   final FolderModel folder;
-  //final int index;
+  final int folderIndex;
   const FolderContentView({
     super.key,
     required this.folder,
-    //required this.index,
+    required this.folderIndex,
   });
 
   @override
@@ -24,6 +24,14 @@ class FolderContentView extends StatefulWidget {
 }
 
 class _FolderContentViewState extends State<FolderContentView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<SubNotesCubit>(context)
+        .fetchSubNotes(index: widget.folderIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +65,7 @@ class _FolderContentViewState extends State<FolderContentView> {
           customSpeedDialChild(
             onTap: () => context.toView(
               AddSubNoteView(
-                folder: widget.folder,
+                index: widget.folderIndex,
               ),
             ),
             icon: const Icon(Icons.text_fields),

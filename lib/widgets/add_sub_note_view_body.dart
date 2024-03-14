@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
-import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
 
 import '../helper/const.dart';
@@ -10,9 +10,9 @@ import 'custom_action_button.dart';
 import 'custom_text_field.dart';
 
 class AddSubNoteViewBody extends StatefulWidget {
-  final FolderModel folder;
+  final int index;
 
-  const AddSubNoteViewBody({super.key, required this.folder});
+  const AddSubNoteViewBody({super.key, required this.index});
 
   @override
   State<AddSubNoteViewBody> createState() => _AddSubNoteViewBodyState();
@@ -53,10 +53,13 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
         CustomActionButton(
           title: 'Save Note',
           onPressed: () {
-            _addNote();
-            BlocProvider.of<SubNotesCubit>(context)
-                .fetchSubNotes(folder: widget.folder);
-            Navigator.pop(context);
+            NoteModel? note = _addNote();
+            if (note != null) {
+              BlocProvider.of<AddSubNoteCubit>(context)
+                  .addSubNote(folderIndex: widget.index, note: note);
+              BlocProvider.of<SubNotesCubit>(context)
+                  .fetchSubNotes(index: widget.index);
+            }
           },
           backGroundColor: kPrimaryColor,
         ),
@@ -74,7 +77,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
     return '$day/$month/$year';
   }
 
-  _addNote() {
+  NoteModel? _addNote() {
     if (_contentController.text.isNotEmpty ||
         _titleController.text.isNotEmpty) {
       NoteModel note = NoteModel(
@@ -83,6 +86,9 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
         date: _formatDate(time: DateTime.now()),
         color: kColors[0].value,
       );
+
+      return note;
     }
+    return null;
   }
 }

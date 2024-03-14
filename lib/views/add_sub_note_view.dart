@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_states.dart';
-import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/add_sub_note_view_body.dart';
 
 class AddSubNoteView extends StatelessWidget {
-  final FolderModel folder;
+  final int index;
 
   const AddSubNoteView({
     super.key,
-    required this.folder,
+    required this.index,
   });
 
   @override
@@ -29,7 +28,7 @@ class AddSubNoteView extends StatelessWidget {
             title: const Text('Add Note'),
           ),
           body: AddSubNoteViewBody(
-            folder: folder,
+            index: index,
           ),
         ),
       ),

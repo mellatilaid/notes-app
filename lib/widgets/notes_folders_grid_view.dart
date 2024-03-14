@@ -19,6 +19,7 @@ class FoldersGridView extends StatelessWidget {
       itemCount: folders.length,
       itemBuilder: (context, index) {
         return FolderOverlayOptions(
+          folderIndex: index,
           folder: folders[index],
         );
       },
