@@ -18,7 +18,7 @@ class _FolderSubNotesBodyState extends State<FolderSubNotesBody> {
         return Container(
           width: double.infinity,
           height: 20,
-          color: Colors.blue,
+          color: Colors.green,
         );
       },
     );
