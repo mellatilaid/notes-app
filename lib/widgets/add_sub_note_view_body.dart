@@ -10,9 +10,7 @@ import 'custom_action_button.dart';
 import 'custom_text_field.dart';
 
 class AddSubNoteViewBody extends StatefulWidget {
-  final int index;
-
-  const AddSubNoteViewBody({super.key, required this.index});
+  const AddSubNoteViewBody({super.key});
 
   @override
   State<AddSubNoteViewBody> createState() => _AddSubNoteViewBodyState();
@@ -55,10 +53,8 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
           onPressed: () {
             NoteModel? note = _addNote();
             if (note != null) {
-              BlocProvider.of<AddSubNoteCubit>(context)
-                  .addSubNote(folderIndex: widget.index, note: note);
-              BlocProvider.of<SubNotesCubit>(context)
-                  .fetchSubNotes(index: widget.index);
+              BlocProvider.of<AddSubNoteCubit>(context).addSubNote(note: note);
+              BlocProvider.of<SubNotesCubit>(context).fetchSubNotes();
             }
           },
           backGroundColor: kPrimaryColor,

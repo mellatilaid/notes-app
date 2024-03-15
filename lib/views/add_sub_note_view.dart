@@ -5,11 +5,8 @@ import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_s
 import 'package:note_app/widgets/add_sub_note_view_body.dart';
 
 class AddSubNoteView extends StatelessWidget {
-  final int index;
-
   const AddSubNoteView({
     super.key,
-    required this.index,
   });
 
   @override
@@ -25,9 +22,7 @@ class AddSubNoteView extends StatelessWidget {
           centerTitle: true,
           title: const Text('Add Note'),
         ),
-        body: AddSubNoteViewBody(
-          index: index,
-        ),
+        body: const AddSubNoteViewBody(),
       ),
     );
   }

@@ -10,10 +10,11 @@ import '../../../helper/const.dart';
 class SubNotesCubit extends Cubit<SubNotesState> {
   SubNotesCubit() : super(InitialState());
   Color itemColor = kColors[0];
-  fetchSubNotes({required int index}) {
+  int? folderIndex;
+  fetchSubNotes() {
     final folderBox = Hive.box<FolderModel>(kFoldersBox);
 
-    final folder = folderBox.getAt(index);
+    final folder = folderBox.getAt(folderIndex!);
     if (folder != null) {
       final List<NoteModel> notes = folder.notes;
       emit(SucussState(notes: notes));

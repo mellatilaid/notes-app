@@ -28,8 +28,7 @@ class _FolderContentViewState extends State<FolderContentView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<SubNotesCubit>(context)
-        .fetchSubNotes(index: widget.folderIndex);
+    BlocProvider.of<SubNotesCubit>(context).fetchSubNotes();
   }
 
   @override
@@ -64,9 +63,7 @@ class _FolderContentViewState extends State<FolderContentView> {
         speedDials: [
           customSpeedDialChild(
             onTap: () => context.toView(
-              AddSubNoteView(
-                index: widget.folderIndex,
-              ),
+              const AddSubNoteView(),
             ),
             icon: const Icon(Icons.text_fields),
             label: 'Add Text',
