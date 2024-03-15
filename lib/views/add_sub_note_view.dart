@@ -14,22 +14,19 @@ class AddSubNoteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddSubNoteCubit(),
-      child: BlocListener<AddSubNoteCubit, AddSubNoteState>(
-        listener: (context, state) {
-          if (state is SuccussState) {
-            Navigator.pop(context);
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text('Add Note'),
-          ),
-          body: AddSubNoteViewBody(
-            index: index,
-          ),
+    return BlocListener<AddSubNoteCubit, AddSubNoteState>(
+      listener: (context, state) {
+        if (state is SuccussState) {
+          Navigator.pop(context);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Add Note'),
+        ),
+        body: AddSubNoteViewBody(
+          index: index,
         ),
       ),
     );

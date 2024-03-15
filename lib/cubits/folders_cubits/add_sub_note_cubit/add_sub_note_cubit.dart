@@ -7,12 +7,12 @@ import 'package:note_app/models/note_model.dart';
 
 class AddSubNoteCubit extends Cubit<AddSubNoteState> {
   AddSubNoteCubit() : super(InitialState());
-
-  addSubNote({required int folderIndex, required NoteModel note}) async {
+  int? folderIndex;
+  addSubNote({required NoteModel note}) async {
     emit(LoadingState());
     final foldersBox = Hive.box<FolderModel>(kFoldersBox);
 
-    final folder = foldersBox.getAt(folderIndex);
+    final folder = foldersBox.getAt(folderIndex!);
 
     if (folder != null) {
       folder.notes.add(note);

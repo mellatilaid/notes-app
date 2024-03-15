@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/views/folder_content_view.dart';
@@ -24,10 +26,14 @@ class CustomFolderItem extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onLongPress: onTap,
-            onTap: () => context.toView(FolderContentView(
-              folder: folder,
-              folderIndex: folderIndex,
-            )),
+            onTap: () {
+              context.toView(FolderContentView(
+                folder: folder,
+                folderIndex: folderIndex,
+              ));
+              BlocProvider.of<AddSubNoteCubit>(context).folderIndex =
+                  folderIndex;
+            },
             child: Container(
               decoration: BoxDecoration(
                   color: Color(folder.color),
