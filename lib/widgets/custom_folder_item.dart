@@ -32,9 +32,10 @@ class CustomFolderItem extends StatelessWidget {
                 folder: folder,
                 folderIndex: folderIndex,
               ));
+              //giving the add sub note cubit the index of the folder to add the sub note to
               BlocProvider.of<AddSubNoteCubit>(context).folderIndex =
                   folderIndex;
-
+              //giving the sub notes cubit the index of the folder that to fetch it sub notes
               BlocProvider.of<SubNotesCubit>(context).folderIndex = folderIndex;
             },
             child: Container(

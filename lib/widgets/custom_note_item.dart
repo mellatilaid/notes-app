@@ -16,9 +16,11 @@ class CustomNoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.toView(EditNoteView(
-          note: note,
-        ));
+        context.toView(
+          EditNoteView(
+            note: note,
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
