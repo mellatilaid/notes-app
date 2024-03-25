@@ -9,6 +9,7 @@ import '../../../helper/const.dart';
 
 class SubNotesCubit extends Cubit<SubNotesState> {
   SubNotesCubit() : super(InitialState());
+  List<NoteModel>? notes;
   Color itemColor = kColors[0];
   int? folderIndex;
   fetchSubNotes() {
@@ -16,8 +17,18 @@ class SubNotesCubit extends Cubit<SubNotesState> {
 
     final folder = folderBox.getAt(folderIndex!);
     if (folder != null) {
-      final List<NoteModel> notes = folder.notes;
-      emit(SucussState(notes: notes));
+      notes = folder.notes;
+      emit(SucussState(notes: notes!));
     }
+  }
+
+  addToNotes({required int index, required NoteModel note}) {
+    notes!.insert(index, note);
+    emit(SucussState(notes: notes!));
+  }
+
+  removeFromNotes({required int index}) {
+    notes!.removeAt(index);
+    emit(SucussState(notes: notes!));
   }
 }
