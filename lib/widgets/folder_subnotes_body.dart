@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/widgets/sub_notes_view_slidable_note.dart';
 
 class FolderSubNotesBody extends StatefulWidget {
   final List<NoteModel> notes;
@@ -13,12 +14,12 @@ class _FolderSubNotesBodyState extends State<FolderSubNotesBody> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.all(8),
       itemCount: widget.notes.length,
       itemBuilder: (context, index) {
-        return Container(
-          width: double.infinity,
-          height: 20,
-          color: Colors.green,
+        return SubNotesViewSlidableNote(
+          note: widget.notes[index],
+          index: index,
         );
       },
     );
