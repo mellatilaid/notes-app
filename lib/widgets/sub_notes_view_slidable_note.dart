@@ -96,7 +96,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
 
-    //notesCubit.removeFromNotes(index: widget.index);
+    notesCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
       widget.note.delete();
     });
@@ -114,7 +114,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
         onPressed: () async {
           timer.cancel();
 
-          //notesCubit.addToNotes(index: widget.index, note: note);
+          notesCubit.addToNotes(index: widget.index, note: note);
         },
       ),
     );
