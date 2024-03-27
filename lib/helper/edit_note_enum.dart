@@ -1,0 +1,4 @@
+enum EditNote {
+  editNoteView,
+  editSubNoteView,
+}
