@@ -27,8 +27,21 @@ class SubNotesCubit extends Cubit<SubNotesState> {
     emit(SucussState(notes: notes!));
   }
 
-  removeFromNotes({required int index}) {
+  removeFromNotesList({required int index}) {
     notes!.removeAt(index);
     emit(SucussState(notes: notes!));
+  }
+
+  removerFromLocalList({required int index}) {
+    if (index >= 0 && index < notes!.length) {
+      //notes!.removeAt(index);
+      final folderBox = Hive.box<FolderModel>(kFoldersBox);
+      final folder = folderBox.getAt(folderIndex!);
+      if (folder != null) {
+        folder.notes = notes!;
+        folder.save(); // Save the updated folder back to the Hive box
+        emit(SucussState(notes: notes!));
+      }
+    }
   }
 }

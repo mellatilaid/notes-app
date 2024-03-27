@@ -96,15 +96,15 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
 
-    notesCubit.removeFromNotes(index: widget.index);
+    notesCubit.removeFromNotesList(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
-      widget.note.delete();
+      notesCubit.removerFromLocalList(index: widget.index);
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.grey.withOpacity(0.4),
       content: const Text(
-        'Note Will be deleted',
+        'Note Was deleted',
         style: TextStyle(
           color: Colors.white,
         ),
