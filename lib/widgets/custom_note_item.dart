@@ -3,24 +3,39 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
+import 'package:note_app/views/edit_sub_note_view.dart';
+
+import '../helper/edit_note_enum.dart';
 
 class CustomNoteItem extends StatelessWidget {
   final NoteModel note;
-
+  final EditNote editNoteViewOptin;
   const CustomNoteItem({
     super.key,
     required this.note,
+    required this.editNoteViewOptin,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.toView(
-          EditNoteView(
-            note: note,
-          ),
-        );
+        switch (editNoteViewOptin) {
+          case EditNote.editNoteView:
+            context.toView(
+              EditNoteView(
+                note: note,
+              ),
+            );
+            break;
+          case EditNote.editSubNoteView:
+            context.toView(
+              EditSubNoteView(
+                note: note,
+              ),
+            );
+          default:
+        }
       },
       child: Container(
         decoration: BoxDecoration(

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/notes_cubits_folder/search_note_cubit/search_note_cubit.dart';
+import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
 
 import '../models/note_model.dart';
@@ -73,7 +74,10 @@ class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
                 label: 'Share',
               ),
             ]),
-        child: CustomNoteItem(note: widget.note),
+        child: CustomNoteItem(
+          editNoteViewOptin: EditNote.editNoteView,
+          note: widget.note,
+        ),
       ),
     );
   }

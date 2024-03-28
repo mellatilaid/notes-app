@@ -3,9 +3,9 @@ import 'package:note_app/widgets/edit_sub_note_view_body.dart';
 
 import '../models/note_model.dart';
 
-class EditSubNote extends StatelessWidget {
+class EditSubNoteView extends StatelessWidget {
   final NoteModel note;
-  const EditSubNote({super.key, required this.note});
+  const EditSubNoteView({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {

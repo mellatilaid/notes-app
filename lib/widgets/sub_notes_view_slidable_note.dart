@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
+import 'package:note_app/helper/edit_note_enum.dart';
 
 import '../helper/slidable_note_enum.dart';
 import '../models/note_model.dart';
@@ -72,7 +73,10 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
                 label: 'Share',
               ),
             ]),
-        child: CustomNoteItem(note: widget.note),
+        child: CustomNoteItem(
+          editNoteViewOptin: EditNote.editSubNoteView,
+          note: widget.note,
+        ),
       ),
     );
   }
