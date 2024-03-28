@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
+import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/folder_model.dart';
@@ -37,6 +38,9 @@ class CustomFolderItem extends StatelessWidget {
                   folderIndex;
               //giving the sub notes cubit the index of the folder that to fetch it sub notes
               BlocProvider.of<SubNotesCubit>(context).folderIndex = folderIndex;
+
+              BlocProvider.of<EditSubNoteCubit>(context).folderIndex =
+                  folderIndex;
             },
             child: Container(
               decoration: BoxDecoration(
