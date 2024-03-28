@@ -59,7 +59,10 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
           CustomActionButton(
             title: 'Save Edit',
             onPressed: () {
-              BlocProvider.of<EditSubNoteCubit>(context).editSubNote(index: 0);
+              BlocProvider.of<EditSubNoteCubit>(context).editSubNote(
+                title: titleController.text,
+                content: contentController.text,
+              );
             },
             backGroundColor: kPrimaryColor,
           ),

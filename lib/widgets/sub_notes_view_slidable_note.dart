@@ -76,6 +76,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
         child: CustomNoteItem(
           editNoteViewOptin: EditNote.editSubNoteView,
           note: widget.note,
+          noteIndex: widget.noteIndex,
         ),
       ),
     );

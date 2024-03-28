@@ -11,7 +11,7 @@ class EditSubNoteCubit extends Cubit<EditSubNotesState> {
   int? folderIndex;
   int? noteIndex;
   Color? noteColor;
-  editSubNote({required index, String? title, String? content}) {
+  editSubNote({String? title, String? content}) {
     final folderBox = Hive.box<FolderModel>(kFoldersBox);
 
     final folder = folderBox.getAt(folderIndex!);
@@ -19,12 +19,12 @@ class EditSubNoteCubit extends Cubit<EditSubNotesState> {
     if (folder != null) {
       final notes = folder.notes;
 
-      final note = notes.elementAt(index);
+      final note = notes.elementAt(noteIndex!);
       note.title = title ?? note.title;
       note.content = title ?? note.title;
       note.color = noteColor?.value ?? note.color;
 
-      notes.insert(index, note);
+      notes[noteIndex!] = note;
 
       folder.notes = notes;
       folder.save();
