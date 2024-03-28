@@ -14,11 +14,11 @@ class SubNotesViewSlidableNote extends StatefulWidget {
   const SubNotesViewSlidableNote({
     super.key,
     required this.note,
-    required this.index,
+    required this.noteIndex,
   });
 
   final NoteModel note;
-  final int index;
+  final int noteIndex;
 
   @override
   State<SubNotesViewSlidableNote> createState() =>
@@ -51,7 +51,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
               SlidableAction(
                 onPressed: (context) => _onSlidableActionTapped(
                   context,
-                  widget.index,
+                  widget.noteIndex,
                   NoteSlidableAction.delete,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -63,7 +63,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
               SlidableAction(
                 onPressed: (context) => _onSlidableActionTapped(
                   context,
-                  widget.index,
+                  widget.noteIndex,
                   NoteSlidableAction.share,
                 ),
                 borderRadius: BorderRadius.circular(8),
@@ -100,9 +100,9 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;
 
-    notesCubit.removeFromNotesList(index: widget.index);
+    notesCubit.removeFromNotesList(index: widget.noteIndex);
     Timer timer = Timer(const Duration(seconds: 2), () {
-      notesCubit.removerFromLocalList(index: widget.index);
+      notesCubit.removerFromLocalList(index: widget.noteIndex);
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -118,7 +118,7 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
         onPressed: () async {
           timer.cancel();
 
-          notesCubit.addToNotes(index: widget.index, note: note);
+          notesCubit.addToNotes(index: widget.noteIndex, note: note);
         },
       ),
     );

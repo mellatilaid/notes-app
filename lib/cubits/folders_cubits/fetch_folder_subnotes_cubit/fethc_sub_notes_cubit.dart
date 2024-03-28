@@ -18,6 +18,7 @@ class SubNotesCubit extends Cubit<SubNotesState> {
     final folder = folderBox.getAt(folderIndex!);
     if (folder != null) {
       notes = folder.notes;
+
       emit(SucussState(notes: notes!));
     }
   }

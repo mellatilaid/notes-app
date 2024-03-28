@@ -19,7 +19,7 @@ class _FolderSubNotesBodyState extends State<FolderSubNotesBody> {
       itemBuilder: (context, index) {
         return SubNotesViewSlidableNote(
           note: widget.notes[index],
-          index: index,
+          noteIndex: index,
         );
       },
     );
