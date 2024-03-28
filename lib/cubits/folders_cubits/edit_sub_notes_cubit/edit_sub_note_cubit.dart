@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
+import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_notes_states.dart';
 
 import '../../../helper/const.dart';
 import '../../../models/folder_model.dart';
 
-class EditSubNoteCubit extends Cubit {
+class EditSubNoteCubit extends Cubit<EditSubNotesState> {
   EditSubNoteCubit() : super(InitialState());
   int? folderIndex;
   Color? noteColor;
