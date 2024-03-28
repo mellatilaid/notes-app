@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 
 import '../helper/const.dart';
 import '../models/note_model.dart';
@@ -57,7 +59,7 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
           CustomActionButton(
             title: 'Save Edit',
             onPressed: () {
-              Navigator.pop(context);
+              BlocProvider.of<EditSubNoteCubit>(context).editSubNote(index: 0);
             },
             backGroundColor: kPrimaryColor,
           ),

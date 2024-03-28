@@ -9,6 +9,7 @@ import '../../../models/folder_model.dart';
 class EditSubNoteCubit extends Cubit<EditSubNotesState> {
   EditSubNoteCubit() : super(InitialState());
   int? folderIndex;
+  int? noteIndex;
   Color? noteColor;
   editSubNote({required index, String? title, String? content}) {
     final folderBox = Hive.box<FolderModel>(kFoldersBox);
@@ -27,6 +28,7 @@ class EditSubNoteCubit extends Cubit<EditSubNotesState> {
 
       folder.notes = notes;
       folder.save();
+      emit(SuccussState());
     }
   }
 }

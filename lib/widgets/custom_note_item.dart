@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
@@ -10,10 +12,12 @@ import '../helper/edit_note_enum.dart';
 class CustomNoteItem extends StatelessWidget {
   final NoteModel note;
   final EditNote editNoteViewOptin;
+  final int? noteIndex;
   const CustomNoteItem({
     super.key,
     required this.note,
     required this.editNoteViewOptin,
+    this.noteIndex,
   });
 
   @override
@@ -29,6 +33,9 @@ class CustomNoteItem extends StatelessWidget {
             );
             break;
           case EditNote.editSubNoteView:
+            //givig the edit sub note cubit the index of note where
+            // if the user wants to edit note , the cubit has the not index
+            BlocProvider.of<EditSubNoteCubit>(context).noteIndex = noteIndex;
             context.toView(
               EditSubNoteView(
                 note: note,
