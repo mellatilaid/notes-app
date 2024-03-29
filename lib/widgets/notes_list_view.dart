@@ -5,7 +5,7 @@ import 'package:note_app/widgets/search_view_slidable_note.dart';
 
 import '../models/note_model.dart';
 
-class NotesListView extends StatelessWidget {
+class NotesListView extends StatefulWidget {
   final NotesCubitSource notesCubitSource;
   final List<NoteModel> notes;
 
@@ -16,21 +16,35 @@ class NotesListView extends StatelessWidget {
   });
 
   @override
+  State<NotesListView> createState() => _NotesListViewState();
+}
+
+class _NotesListViewState extends State<NotesListView> {
+  late List<NoteModel> revNotes;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    revNotes = widget.notes.reversed.toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(8),
-      itemCount: notes.length,
+      itemCount: widget.notes.length,
       itemBuilder: (context, index) {
-        switch (notesCubitSource) {
+        switch (widget.notesCubitSource) {
           case NotesCubitSource.notesCubit:
             return NotesViewSlidableNote(
-              note: notes[index],
+              note: widget.notes[index],
               index: index,
             );
 
           case NotesCubitSource.searchCubit:
             return SearchViewSlidbleNote(
-              note: notes[index],
+              note: widget.notes[index],
               index: index,
             );
           default:

@@ -6,24 +6,24 @@ import 'package:note_app/models/note_model.dart';
 
 class NotesCubit extends Cubit<NotesState> {
   NotesCubit() : super(InitialState());
-  List<NoteModel>? notes;
+  List<NoteModel>? revNotes;
 
   fetchAllNotes() {
     var notesBox = Hive.box<NoteModel>(kNoteBox);
-
-    notes = notesBox.values.toList();
+    final List<NoteModel> notes = notesBox.values.toList();
+    revNotes = notes.reversed.toList();
     emit(NotesSuccuss(
-      notes: notes!,
+      notes: revNotes!,
     ));
   }
 
   addToNotes({required int index, required NoteModel note}) {
-    notes!.insert(index, note);
-    emit(NotesSuccuss(notes: notes!));
+    revNotes!.insert(index, note);
+    emit(NotesSuccuss(notes: revNotes!));
   }
 
   removeFromNotes({required int index}) {
-    notes!.removeAt(index);
-    emit(NotesSuccuss(notes: notes!));
+    revNotes!.removeAt(index);
+    emit(NotesSuccuss(notes: revNotes!));
   }
 }
