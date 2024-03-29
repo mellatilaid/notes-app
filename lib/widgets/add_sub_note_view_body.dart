@@ -51,6 +51,12 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
         CustomActionButton(
           title: 'Save Note',
           onPressed: () {
+            //if the title and content of note is empty
+            //then go back to the previus page
+            if (_titleController.text.isEmpty &&
+                _contentController.text.isEmpty) {
+              Navigator.pop(context);
+            }
             NoteModel? note = _addNote();
             if (note != null) {
               BlocProvider.of<AddSubNoteCubit>(context).addSubNote(note: note);
