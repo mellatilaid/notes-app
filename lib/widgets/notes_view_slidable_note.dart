@@ -44,7 +44,7 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
             dismissible: DismissiblePane(
               onDismissed: () => _onDismissed(),
             ),
-            extentRatio: 0.6,
+            extentRatio: 0.8,
             motion: const StretchMotion(),
             children: [
               SlidableAction(
@@ -70,6 +70,14 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
                 foregroundColor: Colors.white,
                 icon: Icons.share,
                 label: 'Share',
+              ),
+              SlidableAction(
+                onPressed: (context) {},
+                borderRadius: BorderRadius.circular(8),
+                backgroundColor: Colors.transparent,
+                foregroundColor: Colors.white,
+                icon: Icons.lock_outline,
+                label: 'Lock',
               ),
             ]),
         child: CustomNoteItem(
