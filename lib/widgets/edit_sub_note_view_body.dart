@@ -57,10 +57,17 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
           CustomActionButton(
             title: 'Save Edit',
             onPressed: () {
-              BlocProvider.of<EditSubNoteCubit>(context).editSubNote(
-                title: titleController.text,
-                content: contentController.text,
-              );
+              //check if the title and content are empty
+              //don't save edit to go back to previes page
+              if (titleController.text.isNotEmpty ||
+                  contentController.text.isNotEmpty) {
+                BlocProvider.of<EditSubNoteCubit>(context).editSubNote(
+                  title: titleController.text,
+                  content: contentController.text,
+                );
+              } else {
+                Navigator.pop(context);
+              }
             },
             backGroundColor: kPrimaryColor,
           ),

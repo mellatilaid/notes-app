@@ -15,7 +15,7 @@ class EditSubNoteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<EditSubNoteCubit, EditSubNotesState>(
       listener: (context, state) {
-        if (state is SuccussState) {
+        if (state is EditSubNoteSuccussState) {
           Navigator.pop(context);
           BlocProvider.of<SubNotesCubit>(context).fetchSubNotes();
         }

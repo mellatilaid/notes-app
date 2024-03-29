@@ -8,12 +8,14 @@ import '../../../helper/const.dart';
 import '../../../models/folder_model.dart';
 
 class EditSubNoteCubit extends Cubit<EditSubNotesState> {
-  EditSubNoteCubit() : super(InitialState());
+  EditSubNoteCubit() : super(EditSubNoteInitialState());
   int? folderIndex;
   int? noteIndex;
   Color? noteColor;
   late NoteModel editedNote;
   late List<NoteModel> notes;
+  //get the note from the folder notes list
+  //and save the new changes to it
   editSubNote({String? title, String? content}) {
     final folderBox = Hive.box<FolderModel>(kFoldersBox);
 
@@ -23,17 +25,18 @@ class EditSubNoteCubit extends Cubit<EditSubNotesState> {
       notes = folder.notes;
 
       editedNote = notes.elementAt(noteIndex!);
-      setEditedNote(title: title, content: content);
+      _setEditedNote(title: title, content: content);
 
       notes[noteIndex!] = editedNote;
 
       folder.notes = notes;
       folder.save();
-      emit(SuccussState());
+      emit(EditSubNoteSuccussState());
     }
   }
 
-  setEditedNote({String? title, String? content}) {
+  //set the edited note variable with the new values
+  _setEditedNote({String? title, String? content}) {
     editedNote.title = title ?? editedNote.title;
     editedNote.content = content ?? editedNote.content;
     editedNote.color = noteColor?.value ?? editedNote.color;
