@@ -18,7 +18,7 @@ class AddSubNoteCubit extends Cubit<AddSubNoteState> {
 
     if (folder != null) {
       note.color = folderColor.value;
-      folder.notes.add(note);
+      folder.notes.insert(0, note);
       try {
         await foldersBox.put(folder.key, folder);
         emit(SuccussState());
