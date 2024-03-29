@@ -21,7 +21,7 @@ class EditSubNoteCubit extends Cubit<EditSubNotesState> {
 
       final note = notes.elementAt(noteIndex!);
       note.title = title ?? note.title;
-      note.content = title ?? note.title;
+      note.content = content ?? note.content;
       note.color = noteColor?.value ?? note.color;
 
       notes[noteIndex!] = note;
