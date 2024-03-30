@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
+import 'package:note_app/views/note_pass_code_view.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
@@ -72,7 +74,9 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
                 label: 'Share',
               ),
               SlidableAction(
-                onPressed: (context) {},
+                onPressed: (context) {
+                  context.toView(const NotePassCodeView());
+                },
                 borderRadius: BorderRadius.circular(8),
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.white,
