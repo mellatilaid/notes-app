@@ -6,6 +6,8 @@ import 'package:note_app/views/search_notes_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/notes_view_body.dart';
 
+import '../widgets/add_voice_note_bottom_sheet.dart';
+
 class MyNotesView extends StatelessWidget {
   const MyNotesView({super.key});
 
@@ -67,14 +69,5 @@ class MyNotesView extends StatelessWidget {
       // The action to perform when the mini FAB is tapped
       onTap: onTap,
     );
-  }
-}
-
-class AddVoiceNoteBottomSheet extends StatelessWidget {
-  const AddVoiceNoteBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
