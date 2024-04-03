@@ -34,6 +34,18 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
     recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
   }
 
+  Future record() async {
+    if (!isRecorderReady) return;
+    await recorder.startRecorder(toFile: 'audio');
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    recorder.closeRecorder();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
