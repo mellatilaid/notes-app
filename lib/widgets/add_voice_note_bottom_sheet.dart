@@ -18,7 +18,7 @@ class AddVoiceNoteBottomSheet extends StatefulWidget {
 class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   final recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
-
+  bool isRecording = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,11 +41,14 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   Future record() async {
     if (!isRecorderReady) return;
     await recorder.startRecorder(toFile: 'audio');
+
+    isRecording = true;
   }
 
   Future stop() async {
     if (!isRecorderReady) return;
     final audioPath = await recorder.stopRecorder();
+    isRecording = false;
     final audioFile = File(audioPath!);
     log('audio file is $audioFile');
   }
@@ -92,8 +95,15 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
                 radius: 35,
                 backgroundColor: kPrimaryColor,
                 child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.play_arrow),
+                  onPressed: () async {
+                    if (recorder.isRecording) {
+                      await stop();
+                    } else {
+                      await record();
+                    }
+                    setState(() {});
+                  },
+                  icon: Icon(isRecording ? Icons.pause : Icons.play_arrow),
                   iconSize: 50,
                 ),
               ),
