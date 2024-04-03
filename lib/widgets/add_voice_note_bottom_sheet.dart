@@ -19,6 +19,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    initRecorder();
   }
 
   initRecorder() async {
@@ -30,6 +31,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
 
     await recorder.openRecorder();
     isRecorderReady = true;
+    recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
   }
 
   @override
