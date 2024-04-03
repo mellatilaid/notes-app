@@ -1,6 +1,10 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/helper/formate_time.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddVoiceNoteBottomSheet extends StatefulWidget {
@@ -42,6 +46,8 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   Future stop() async {
     if (!isRecorderReady) return;
     final audioPath = await recorder.stopRecorder();
+    final audioFile = File(audioPath!);
+    log('audio file is $audioFile');
   }
 
   @override
@@ -58,9 +64,17 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            '00:00',
-            style: TextStyle(fontSize: 24),
+          StreamBuilder<RecordingDisposition>(
+            stream: recorder.onProgress,
+            builder: (context, snopshot) {
+              final duration =
+                  snopshot.hasData ? snopshot.data!.duration : Duration.zero;
+
+              return Text(
+                formateTime(duration.inMilliseconds),
+                style: const TextStyle(fontSize: 30),
+              );
+            },
           ),
           const SizedBox(
             height: 32,
