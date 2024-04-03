@@ -39,6 +39,11 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
     await recorder.startRecorder(toFile: 'audio');
   }
 
+  Future stop() async {
+    if (!isRecorderReady) return;
+    final audioPath = await recorder.stopRecorder();
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
