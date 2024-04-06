@@ -75,7 +75,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
 
               return Text(
                 formateTime(duration.inMilliseconds),
-                style: const TextStyle(fontSize: 30),
+                style: const TextStyle(fontSize: 40),
               );
             },
           ),

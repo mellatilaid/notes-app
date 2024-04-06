@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
 import 'package:note_app/views/search_notes_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
@@ -13,45 +14,60 @@ class MyNotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text('My Notes'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.toView(const SearchNotesView());
-            },
-            icon: const Icon(Icons.search),
-          ),
-        ],
-      ),
-      drawer: const Drawer(),
-      body: const NotesViewBody(),
-      floatingActionButton: AddNoteOptionsSpeedDial(
-        speedDials: [
-          customSpeedDialChild(
-              onTap: () => context.toView(const AddNotesView()),
-              icon: const Icon(Icons.text_fields),
-              label: 'Add Text'),
-          customSpeedDialChild(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return const AddVoiceNoteBottomSheet();
-                  });
-            },
-            icon: const Icon(Icons.voice_chat),
-            label: 'Add Voice',
-          ),
-          customSpeedDialChild(
-            icon: const Icon(Icons.image),
-            label: 'Add Image',
-          ),
-        ],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0,
+          title: const Text('My Notes'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.toView(const SearchNotesView());
+              },
+              icon: const Icon(Icons.search),
+            ),
+          ],
+          bottom: const TabBar(
+              labelColor: kPrimaryColor,
+              dividerColor: kPrimaryColor,
+              tabs: [
+                Icon(Icons.text_fields),
+                Icon(Icons.mic),
+                Icon(Icons.image),
+              ]),
+        ),
+        drawer: const Drawer(),
+        body: const TabBarView(children: [
+          NotesViewBody(),
+          Text('laid'),
+          Text('mellati'),
+        ]),
+        floatingActionButton: AddNoteOptionsSpeedDial(
+          speedDials: [
+            customSpeedDialChild(
+                onTap: () => context.toView(const AddNotesView()),
+                icon: const Icon(Icons.text_fields),
+                label: 'Add Text'),
+            customSpeedDialChild(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return const AddVoiceNoteBottomSheet();
+                    });
+              },
+              icon: const Icon(Icons.mic),
+              label: 'Add Voice',
+            ),
+            customSpeedDialChild(
+              icon: const Icon(Icons.image),
+              label: 'Add Image',
+            ),
+          ],
+        ),
       ),
     );
   }

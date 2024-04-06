@@ -32,7 +32,7 @@ class _NotesListViewState extends State<NotesListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: widget.notes.length,
       itemBuilder: (context, index) {
         switch (widget.notesCubitSource) {
