@@ -5,8 +5,8 @@ import 'package:note_app/cubits/notes_cubits_folder/search_note_cubit/search_not
 import 'package:note_app/cubits/notes_cubits_folder/search_note_cubit/search_note_state.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
 import 'package:note_app/models/note_model.dart';
-import 'package:note_app/widgets/notes_list_view.dart';
 import 'package:note_app/widgets/search_text_field.dart';
+import 'package:note_app/widgets/text_notes_list_view.dart';
 
 import '../helper/const.dart';
 
@@ -42,7 +42,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
                       child: Text('Search Your Notes'),
                     );
                   } else if (state is SearchSecussState) {
-                    return NotesListView(
+                    return TextNotesListview(
                         notesCubitSource: NotesCubitSource.searchCubit,
                         notes: state.notes);
                   } else if (state is SearchFailedState) {

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
-import 'package:note_app/widgets/notes_view_builder.dart';
+import 'package:note_app/widgets/text_notes_view_builder.dart';
 
-class NotesViewBody extends StatefulWidget {
-  const NotesViewBody({super.key});
+class TextNotesViewBody extends StatefulWidget {
+  const TextNotesViewBody({super.key});
 
   @override
-  State<NotesViewBody> createState() => _NotesViewBodyState();
+  State<TextNotesViewBody> createState() => _TextNotesViewBodyState();
 }
 
-class _NotesViewBodyState extends State<NotesViewBody> {
+class _TextNotesViewBodyState extends State<TextNotesViewBody> {
   @override
   void initState() {
     // TODO: implement initState
@@ -20,6 +20,6 @@ class _NotesViewBodyState extends State<NotesViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return const NotesViewBuilder();
+    return const TextNotesViewBuilder();
   }
 }

@@ -5,21 +5,21 @@ import 'package:note_app/widgets/search_view_slidable_note.dart';
 
 import '../models/note_model.dart';
 
-class NotesListView extends StatefulWidget {
+class TextNotesListview extends StatefulWidget {
   final NotesCubitSource notesCubitSource;
   final List<NoteModel> notes;
 
-  const NotesListView({
+  const TextNotesListview({
     super.key,
     required this.notes,
     required this.notesCubitSource,
   });
 
   @override
-  State<NotesListView> createState() => _NotesListViewState();
+  State<TextNotesListview> createState() => _TextNotesListviewState();
 }
 
-class _NotesListViewState extends State<NotesListView> {
+class _TextNotesListviewState extends State<TextNotesListview> {
   late List<NoteModel> revNotes;
 
   @override

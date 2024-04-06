@@ -5,18 +5,18 @@ import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit_stat
 import 'package:note_app/helper/slidable_note_enum.dart';
 import 'package:note_app/models/note_model.dart';
 
-import 'notes_list_view.dart';
+import 'text_notes_list_view.dart';
 
-class NotesViewBuilder extends StatefulWidget {
-  const NotesViewBuilder({
+class TextNotesViewBuilder extends StatefulWidget {
+  const TextNotesViewBuilder({
     super.key,
   });
 
   @override
-  State<NotesViewBuilder> createState() => _NotesViewBuilderState();
+  State<TextNotesViewBuilder> createState() => _TextNotesViewBuilderState();
 }
 
-class _NotesViewBuilderState extends State<NotesViewBuilder> {
+class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
   late List<NoteModel> notes;
 
   @override
@@ -26,7 +26,7 @@ class _NotesViewBuilderState extends State<NotesViewBuilder> {
         if (state is NotesSuccuss) {
           notes = state.notes;
 
-          return NotesListView(
+          return TextNotesListview(
             notesCubitSource: NotesCubitSource.notesCubit,
             notes: notes,
           );
