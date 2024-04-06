@@ -54,7 +54,10 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
               const SizedBox(
                 height: 16,
               ),
-              DualActionTextField(controller: _folderNameController),
+              DualActionTextField(
+                controller: _folderNameController,
+                hintText: 'Enter the folder name',
+              ),
               const SizedBox(
                 height: 8,
               ),

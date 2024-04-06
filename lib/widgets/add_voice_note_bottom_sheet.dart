@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
-import 'package:note_app/widgets/custom_text_field.dart';
+import 'package:note_app/widgets/dual_action_text_field.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddVoiceNoteBottomSheet extends StatefulWidget {
@@ -87,9 +87,15 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
             },
           ),
           const SizedBox(
+            height: 16,
+          ),
+          DualActionTextField(
+            controller: _voiceNotetitle,
+            hintText: 'Enter the voice note name (optional)',
+          ),
+          const SizedBox(
             height: 32,
           ),
-          CustomTextField(controller: _voiceNotetitle),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

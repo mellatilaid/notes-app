@@ -7,10 +7,12 @@ class DualActionTextField extends StatelessWidget {
     super.key,
     required TextEditingController controller,
     this.isNewFolder = true,
+    required this.hintText,
   }) : _controller = controller;
 
   final TextEditingController _controller;
   final bool isNewFolder;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class DualActionTextField extends StatelessWidget {
             }
           : null,
       decoration: InputDecoration(
-        hintText: 'Enter the folder name',
+        hintText: hintText,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
