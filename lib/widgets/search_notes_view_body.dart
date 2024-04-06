@@ -64,7 +64,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
   }
 
   void _searchNotes(String query) {
-    var notesBox = Hive.box<NoteModel>(kNoteBox);
+    var notesBox = Hive.box<NoteModel>(kTextNoteBox);
 
     List<NoteModel> notesFromBox = notesBox.values.toList();
 

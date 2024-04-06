@@ -10,6 +10,7 @@ import 'package:note_app/cubits/notes_cubits_folder/add_note_cubit/simple_add_no
 import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
+import 'package:note_app/models/voice_note_model.dart';
 
 import 'models/note_model.dart';
 
@@ -17,9 +18,11 @@ void main() async {
   Bloc.observer = AddNoteObserver();
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModelAdapter());
-  await Hive.openBox<NoteModel>(kNoteBox);
+  await Hive.openBox<NoteModel>(kTextNoteBox);
   Hive.registerAdapter(FolderModelAdapter());
   await Hive.openBox<FolderModel>(kFoldersBox);
+  Hive.registerAdapter(VoiceNoteModelAdapter());
+  await Hive.openBox<VoiceNoteModel>(kVoiceNoteBox);
   runApp(const NotesApp());
 }
 

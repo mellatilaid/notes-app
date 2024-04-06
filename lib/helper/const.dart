@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 const Color kPrimaryColor = Color(0xffBC6D6D);
 const Color kforeGroundColor = Color(0xff242424);
-const String kNoteBox = 'notes_box';
+const String kTextNoteBox = 'notes_box';
 const String kFoldersBox = 'folders_box';
+const String kVoiceNoteBox = 'voice_note_box';
 const List<Color> kColors = [
   Colors.blue,
   Color(0xff6BC9BA),

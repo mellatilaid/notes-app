@@ -12,7 +12,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
     emit(AddNoteLaoding());
     note.color = itemColor.value;
     try {
-      var notesBox = Hive.box<NoteModel>(kNoteBox);
+      var notesBox = Hive.box<NoteModel>(kTextNoteBox);
       if (note.title.isEmpty && note.content.isEmpty) {
         emit(AddNoteEmpty());
       } else {

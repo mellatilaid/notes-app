@@ -11,7 +11,7 @@ class SearchNoteCubit extends Cubit<SearchNoteState> {
   searchNotes(String query) {
     emit(SearchInitialState());
 
-    var notesBox = Hive.box<NoteModel>(kNoteBox);
+    var notesBox = Hive.box<NoteModel>(kTextNoteBox);
 
     List<NoteModel> notesFromBox = notesBox.values.toList();
 

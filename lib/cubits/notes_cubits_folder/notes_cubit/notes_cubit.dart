@@ -9,7 +9,7 @@ class NotesCubit extends Cubit<NotesState> {
   List<NoteModel>? revNotes;
 
   fetchAllNotes() {
-    var notesBox = Hive.box<NoteModel>(kNoteBox);
+    var notesBox = Hive.box<NoteModel>(kTextNoteBox);
     final List<NoteModel> notes = notesBox.values.toList();
     revNotes = notes.reversed.toList();
     emit(NotesSuccuss(
