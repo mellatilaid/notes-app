@@ -36,13 +36,16 @@ class _AddFolderFormState extends State<AddFolderForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DualActionTextField(controller: widget._folderTitleController),
+          DualActionTextField(
+            controller: widget._folderTitleController,
+            hintText: 'Enter the folder name',
+          ),
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
           const FoldersColorsListView(),
           const SizedBox(
-            height: 8,
+            height: 16,
           ),
           Row(
             children: [
