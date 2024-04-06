@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
+import 'package:note_app/widgets/custom_text_field.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddVoiceNoteBottomSheet extends StatefulWidget {
@@ -16,6 +17,7 @@ class AddVoiceNoteBottomSheet extends StatefulWidget {
 }
 
 class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
+  final TextEditingController _voiceNotetitle = TextEditingController();
   final recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
   bool isRecording = false;
@@ -63,7 +65,12 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      padding: EdgeInsets.only(
+        top: 16,
+        left: 16,
+        right: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -82,6 +89,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
           const SizedBox(
             height: 32,
           ),
+          CustomTextField(controller: _voiceNotetitle),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

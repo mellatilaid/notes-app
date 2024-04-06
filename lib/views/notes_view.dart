@@ -55,6 +55,7 @@ class MyNotesView extends StatelessWidget {
             customSpeedDialChild(
               onTap: () {
                 showModalBottomSheet(
+                    isScrollControlled: true,
                     context: context,
                     builder: (context) {
                       return const AddVoiceNoteBottomSheet();
