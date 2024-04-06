@@ -2,21 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../helper/const.dart';
 
-class NewFolderTextField extends StatelessWidget {
-  const NewFolderTextField({
+class DualActionTextField extends StatelessWidget {
+  const DualActionTextField({
     super.key,
     required TextEditingController controller,
+    this.isNewFolder = true,
   }) : _controller = controller;
 
   final TextEditingController _controller;
+  final bool isNewFolder;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
-      validator: (value) {
-        return validateFolderTitle(value);
-      },
+
+      //if the text field is user in adding new folder
+      //call the validator function otherwise not
+      validator: isNewFolder
+          ? (value) {
+              return validateFolderTitle(value);
+            }
+          : null,
       decoration: InputDecoration(
         hintText: 'Enter the folder name',
         focusedBorder: OutlineInputBorder(

@@ -8,8 +8,8 @@ import 'package:note_app/widgets/edit_folder_colors_list_view.dart';
 
 import '../helper/image_helper.dart';
 import 'custom_text_button.dart';
+import 'dual_action_text_field.dart';
 import 'folder_cover_stack.dart';
-import 'new_folder_text_field.dart';
 
 class EditFolderBottomSheet extends StatefulWidget {
   final FolderModel folder;
@@ -54,7 +54,7 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
               const SizedBox(
                 height: 16,
               ),
-              NewFolderTextField(controller: _folderNameController),
+              DualActionTextField(controller: _folderNameController),
               const SizedBox(
                 height: 8,
               ),

@@ -9,8 +9,8 @@ import '../helper/image_helper.dart';
 import '../models/folder_model.dart';
 import 'custom_action_button.dart';
 import 'custom_text_button.dart';
+import 'dual_action_text_field.dart';
 import 'folders_colors_list_view.dart';
-import 'new_folder_text_field.dart';
 
 class AddFolderForm extends StatefulWidget {
   const AddFolderForm({
@@ -36,7 +36,7 @@ class _AddFolderFormState extends State<AddFolderForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          NewFolderTextField(controller: widget._folderTitleController),
+          DualActionTextField(controller: widget._folderTitleController),
           const SizedBox(
             height: 8,
           ),
