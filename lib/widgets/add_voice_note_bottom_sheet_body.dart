@@ -2,9 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_voice_note_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
+import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/widgets/dual_action_text_field.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,6 +32,7 @@ class _AddVoiceNoteBottomSheetBodyState
     // TODO: implement initState
     super.initState();
     initRecorder();
+    _voiceNotetitle.text = '';
   }
 
   initRecorder() async {
@@ -70,6 +74,7 @@ class _AddVoiceNoteBottomSheetBodyState
     // TODO: implement dispose
     super.dispose();
     recorder.closeRecorder();
+    _voiceNotetitle.dispose();
   }
 
   @override
@@ -132,7 +137,16 @@ class _AddVoiceNoteBottomSheetBodyState
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (audioFilePath != null) {
+                    final VoiceNoteModel voiceNote = _addVoiceNote(
+                      audioPath: audioFilePath!,
+                      audioTitle: _voiceNotetitle.text,
+                    );
+                    BlocProvider.of<AddVoiceNoteCubit>(context)
+                        .addVoiceNote(voiceNoteModel: voiceNote);
+                  }
+                },
                 icon: const Icon(Icons.done),
               ),
             ],
@@ -140,6 +154,15 @@ class _AddVoiceNoteBottomSheetBodyState
         ],
       ),
     );
+  }
+
+  VoiceNoteModel _addVoiceNote(
+      {required String audioPath, required String audioTitle}) {
+    final VoiceNoteModel voiceNote = VoiceNoteModel(
+      title: audioTitle,
+      voicePath: audioPath,
+    );
+    return voiceNote;
   }
 }
 
