@@ -9,8 +9,16 @@ import 'package:note_app/widgets/add_voice_note_bottom_sheet.dart';
 import 'package:note_app/widgets/text_notes_view_body.dart';
 import 'package:note_app/widgets/voice_notes_view_body.dart';
 
-class MyNotesView extends StatelessWidget {
+class MyNotesView extends StatefulWidget {
   const MyNotesView({super.key});
+
+  @override
+  State<MyNotesView> createState() => _MyNotesViewState();
+}
+
+class _MyNotesViewState extends State<MyNotesView>
+    with SingleTickerProviderStateMixin {
+  late final _tabBarController = TabController(length: 3, vsync: this);
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +38,18 @@ class MyNotesView extends StatelessWidget {
               icon: const Icon(Icons.search),
             ),
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
+              controller: _tabBarController,
               labelColor: kPrimaryColor,
               dividerColor: kPrimaryColor,
-              tabs: [
+              tabs: const [
                 Icon(Icons.text_fields),
                 Icon(Icons.mic),
                 Icon(Icons.image),
               ]),
         ),
         drawer: const Drawer(),
-        body: const TabBarView(children: [
+        body: TabBarView(controller: _tabBarController, children: const [
           TextNotesViewBody(),
           VoiceNotesViewBody(),
           Text('mellati'),
@@ -57,7 +66,9 @@ class MyNotesView extends StatelessWidget {
                     isScrollControlled: true,
                     context: context,
                     builder: (context) {
-                      return const AddVoiceNoteBottomSheet();
+                      return AddVoiceNoteBottomSheet(
+                        voiceTabController: _tabBarController,
+                      );
                     });
               },
               icon: const Icon(Icons.mic),

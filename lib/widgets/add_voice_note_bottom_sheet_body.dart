@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -9,7 +6,6 @@ import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/widgets/dual_action_text_field.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddVoiceNoteBottomSheetBody extends StatefulWidget {
@@ -46,16 +42,15 @@ class _AddVoiceNoteBottomSheetBodyState
     isRecorderReady = true;
     recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
 
-    final appDocDir = await getApplicationDocumentsDirectory();
-    audioFilePath = '${appDocDir.path}/recorded_audio.aac';
+    /*final appDocDir = await getApplicationDocumentsDirectory();
+    audioFilePath = '${appDocDir.path}/recorded_audio.aac';*/
   }
 
   Future record() async {
     if (!isRecorderReady) return;
 
     await recorder.startRecorder(
-      toFile: audioFilePath,
-      codec: Codec.aacADTS,
+      toFile: 'audio',
     );
 
     isRecording = true;
@@ -63,10 +58,8 @@ class _AddVoiceNoteBottomSheetBodyState
 
   Future stop() async {
     if (!isRecorderReady) return;
-    final audioPath = await recorder.stopRecorder();
+    audioFilePath = await recorder.stopRecorder();
     isRecording = false;
-    final audioFile = File(audioPath!);
-    log('audio file is $audioFile');
   }
 
   @override
@@ -117,6 +110,8 @@ class _AddVoiceNoteBottomSheetBodyState
               IconButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  //reset audioFilePath to null when closing the bottom sheet
+                  audioFilePath = null;
                 },
                 icon: const Icon(Icons.cancel),
               ),
@@ -145,6 +140,9 @@ class _AddVoiceNoteBottomSheetBodyState
                     );
                     BlocProvider.of<AddVoiceNoteCubit>(context)
                         .addVoiceNote(voiceNoteModel: voiceNote);
+                  } else {
+                    Navigator.pop(context);
+                    //_showMessage(context);
                   }
                 },
                 icon: const Icon(Icons.done),
