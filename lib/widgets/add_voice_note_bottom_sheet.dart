@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_vioce_note_cubit_states.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_voice_note_cubit.dart';
 import 'package:note_app/widgets/add_voice_note_bottom_sheet_body.dart';
 
@@ -10,7 +11,14 @@ class AddVoiceNoteBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddVoiceNoteCubit(),
-      child: const AddVoiceNoteBottomSheetBody(),
+      child: BlocListener<AddVoiceNoteCubit, AddVoiceNotesState>(
+        listener: (context, state) {
+          if (state is AddVoiceNoteSuccuss) {
+            Navigator.pop(context);
+          }
+        },
+        child: const AddVoiceNoteBottomSheetBody(),
+      ),
     );
   }
 }
