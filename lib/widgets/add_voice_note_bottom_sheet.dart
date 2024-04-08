@@ -6,6 +6,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
 import 'package:note_app/widgets/dual_action_text_field.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AddVoiceNoteBottomSheet extends StatefulWidget {
@@ -21,6 +22,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
   final recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
   bool isRecording = false;
+  String? audioFilePath;
   @override
   void initState() {
     // TODO: implement initState
@@ -38,11 +40,18 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
     await recorder.openRecorder();
     isRecorderReady = true;
     recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
+
+    final appDocDir = await getApplicationDocumentsDirectory();
+    audioFilePath = '${appDocDir.path}/recorded_audio.aac';
   }
 
   Future record() async {
     if (!isRecorderReady) return;
-    await recorder.startRecorder(toFile: 'audio');
+
+    await recorder.startRecorder(
+      toFile: audioFilePath,
+      codec: Codec.aacADTS,
+    );
 
     isRecording = true;
   }
@@ -91,7 +100,7 @@ class _AddVoiceNoteBottomSheetState extends State<AddVoiceNoteBottomSheet> {
           ),
           DualActionTextField(
             controller: _voiceNotetitle,
-            hintText: 'Enter the voice note name (optional)',
+            hintText: 'Enter the voice note title (optional)',
           ),
           const SizedBox(
             height: 32,

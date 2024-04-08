@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit.dart';
-import 'package:note_app/cubits/notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
+import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/helper/slidable_note_enum.dart';
 import 'package:note_app/models/note_model.dart';
 
