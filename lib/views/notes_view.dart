@@ -21,6 +21,13 @@ class _MyNotesViewState extends State<MyNotesView>
   late final _tabBarController = TabController(length: 3, vsync: this);
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _tabBarController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
@@ -49,15 +56,20 @@ class _MyNotesViewState extends State<MyNotesView>
               ]),
         ),
         drawer: const Drawer(),
-        body: TabBarView(controller: _tabBarController, children: const [
-          TextNotesViewBody(),
-          VoiceNotesViewBody(),
-          Text('mellati'),
-        ]),
+        body: TabBarView(
+          controller: _tabBarController,
+          children: const [
+            TextNotesViewBody(),
+            VoiceNotesViewBody(),
+            Text('mellati'),
+          ],
+        ),
         floatingActionButton: AddNoteOptionsSpeedDial(
           speedDials: [
             customSpeedDialChild(
-                onTap: () => context.toView(const AddNotesView()),
+                onTap: () => context.toView(AddNotesView(
+                      textNoteTabController: _tabBarController,
+                    )),
                 icon: const Icon(Icons.text_fields),
                 label: 'Add Text'),
             customSpeedDialChild(

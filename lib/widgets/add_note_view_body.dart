@@ -6,7 +6,8 @@ import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit
 import 'package:note_app/widgets/add_note_form.dart';
 
 class AddNoteViewBody extends StatelessWidget {
-  const AddNoteViewBody({super.key});
+  final TabController textNoteTabController;
+  const AddNoteViewBody({super.key, required this.textNoteTabController});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class AddNoteViewBody extends StatelessWidget {
         if (state is AddNoteSuccuss || state is AddNoteEmpty) {
           BlocProvider.of<NotesCubit>(context).fetchAllNotes();
           Navigator.pop(context);
+          textNoteTabController.animateTo(0);
         } else if (state is AddNoteFailure) {}
       },
       builder: (context, state) {

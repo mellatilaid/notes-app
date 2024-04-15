@@ -4,7 +4,8 @@ import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/add_note
 import 'package:note_app/widgets/add_note_view_body.dart';
 
 class AddNotesView extends StatelessWidget {
-  const AddNotesView({super.key});
+  final TabController textNoteTabController;
+  const AddNotesView({super.key, required this.textNoteTabController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,9 @@ class AddNotesView extends StatelessWidget {
             IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           ],
         ),
-        body: const AddNoteViewBody(),
+        body: AddNoteViewBody(
+          textNoteTabController: textNoteTabController,
+        ),
       ),
     );
   }
