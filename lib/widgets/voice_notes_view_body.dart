@@ -13,6 +13,13 @@ class VoiceNotesViewBody extends StatefulWidget {
 
 class _VoiceNotesViewBodyState extends State<VoiceNotesViewBody> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => VoiceNotesCubit(),
