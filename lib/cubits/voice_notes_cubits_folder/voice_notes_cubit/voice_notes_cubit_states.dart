@@ -1,10 +1,10 @@
 import 'package:note_app/models/voice_note_model.dart';
 
-class VoiceNotes {}
+class VoiceNotesState {}
 
-class VoiceNotesInitialState extends VoiceNotes {}
+class VoiceNotesInitialState extends VoiceNotesState {}
 
-class VoiceNotesSuccussState extends VoiceNotes {
+class VoiceNotesSuccussState extends VoiceNotesState {
   final List<VoiceNoteModel> voiceNotes;
 
   VoiceNotesSuccussState({required this.voiceNotes});
