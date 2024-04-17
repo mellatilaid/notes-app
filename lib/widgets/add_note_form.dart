@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit_states.dart';
+import 'package:note_app/helper/note_added_time_formater.dart';
 
 import '../cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit.dart';
 import '../helper/const.dart';
@@ -62,21 +63,11 @@ class _AddNoteFormState extends State<AddNoteForm> {
     );
   }
 
-  String _formatDate({required DateTime time}) {
-    final year = time.year.toString();
-
-    final String month = time.month.toString();
-
-    final String day = time.day.toString();
-
-    return '$day/$month/$year';
-  }
-
   _addNote() {
     NoteModel note = NoteModel(
       title: titleController.text,
       content: contentController.text,
-      date: _formatDate(time: DateTime.now()),
+      date: noteFormatDate(time: DateTime.now()),
       color: Colors.amber.value,
     );
 

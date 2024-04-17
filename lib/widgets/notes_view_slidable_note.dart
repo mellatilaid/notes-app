@@ -218,7 +218,7 @@ class CustomVoiceNoteItem extends StatelessWidget {
                 child: const Icon(
                   Icons.play_arrow,
                   color: Colors.white,
-                  size: 30,
+                  size: 20,
                 ),
               ),
             ),

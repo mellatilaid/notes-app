@@ -4,6 +4,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_voice_note_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
+import 'package:note_app/helper/note_added_time_formater.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/widgets/dual_action_text_field.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -159,6 +160,7 @@ class _AddVoiceNoteBottomSheetBodyState
     final VoiceNoteModel voiceNote = VoiceNoteModel(
       title: audioTitle,
       voicePath: audioPath,
+      date: noteFormatDate(time: DateTime.now()),
     );
     return voiceNote;
   }

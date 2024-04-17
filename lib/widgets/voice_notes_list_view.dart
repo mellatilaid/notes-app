@@ -11,6 +11,7 @@ class VoiceNotesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: UniqueKey(),
       padding: const EdgeInsets.all(8),
       itemCount: voiceNotes.length,
       itemBuilder: (context, index) {
