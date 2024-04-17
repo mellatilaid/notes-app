@@ -118,7 +118,7 @@ class _AddVoiceNoteBottomSheetBodyState
                 icon: const Icon(Icons.cancel),
               ),
               CustomRoundedIcon(
-                icon: Icons.play_arrow,
+                icon: isRecording ? Icons.stop : Icons.play_arrow,
                 size: 65,
                 onTap: () async {
                   if (recorder.isRecording) {
