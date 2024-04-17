@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
-import 'package:note_app/helper/slidable_note_enum.dart';
+import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/note_model.dart';
 
 import 'text_notes_list_view.dart';
@@ -28,7 +28,7 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
 
           return TextNotesListview(
             notesCubitSource: NotesCubitSource.notesCubit,
-            notes: notes,
+            textNotes: notes,
           );
         } else {
           return const Center(

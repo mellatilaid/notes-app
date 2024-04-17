@@ -7,3 +7,9 @@ enum NotesCubitSource {
   notesCubit,
   searchCubit,
 }
+
+enum WidgetLocation {
+  textNotesViewBody,
+  voiceNotesViewBody,
+  imageNotesViewBody,
+}

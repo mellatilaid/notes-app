@@ -6,14 +6,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
-import 'package:note_app/helper/slidable_note_enum.dart';
+import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
-class NotesViewSlidableNote extends StatefulWidget {
-  const NotesViewSlidableNote({
+class TextNotesViewSlidableNote extends StatefulWidget {
+  const TextNotesViewSlidableNote({
     super.key,
     required this.note,
     required this.index,
@@ -23,10 +23,11 @@ class NotesViewSlidableNote extends StatefulWidget {
   final int index;
 
   @override
-  State<NotesViewSlidableNote> createState() => _NotesViewSlidableNoteState();
+  State<TextNotesViewSlidableNote> createState() =>
+      _TextNotesViewSlidableNoteState();
 }
 
-class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
+class _TextNotesViewSlidableNoteState extends State<TextNotesViewSlidableNote> {
   late NotesCubit notesCubit;
 
   @override
