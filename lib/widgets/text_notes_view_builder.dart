@@ -24,11 +24,9 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
         if (state is NotesSuccuss) {
-          notes = state.notes;
-
           return TextNotesListview(
             notesCubitSource: NotesCubitSource.notesCubit,
-            textNotes: notes,
+            textNotes: state.notes,
           );
         } else {
           return const Center(

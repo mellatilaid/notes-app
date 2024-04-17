@@ -8,6 +8,7 @@ import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc
 import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/simple_add_note_cubit_abserver.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
@@ -47,6 +48,9 @@ class NotesApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EditSubNoteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VoiceNotesCubit(),
         ),
       ],
       child: MaterialApp(

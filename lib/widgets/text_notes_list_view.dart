@@ -29,6 +29,7 @@ class _TextNotesListviewState extends State<TextNotesListview> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: UniqueKey(),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: widget.textNotes.length,
       itemBuilder: (context, index) {

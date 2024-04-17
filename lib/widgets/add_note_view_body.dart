@@ -17,7 +17,9 @@ class AddNoteViewBody extends StatelessWidget {
           BlocProvider.of<NotesCubit>(context).fetchAllNotes();
           Navigator.pop(context);
           textNoteTabController.animateTo(0);
-        } else if (state is AddNoteFailure) {}
+        } else if (state is AddNoteFailure) {
+          print('oops there was a problem ${state.errMessage}');
+        }
       },
       builder: (context, state) {
         return const Padding(

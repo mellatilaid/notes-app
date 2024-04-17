@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_vioce_note_cubit_states.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_voice_note_cubit.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/widgets/add_voice_note_bottom_sheet_body.dart';
 
 class AddVoiceNoteBottomSheet extends StatelessWidget {
@@ -15,6 +16,7 @@ class AddVoiceNoteBottomSheet extends StatelessWidget {
       child: BlocListener<AddVoiceNoteCubit, AddVoiceNotesState>(
         listener: (context, state) {
           if (state is AddVoiceNoteSuccuss) {
+            BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
             Navigator.pop(context);
             //Navigating the user to voice notes tab
             //when the voice is added sucussfly

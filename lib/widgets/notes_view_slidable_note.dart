@@ -55,6 +55,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
       case WidgetLocation.voiceNotesViewBody:
         notesCubit = context.read<VoiceNotesCubit>();
         note = widget.noteModel as VoiceNoteModel;
+        break;
       default:
     }
   }
@@ -129,6 +130,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
         break;
       case NoteSlidableAction.share:
         _shareNote();
+        break;
       default:
     }
   }
@@ -137,7 +139,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
 
   _deleteNote(BuildContext context, var note) {
     final note = widget.noteModel;
-
+    print('note index is ${widget.index}');
     notesCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
       note.delete();

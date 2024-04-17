@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
@@ -31,71 +29,68 @@ class _NotesViewState extends State<NotesView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => VoiceNotesCubit(),
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            elevation: 0,
-            title: const Text('My Notes'),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  context.toView(const SearchNotesView());
-                },
-                icon: const Icon(Icons.search),
-              ),
-            ],
-            bottom: TabBar(
-                controller: _tabBarController,
-                labelColor: kPrimaryColor,
-                dividerColor: kPrimaryColor,
-                tabs: const [
-                  Icon(Icons.text_fields),
-                  Icon(Icons.mic),
-                  Icon(Icons.image),
-                ]),
-          ),
-          drawer: const Drawer(),
-          body: TabBarView(
-            controller: _tabBarController,
-            children: const [
-              TextNotesViewBody(),
-              VoiceNotesViewBody(),
-              Text('mellati'),
-            ],
-          ),
-          floatingActionButton: AddNoteOptionsSpeedDial(
-            speedDials: [
-              customSpeedDialChild(
-                  onTap: () => context.toView(AddNotesView(
-                        textNoteTabController: _tabBarController,
-                      )),
-                  icon: const Icon(Icons.text_fields),
-                  label: 'Add Text'),
-              customSpeedDialChild(
-                onTap: () {
-                  showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return AddVoiceNoteBottomSheet(
-                          voiceTabController: _tabBarController,
-                        );
-                      });
-                },
-                icon: const Icon(Icons.mic),
-                label: 'Add Voice',
-              ),
-              customSpeedDialChild(
-                icon: const Icon(Icons.image),
-                label: 'Add Image',
-              ),
-            ],
-          ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0,
+          title: const Text('My Notes'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.toView(const SearchNotesView());
+              },
+              icon: const Icon(Icons.search),
+            ),
+          ],
+          bottom: TabBar(
+              controller: _tabBarController,
+              labelColor: kPrimaryColor,
+              dividerColor: kPrimaryColor,
+              tabs: const [
+                Icon(Icons.text_fields),
+                Icon(Icons.mic),
+                Icon(Icons.image),
+              ]),
+        ),
+        drawer: const Drawer(),
+        body: TabBarView(
+          controller: _tabBarController,
+          children: const [
+            TextNotesViewBody(),
+            VoiceNotesViewBody(),
+            Text('mellati'),
+          ],
+        ),
+        floatingActionButton: AddNoteOptionsSpeedDial(
+          speedDials: [
+            customSpeedDialChild(
+                onTap: () => context.toView(AddNotesView(
+                      textNoteTabController: _tabBarController,
+                    )),
+                icon: const Icon(Icons.text_fields),
+                label: 'Add Text'),
+            customSpeedDialChild(
+              onTap: () {
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return AddVoiceNoteBottomSheet(
+                        voiceTabController: _tabBarController,
+                      );
+                    });
+              },
+              icon: const Icon(Icons.mic),
+              label: 'Add Voice',
+            ),
+            customSpeedDialChild(
+              icon: const Icon(Icons.image),
+              label: 'Add Image',
+            ),
+          ],
         ),
       ),
     );
