@@ -16,7 +16,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   final _pageController = PageController();
 
   final _pages = [
-    const MyNotesView(),
+    const NotesView(),
     const FoldersView(),
     const ToDoView(),
     const RemindersView(),

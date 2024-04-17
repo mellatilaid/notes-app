@@ -21,10 +21,7 @@ class _VoiceNotesViewBodyState extends State<VoiceNotesViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => VoiceNotesCubit(),
-      child: const VoiceNotesBuilder(),
-    );
+    return const VoiceNotesBuilder();
   }
 }
 
