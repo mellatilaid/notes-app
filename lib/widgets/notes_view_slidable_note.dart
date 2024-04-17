@@ -6,6 +6,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/basic_class.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/voice_note_model.dart';
@@ -25,15 +27,16 @@ class NotesViewSlidableNote<T> extends StatefulWidget {
   //we use this widget in deff places
   //so the type of note model is deff
   final T noteModel;
+
   final int index;
 
   @override
   State<NotesViewSlidableNote> createState() => _NotesViewSlidableNoteState();
 }
 
-class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
+class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   // ignore: prefer_typing_uninitialized_variables
-  var notesCubit;
+  late INoteCubit notesCubit;
   //this var store the specific note model after
   //conferming the noteModel var type
   // ignore: prefer_typing_uninitialized_variables
@@ -74,6 +77,7 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
                   context,
                   widget.index,
                   NoteSlidableAction.delete,
+                  note,
                 ),
                 borderRadius: BorderRadius.circular(8),
                 backgroundColor: const Color(0xFFFE4A49),
@@ -86,6 +90,7 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
                   context,
                   widget.index,
                   NoteSlidableAction.share,
+                  note,
                 ),
                 borderRadius: BorderRadius.circular(8),
                 backgroundColor: const Color(0xFF21B7CA),
@@ -104,10 +109,12 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
                 label: 'Lock',
               ),
             ]),
-        child: CustomNoteItem(
-          editNoteViewOptin: EditNote.editNoteView,
-          note: widget.noteModel,
-        ),
+        child: (widget.widgetLocation == WidgetLocation.textNotesViewBody)
+            ? CustomNoteItem(
+                editNoteViewOptin: EditNote.editNoteView,
+                note: note,
+              )
+            : CustomVoiceNoteItem(voiceNote: note),
       ),
     );
   }
@@ -115,10 +122,10 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
   //this fucntion triggred when one of slidable action button
   //tapped (delete, share)
   _onSlidableActionTapped(
-      BuildContext context, int index, NoteSlidableAction action) {
+      BuildContext context, int index, NoteSlidableAction action, var note) {
     switch (action) {
       case NoteSlidableAction.delete:
-        _deleteNote(context);
+        _deleteNote(context, note);
         break;
       case NoteSlidableAction.share:
         _shareNote();
@@ -128,12 +135,12 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
 
   _shareNote() {}
 
-  _deleteNote(BuildContext context) {
-    final NoteModel note = widget.noteModel;
+  _deleteNote(BuildContext context, var note) {
+    final note = widget.noteModel;
 
     notesCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
-      widget.noteModel.delete();
+      note.delete();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -161,5 +168,61 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
   _onDismissed() {
     widget.noteModel.delete();
     notesCubit.removeFromNotes(index: widget.index);
+  }
+}
+
+class CustomVoiceNoteItem extends StatelessWidget {
+  final VoiceNoteModel voiceNote;
+  const CustomVoiceNoteItem({super.key, required this.voiceNote});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              voiceNote.title,
+              textAlign: TextAlign.start,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: kPrimaryColor,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.play_arrow,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

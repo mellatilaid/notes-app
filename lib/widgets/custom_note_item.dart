@@ -24,6 +24,8 @@ class CustomNoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        //this handls wictch view to navigate to base on
+        //editNoteViewOptin var
         switch (editNoteViewOptin) {
           case EditNote.editNoteView:
             context.toView(
@@ -34,7 +36,7 @@ class CustomNoteItem extends StatelessWidget {
             break;
           case EditNote.editSubNoteView:
             //givig the edit sub note cubit the index of note where
-            // if the user wants to edit note , the cubit has the not index
+            // if the user wants to edit note , the cubit has the note index
             BlocProvider.of<EditSubNoteCubit>(context).noteIndex = noteIndex;
             context.toView(
               EditSubNoteView(
