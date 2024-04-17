@@ -20,19 +20,22 @@ class VoiceNoteModelAdapter extends TypeAdapter<VoiceNoteModel> {
       title: fields[0] as String,
       content: fields[1] as String?,
       voicePath: fields[2] as String,
+      date: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, VoiceNoteModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.content)
       ..writeByte(2)
-      ..write(obj.voicePath);
+      ..write(obj.voicePath)
+      ..writeByte(3)
+      ..write(obj.date);
   }
 
   @override
