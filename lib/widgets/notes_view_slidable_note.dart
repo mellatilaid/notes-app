@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
@@ -12,29 +13,40 @@ import 'package:note_app/views/note_pass_code_view.dart';
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
-class TextNotesViewSlidableNote extends StatefulWidget {
-  const TextNotesViewSlidableNote({
+class NotesViewSlidableNote extends StatefulWidget {
+  final WidgetLocation widgetLocation;
+  const NotesViewSlidableNote({
     super.key,
     required this.note,
     required this.index,
+    required this.widgetLocation,
   });
 
   final NoteModel note;
   final int index;
 
   @override
-  State<TextNotesViewSlidableNote> createState() =>
-      _TextNotesViewSlidableNoteState();
+  State<NotesViewSlidableNote> createState() => _NotesViewSlidableNoteState();
 }
 
-class _TextNotesViewSlidableNoteState extends State<TextNotesViewSlidableNote> {
-  late NotesCubit notesCubit;
+class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
+  // ignore: prefer_typing_uninitialized_variables
+  var notesCubit;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    notesCubit = context.read<NotesCubit>();
+    //inisilze notesCubit var based on the witch tab bar to
+    //to use slidable note widget
+    switch (widget.widgetLocation) {
+      case WidgetLocation.textNotesViewBody:
+        notesCubit = context.read<NotesCubit>();
+        break;
+      case WidgetLocation.voiceNotesViewBody:
+        notesCubit = context.read<VoiceNotesCubit>();
+      default:
+    }
   }
 
   @override

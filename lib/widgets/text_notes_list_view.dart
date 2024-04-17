@@ -34,7 +34,8 @@ class _TextNotesListviewState extends State<TextNotesListview> {
       itemBuilder: (context, index) {
         switch (widget.notesCubitSource) {
           case NotesCubitSource.notesCubit:
-            return TextNotesViewSlidableNote(
+            return NotesViewSlidableNote(
+              widgetLocation: WidgetLocation.textNotesViewBody,
               note: widget.textNotes[index],
               index: index,
             );
