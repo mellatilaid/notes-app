@@ -11,12 +11,12 @@ class VoiceNoteModel extends HiveObject {
   @HiveField(2)
   final String voicePath;
   @HiveField(3)
-  final String date;
+  final String? date;
 
   VoiceNoteModel({
     required this.title,
     this.content,
     required this.voicePath,
-    required this.date,
+    this.date,
   });
 }

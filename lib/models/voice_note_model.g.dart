@@ -20,7 +20,7 @@ class VoiceNoteModelAdapter extends TypeAdapter<VoiceNoteModel> {
       title: fields[0] as String,
       content: fields[1] as String?,
       voicePath: fields[2] as String,
-      date: fields[3] as String,
+      date: fields[3] as String?,
     );
   }
 

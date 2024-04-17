@@ -7,7 +7,6 @@ import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/basic_class.dart';
-import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/voice_note_model.dart';
@@ -15,6 +14,7 @@ import 'package:note_app/views/note_pass_code_view.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
+import 'custom_voice_note_item.dart';
 
 class NotesViewSlidableNote<T> extends StatefulWidget {
   final WidgetLocation widgetLocation;
@@ -170,61 +170,5 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   _onDismissed() {
     widget.noteModel.delete();
     notesCubit.removeFromNotes(index: widget.index);
-  }
-}
-
-class CustomVoiceNoteItem extends StatelessWidget {
-  final VoiceNoteModel voiceNote;
-  const CustomVoiceNoteItem({super.key, required this.voiceNote});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Colors.grey,
-          width: 2,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              voiceNote.title,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kPrimaryColor,
-                  border: Border.all(
-                    color: Colors.white,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.play_arrow,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
