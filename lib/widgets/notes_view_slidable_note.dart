@@ -8,21 +8,23 @@ import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voic
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 
-class NotesViewSlidableNote extends StatefulWidget {
+class NotesViewSlidableNote<T> extends StatefulWidget {
   final WidgetLocation widgetLocation;
   const NotesViewSlidableNote({
     super.key,
-    required this.note,
+    required this.noteModel,
     required this.index,
     required this.widgetLocation,
   });
-
-  final NoteModel note;
+  //we use this widget in deff places
+  //so the type of note model is deff
+  final T noteModel;
   final int index;
 
   @override
@@ -32,7 +34,10 @@ class NotesViewSlidableNote extends StatefulWidget {
 class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
   // ignore: prefer_typing_uninitialized_variables
   var notesCubit;
-
+  //this var store the specific note model after
+  //conferming the noteModel var type
+  // ignore: prefer_typing_uninitialized_variables
+  var note;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,9 +47,11 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
     switch (widget.widgetLocation) {
       case WidgetLocation.textNotesViewBody:
         notesCubit = context.read<NotesCubit>();
+        note = widget.noteModel as NoteModel;
         break;
       case WidgetLocation.voiceNotesViewBody:
         notesCubit = context.read<VoiceNotesCubit>();
+        note = widget.noteModel as VoiceNoteModel;
       default:
     }
   }
@@ -99,7 +106,7 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
             ]),
         child: CustomNoteItem(
           editNoteViewOptin: EditNote.editNoteView,
-          note: widget.note,
+          note: widget.noteModel,
         ),
       ),
     );
@@ -122,11 +129,11 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
   _shareNote() {}
 
   _deleteNote(BuildContext context) {
-    final NoteModel note = widget.note;
+    final NoteModel note = widget.noteModel;
 
     notesCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
-      widget.note.delete();
+      widget.noteModel.delete();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
@@ -152,7 +159,7 @@ class _NotesViewSlidableNoteState extends State<NotesViewSlidableNote> {
 
   //this function triggred when the note is dissmissed
   _onDismissed() {
-    widget.note.delete();
+    widget.noteModel.delete();
     notesCubit.removeFromNotes(index: widget.index);
   }
 }

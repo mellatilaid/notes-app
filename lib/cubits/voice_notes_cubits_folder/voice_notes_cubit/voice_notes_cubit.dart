@@ -18,4 +18,14 @@ class VoiceNotesCubit extends Cubit<VoiceNotesState> {
       VoiceNotesSuccussState(voiceNotes: reversedVoiceNotes!),
     );
   }
+
+  addToNotes({required int index, required VoiceNoteModel note}) {
+    reversedVoiceNotes!.insert(index, note);
+    emit(VoiceNotesSuccussState(voiceNotes: reversedVoiceNotes!));
+  }
+
+  removeFromNotes({required int index}) {
+    reversedVoiceNotes!.removeAt(index);
+    emit(VoiceNotesSuccussState(voiceNotes: reversedVoiceNotes!));
+  }
 }
