@@ -1,6 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/voice_note_model.dart';
+import 'package:note_app/widgets/custom_rounded_icon.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
 class VoicePlayerView extends StatefulWidget {
@@ -20,6 +24,7 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
   bool isPlaying = false;
   var duration = Duration.zero;
   var position = Duration.zero;
+  bool _isCompleted = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -31,6 +36,14 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
         setState(() {
           isPlaying = state == PlayerState.playing;
         });
+      }
+    });
+
+    audioPlayer.onPlayerComplete.listen((event) {
+      if (mounted) {
+        isPlaying = false;
+        position = Duration.zero;
+        _isCompleted = true;
       }
     });
 
@@ -53,6 +66,7 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
 
   setAudio() async {
     try {
+      audioPlayer.setReleaseMode(ReleaseMode.loop);
       audioPlayer.setSourceUrl(widget.voiceNote.voicePath);
     } catch (e) {
       throw Exception(e.toString());
@@ -71,53 +85,103 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('voice palyer'),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _deleteNote();
+            },
+            icon: const Icon(
+              Icons.delete_forever,
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             CustomTextField(
+              textStyle: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
               controller: _titleController,
               hintText: 'Title',
             ),
-            Slider(
-              min: 0,
-              max: duration.inSeconds.toDouble(),
-              value: position.inSeconds.toDouble(),
-              onChanged: (value) async {
-                final postion = Duration(seconds: value.toInt());
-                await audioPlayer.seek(postion);
+            const Spacer(
+              flex: 1,
+            ),
+            Container(
+              margin: const EdgeInsets.all(8),
+              width: double.infinity,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: const DecorationImage(
+                  image: AssetImage(
+                    'assets/audio.png',
+                  ),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
+            ),
+            Card(
+              elevation: 5,
+              child: Slider(
+                activeColor: kPrimaryColor,
+                min: 0,
+                max: duration.inMicroseconds.toDouble(),
+                value: position.inMicroseconds.toDouble(),
+                onChanged: (value) async {
+                  final postion = Duration(microseconds: value.toInt());
+                  await audioPlayer.seek(postion);
 
-                await audioPlayer.resume();
-              },
+                  await audioPlayer.resume();
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(formatDuration(duration.inMilliseconds)),
                   Text(formatDuration(position.inMilliseconds)),
+                  Text(formatDuration(duration.inMilliseconds)),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 50,
+            const Spacer(
+              flex: 2,
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  if (isPlaying) {
-                    await audioPlayer.pause();
-                  } else {
-                    await audioPlayer.resume();
+            CustomRoundedIcon(
+              onTap: () async {
+                if (isPlaying) {
+                  await audioPlayer.pause();
+                  setState(() {
+                    isPlaying = false;
+                  });
+                } else {
+                  if (_isCompleted) {
+                    await audioPlayer.seek(
+                        Duration.zero); // Reset the audio position to the start
+                    _isCompleted = false; // Reset the completion flag
                   }
-                },
-                child: Icon(
-                  isPlaying ? Icons.stop : Icons.play_arrow,
-                  size: 50,
-                ))
+                  await audioPlayer.resume();
+                  setState(
+                    () {
+                      isPlaying = true;
+                    },
+                  );
+                }
+              },
+              size: 60,
+              icon: isPlaying ? Icons.stop : Icons.play_arrow,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
           ],
         ),
       ),
@@ -134,5 +198,11 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
     return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  _deleteNote() {
+    Navigator.pop(context);
+    widget.voiceNote.delete();
+    BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
   }
 }

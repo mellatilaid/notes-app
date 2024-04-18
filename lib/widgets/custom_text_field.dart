@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../helper/const.dart';
@@ -9,6 +11,7 @@ class CustomTextField extends StatefulWidget {
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
   TextEditingController controller;
+  final TextStyle? textStyle;
   CustomTextField({
     super.key,
     this.hintText,
@@ -17,6 +20,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.isExpand = false,
     required this.controller,
+    this.textStyle,
   });
 
   @override
@@ -27,6 +31,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: widget.textStyle,
       controller: widget.controller,
       onChanged: widget.onChanged,
       onSaved: widget.onSaved,
