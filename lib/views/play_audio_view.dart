@@ -26,11 +26,13 @@ class _AudioPlayerViewState extends State<AudioPlayerView> {
       });
     });
 
-    audioPlayer.onDurationChanged.listen((newDuration) {
-      setState(() {
-        duration = newDuration;
-      });
-    });
+    audioPlayer.onDurationChanged.listen(
+      (newDuration) {
+        setState(() {
+          duration = newDuration;
+        });
+      },
+    );
 
     audioPlayer.onPositionChanged.listen((newPostion) {
       setState(() {

@@ -27,28 +27,36 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     _titleController = TextEditingController(text: widget.voiceNote.title);
     setAudio();
     audioPlayer.onPlayerStateChanged.listen((state) {
-      setState(() {
-        isPlaying = state == PlayerState.playing;
-      });
+      if (mounted) {
+        setState(() {
+          isPlaying = state == PlayerState.playing;
+        });
+      }
     });
 
     audioPlayer.onDurationChanged.listen((newDuration) {
-      setState(() {
-        duration = newDuration;
-      });
+      if (mounted) {
+        setState(() {
+          duration = newDuration;
+        });
+      }
     });
 
     audioPlayer.onPositionChanged.listen((newPostion) {
-      setState(() {
-        position = newPostion;
-      });
+      if (mounted) {
+        setState(() {
+          position = newPostion;
+        });
+      }
     });
   }
 
   setAudio() async {
-    final player = AudioCache(prefix: 'assets/');
-    final url = await player.load('zero.mp3');
-    audioPlayer.setSourceUrl(widget.voiceNote.voicePath);
+    try {
+      audioPlayer.setSourceUrl(widget.voiceNote.voicePath);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override
@@ -56,6 +64,7 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     // TODO: implement dispose
     super.dispose();
     _titleController.dispose();
+    audioPlayer.dispose();
   }
 
   @override

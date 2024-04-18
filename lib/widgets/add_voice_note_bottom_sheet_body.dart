@@ -50,9 +50,10 @@ class _AddVoiceNoteBottomSheetBodyState
 
   Future record() async {
     if (!isRecorderReady) return;
-
+    final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+    final filePath = 'audio_$timeStamp.aac';
     await recorder.startRecorder(
-      toFile: 'audio',
+      toFile: filePath,
     );
 
     isRecording = true;
