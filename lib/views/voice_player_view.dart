@@ -7,7 +7,7 @@ import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/widgets/custom_rounded_icon.dart';
 import 'package:note_app/widgets/custom_text_field.dart';
 
-class VoicePlayerView extends StatefulWidget {
+class VoicePlayerView extends StatelessWidget {
   final VoiceNoteModel voiceNote;
   const VoicePlayerView({
     super.key,
@@ -15,10 +15,62 @@ class VoicePlayerView extends StatefulWidget {
   });
 
   @override
-  State<VoicePlayerView> createState() => _VoicePlayerViewState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _deleteNote(context: context);
+            },
+            icon: const Icon(
+              Icons.edit,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              _deleteNote(context: context);
+            },
+            icon: const Icon(
+              Icons.delete_forever,
+            ),
+          ),
+        ],
+      ),
+      body: VoicePlayerViewBody(voiceNote: voiceNote),
+    );
+  }
+
+  String formatDuration(int milliseconds) {
+    int seconds = (milliseconds / 1000).floor();
+    int minutes = (seconds / 60).floor();
+    int hours = (minutes / 60).floor();
+
+    String hoursStr = (hours % 24).toString().padLeft(2, '0');
+    String minutesStr = (minutes % 60).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  _deleteNote({required BuildContext context}) {
+    Navigator.pop(context);
+    voiceNote.delete();
+    BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
+  }
 }
 
-class _VoicePlayerViewState extends State<VoicePlayerView> {
+class VoicePlayerViewBody extends StatefulWidget {
+  final VoiceNoteModel voiceNote;
+  const VoicePlayerViewBody({super.key, required this.voiceNote});
+
+  @override
+  State<VoicePlayerViewBody> createState() => _VoicePlayerViewBodyState();
+}
+
+class _VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
   late TextEditingController _titleController;
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
@@ -83,107 +135,93 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {
-              _deleteNote();
-            },
-            icon: const Icon(
-              Icons.delete_forever,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          CustomTextField(
+            readOnly: true,
+            textStyle: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            CustomTextField(
-              textStyle: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-              controller: _titleController,
-              hintText: 'Title',
-            ),
-            const Spacer(
-              flex: 1,
-            ),
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                image: const DecorationImage(
-                  image: AssetImage(
-                    'assets/audio.png',
-                  ),
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.high,
+            controller: _titleController,
+            hintText: 'Title',
+          ),
+          const Spacer(
+            flex: 1,
+          ),
+          Container(
+            margin: const EdgeInsets.all(8),
+            width: double.infinity,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              image: const DecorationImage(
+                image: AssetImage(
+                  'assets/audio.png',
                 ),
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.high,
               ),
             ),
-            Card(
-              elevation: 5,
-              child: Slider(
-                activeColor: kPrimaryColor,
-                min: 0,
-                max: duration.inMicroseconds.toDouble(),
-                value: position.inMicroseconds.toDouble(),
-                onChanged: (value) async {
-                  final postion = Duration(microseconds: value.toInt());
-                  await audioPlayer.seek(postion);
+          ),
+          Card(
+            elevation: 5,
+            child: Slider(
+              activeColor: kPrimaryColor,
+              min: 0,
+              max: duration.inMicroseconds.toDouble(),
+              value: position.inMicroseconds.toDouble(),
+              onChanged: (value) async {
+                final postion = Duration(microseconds: value.toInt());
+                await audioPlayer.seek(postion);
 
-                  await audioPlayer.resume();
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(formatDuration(position.inMilliseconds)),
-                  Text(formatDuration(duration.inMilliseconds)),
-                ],
-              ),
-            ),
-            const Spacer(
-              flex: 2,
-            ),
-            CustomRoundedIcon(
-              onTap: () async {
-                if (isPlaying) {
-                  await audioPlayer.pause();
-                  setState(() {
-                    isPlaying = false;
-                  });
-                } else {
-                  if (_isCompleted) {
-                    await audioPlayer.seek(
-                        Duration.zero); // Reset the audio position to the start
-                    _isCompleted = false; // Reset the completion flag
-                  }
-                  await audioPlayer.resume();
-                  setState(
-                    () {
-                      isPlaying = true;
-                    },
-                  );
-                }
+                await audioPlayer.resume();
               },
-              size: 60,
-              icon: isPlaying ? Icons.stop : Icons.play_arrow,
             ),
-            const Spacer(
-              flex: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(formatDuration(position.inMilliseconds)),
+                Text(formatDuration(duration.inMilliseconds)),
+              ],
             ),
-          ],
-        ),
+          ),
+          const Spacer(
+            flex: 2,
+          ),
+          CustomRoundedIcon(
+            onTap: () async {
+              if (isPlaying) {
+                await audioPlayer.pause();
+                setState(() {
+                  isPlaying = false;
+                });
+              } else {
+                if (_isCompleted) {
+                  await audioPlayer.seek(
+                      Duration.zero); // Reset the audio position to the start
+                  _isCompleted = false; // Reset the completion flag
+                }
+                await audioPlayer.resume();
+                setState(
+                  () {
+                    isPlaying = true;
+                  },
+                );
+              }
+            },
+            size: 60,
+            icon: isPlaying ? Icons.stop : Icons.play_arrow,
+          ),
+          const Spacer(
+            flex: 1,
+          ),
+        ],
       ),
     );
   }
@@ -198,11 +236,5 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
     return "$hoursStr:$minutesStr:$secondsStr";
-  }
-
-  _deleteNote() {
-    Navigator.pop(context);
-    widget.voiceNote.delete();
-    BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
   }
 }

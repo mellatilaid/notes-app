@@ -51,9 +51,9 @@ class _AddVoiceNoteBottomSheetBodyState
   Future record() async {
     if (!isRecorderReady) return;
     final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-    final filePath = 'audio_$timeStamp.aac';
+    audioFilePath = 'audio_$timeStamp.aac';
     await recorder.startRecorder(
-      toFile: filePath,
+      toFile: audioFilePath,
     );
 
     isRecording = true;
@@ -67,7 +67,6 @@ class _AddVoiceNoteBottomSheetBodyState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     recorder.closeRecorder();
     _voiceNotetitle.dispose();
@@ -131,7 +130,13 @@ class _AddVoiceNoteBottomSheetBodyState
                 },
               ),
               IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  //checking if the recoring stopped before
+                  //saving or not
+                  //if not stop first
+                  if (isRecording) {
+                    await stop();
+                  }
                   if (audioFilePath != null) {
                     final VoiceNoteModel voiceNote = _addVoiceNote(
                       audioPath: audioFilePath!,
