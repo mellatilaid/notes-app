@@ -5,7 +5,7 @@ part 'voice_note_model.g.dart';
 @HiveType(typeId: 2)
 class VoiceNoteModel extends HiveObject {
   @HiveField(0)
-  final String title;
+  String title;
   @HiveField(1)
   final String? content;
   @HiveField(2)

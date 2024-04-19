@@ -18,12 +18,28 @@ class VoicePlayerView extends StatefulWidget {
 
 class _VoicePlayerViewState extends State<VoicePlayerView> {
   bool isReadOnly = true;
+  final GlobalKey<VoicePlayerViewBodyState> voicePlayerViewBodyStateKey =
+      GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: !isReadOnly
+            ? IconButton(
+                onPressed: () {
+                  if (voicePlayerViewBodyStateKey.currentState != null &&
+                      voicePlayerViewBodyStateKey.currentState!.mounted) {
+                    voicePlayerViewBodyStateKey.currentState!.saveEdit();
+                  }
+                },
+                icon: const Icon(
+                  Icons.done,
+                ),
+              )
+            : const SizedBox(),
         actions: [
           IconButton(
             onPressed: () {
@@ -43,17 +59,10 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
               Icons.delete_forever,
             ),
           ),
-          !isReadOnly
-              ? IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.done,
-                  ),
-                )
-              : const SizedBox(),
         ],
       ),
       body: VoicePlayerViewBody(
+        key: voicePlayerViewBodyStateKey,
         isReadOnly: isReadOnly,
         voiceNote: widget.voiceNote,
       ),

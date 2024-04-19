@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 
 import '../helper/const.dart';
 import '../models/voice_note_model.dart';
@@ -9,14 +11,19 @@ import 'custom_text_field.dart';
 class VoicePlayerViewBody extends StatefulWidget {
   final VoiceNoteModel voiceNote;
   final bool isReadOnly;
-  const VoicePlayerViewBody(
-      {super.key, required this.voiceNote, this.isReadOnly = true});
+  final VoidCallback? onDoneClicked;
+  const VoicePlayerViewBody({
+    Key? key,
+    required this.voiceNote,
+    this.isReadOnly = true,
+    this.onDoneClicked,
+  }) : super(key: key);
 
   @override
-  State<VoicePlayerViewBody> createState() => _VoicePlayerViewBodyState();
+  State<VoicePlayerViewBody> createState() => VoicePlayerViewBodyState();
 }
 
-class _VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
+class VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
   late TextEditingController _titleController;
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
@@ -69,6 +76,13 @@ class _VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  //save voice note title changes
+  saveEdit() {
+    widget.voiceNote.title = _titleController.text;
+    widget.voiceNote.save();
+    BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
   }
 
   @override
