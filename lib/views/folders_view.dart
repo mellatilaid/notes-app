@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/folders_view_body.dart';
 
-import '../widgets/custom_floating_action_button.dart';
-import '../widgets/new_folder_bottom_sheet.dart';
-
 class FoldersView extends StatelessWidget {
   const FoldersView({super.key});
 
@@ -21,7 +18,7 @@ class FoldersView extends StatelessWidget {
       ),
       drawer: const Drawer(),
       body: const FoldersViewBody(),
-      floatingActionButton: CustomFlaotingActionButton(
+      /*floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),
         onTap: () {
           showModalBottomSheet(
@@ -37,7 +34,7 @@ class FoldersView extends StatelessWidget {
             },
           );
         },
-      ),
+      ),*/
     );
   }
 }

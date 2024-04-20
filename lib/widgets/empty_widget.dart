@@ -26,12 +26,12 @@ class _EmptyWidgetState extends State<EmptyWidget>
   void initState() {
     super.initState();
     _vibrantController = AnimationController(
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 300),
       vsync: this,
     )..repeat(reverse: true);
     _animation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0.02, 0.0),
+      end: const Offset(0.02, 0.00),
     ).animate(_vibrantController);
   }
 

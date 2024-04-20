@@ -29,6 +29,8 @@ class _FoldersViewBodyState extends State<FoldersViewBody> {
         if (state is FoldersInitialState) {
           return const Text('Add Your Folders');
         } else if (state is FoldersSucussState) {
+          //if there is no folder created then
+          //diplay empty widget
           if (state.folders.isEmpty) {
             return EmptyWidget(
               onTap: () {
