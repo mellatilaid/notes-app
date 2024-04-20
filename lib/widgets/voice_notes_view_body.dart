@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit_states.dart';
+import 'package:note_app/widgets/empty_widget.dart';
 import 'package:note_app/widgets/voice_notes_list_view.dart';
 
 class VoiceNotesViewBody extends StatefulWidget {
@@ -38,6 +39,14 @@ class VoiceNotesBuilder extends StatelessWidget {
             child: Text('Add Your Voice Notes'),
           );
         } else if (state is VoiceNotesSuccussState) {
+          if (state.voiceNotes.isEmpty) {
+            return EmptyWidget(
+              title: 'Audio notes is empty',
+              message: 'Add your first audio note',
+              imagePath: 'assets/add_audio.png',
+              onTap: () {},
+            );
+          }
           return VoiceNotesListView(
             voiceNotes: state.voiceNotes,
           );
