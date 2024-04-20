@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit_states.dart';
+import 'package:note_app/widgets/empty_widget.dart';
 
+import 'new_folder_bottom_sheet.dart';
 import 'notes_folders_grid_view.dart';
 
 class FoldersViewBody extends StatefulWidget {
@@ -27,6 +29,29 @@ class _FoldersViewBodyState extends State<FoldersViewBody> {
         if (state is FoldersInitialState) {
           return const Text('Add Your Folders');
         } else if (state is FoldersSucussState) {
+          if (state.folders.isEmpty) {
+            return GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return const NewFolderBottomSheet();
+                  },
+                );
+              },
+              child: const EmptyWidget(
+                title: 'Folder is empty',
+                message: 'Create your first folder',
+                imagePath: 'assets/audio.png',
+              ),
+            );
+          }
           return FoldersGridView(folders: state.folders);
         } else {
           return const Text('Oops There Was A Problem');

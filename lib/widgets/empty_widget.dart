@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class EmptyWidget extends StatelessWidget {
+class EmptyWidget extends StatefulWidget {
   final String title;
   final String message;
   final String imagePath;
@@ -13,6 +13,34 @@ class EmptyWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<EmptyWidget> createState() => _EmptyWidgetState();
+}
+
+class _EmptyWidgetState extends State<EmptyWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(0.02, 0.0),
+    ).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
@@ -20,15 +48,22 @@ class EmptyWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(imagePath),
+            SlideTransition(
+              position: _animation,
+              child: Image.asset(
+                widget.imagePath,
+                width: 400,
+                fit: BoxFit.fill,
+              ),
+            ),
             const SizedBox(height: 20),
             Text(
-              title,
+              widget.title,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 10),
             Text(
-              message,
+              widget.message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium,
             ),
