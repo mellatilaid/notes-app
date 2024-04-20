@@ -55,7 +55,7 @@ class _EmptyWidgetState extends State<EmptyWidget>
                 position: _animation,
                 child: Image.asset(
                   widget.imagePath,
-                  width: 300,
+                  width: 200,
                   fit: BoxFit.contain,
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/widgets/empty_widget.dart';
 
 import 'text_notes_list_view.dart';
 
@@ -24,6 +25,14 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
         if (state is NotesSuccuss) {
+          if (state.notes.isEmpty) {
+            return EmptyWidget(
+              title: 'Text notes is empty',
+              message: 'Add your first text note',
+              imagePath: 'assets/add_text_note.png',
+              onTap: () {},
+            );
+          }
           return TextNotesListview(
             notesCubitSource: NotesCubitSource.notesCubit,
             textNotes: state.notes,
