@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
-import 'package:note_app/helper/show_snak_bar.dart';
 
 import '../helper/const.dart';
 import '../models/voice_note_model.dart';
@@ -85,7 +84,6 @@ class VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
     widget.voiceNote.title = _titleController.text;
     widget.voiceNote.save();
     BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
-    showSnakBar(context, message: 'mellati laid');
   }
 
   @override

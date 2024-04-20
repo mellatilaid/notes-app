@@ -21,6 +21,18 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
   final GlobalKey<VoicePlayerViewBodyState> voicePlayerViewBodyStateKey =
       GlobalKey();
 
+  //when save icon cicked
+  //then call saveEdit method of voice player view body
+  _onEditSaved() {
+    if (voicePlayerViewBodyStateKey.currentState != null &&
+        voicePlayerViewBodyStateKey.currentState!.mounted) {
+      voicePlayerViewBodyStateKey.currentState!.saveEdit();
+      setState(() {
+        isReadOnly = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +42,7 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
         leading: !isReadOnly
             ? IconButton(
                 onPressed: () {
-                  if (voicePlayerViewBodyStateKey.currentState != null &&
-                      voicePlayerViewBodyStateKey.currentState!.mounted) {
-                    voicePlayerViewBodyStateKey.currentState!.saveEdit();
-                  }
+                  _onEditSaved();
                 },
                 icon: const Icon(
                   Icons.done,

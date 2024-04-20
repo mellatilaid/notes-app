@@ -13,6 +13,7 @@ class CustomTextField extends StatefulWidget {
   TextEditingController controller;
   final TextStyle? textStyle;
   final bool readOnly;
+
   CustomTextField({
     super.key,
     this.hintText,
@@ -34,6 +35,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: widget.readOnly,
+      autofocus: widget.readOnly,
       style: widget.textStyle,
       controller: widget.controller,
       onChanged: widget.onChanged,

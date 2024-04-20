@@ -9,6 +9,7 @@ class FoldersGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      key: UniqueKey(),
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,

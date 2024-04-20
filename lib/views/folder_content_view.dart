@@ -7,6 +7,7 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/views/add_sub_note_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
+import 'package:note_app/widgets/empty_widget.dart';
 
 import '../widgets/folder_subnotes_body.dart';
 
@@ -49,6 +50,13 @@ class _FolderContentViewState extends State<FolderContentView> {
               ),
             );
           } else if (state is SucussState) {
+            if (state.notes.isEmpty) {
+              return const EmptyWidget(
+                title: 'Folder is empty',
+                message: 'Create your first folder',
+                imagePath: 'assets/audio.png',
+              );
+            }
             return FolderSubNotesBody(
               notes: state.notes,
             );
