@@ -26,11 +26,10 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
       builder: (context, state) {
         if (state is NotesSuccuss) {
           if (state.notes.isEmpty) {
-            return EmptyWidget(
+            return const EmptyWidget(
               title: 'Text notes is empty',
               message: 'Add your first text note',
-              imagePath: 'assets/add_text_note.png',
-              onTap: () {},
+              imagePath: 'assets/text.png',
             );
           }
           return TextNotesListview(
