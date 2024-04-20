@@ -43,9 +43,6 @@ class _AddVoiceNoteBottomSheetBodyState
     await recorder.openRecorder();
     isRecorderReady = true;
     recorder.setSubscriptionDuration(const Duration(milliseconds: 500));
-
-    /*final appDocDir = await getApplicationDocumentsDirectory();
-    audioFilePath = '${appDocDir.path}/recorded_audio.aac';*/
   }
 
   Future record() async {
@@ -142,6 +139,7 @@ class _AddVoiceNoteBottomSheetBodyState
                       audioPath: audioFilePath!,
                       audioTitle: _voiceNotetitle.text,
                     );
+                    if (!mounted) return;
                     BlocProvider.of<AddVoiceNoteCubit>(context)
                         .addVoiceNote(voiceNoteModel: voiceNote);
                   } else {
