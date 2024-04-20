@@ -51,7 +51,8 @@ class _FolderContentViewState extends State<FolderContentView> {
             );
           } else if (state is SucussState) {
             if (state.notes.isEmpty) {
-              return const EmptyWidget(
+              return EmptyWidget(
+                onTap: () {},
                 title: 'Folder is empty',
                 message: 'Create your first folder',
                 imagePath: 'assets/audio.png',

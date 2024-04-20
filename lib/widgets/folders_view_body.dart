@@ -30,7 +30,7 @@ class _FoldersViewBodyState extends State<FoldersViewBody> {
           return const Text('Add Your Folders');
         } else if (state is FoldersSucussState) {
           if (state.folders.isEmpty) {
-            return GestureDetector(
+            return EmptyWidget(
               onTap: () {
                 showModalBottomSheet(
                   isScrollControlled: true,
@@ -45,11 +45,9 @@ class _FoldersViewBodyState extends State<FoldersViewBody> {
                   },
                 );
               },
-              child: const EmptyWidget(
-                title: 'Folder is empty',
-                message: 'Create your first folder',
-                imagePath: 'assets/audio.png',
-              ),
+              title: 'Folder is empty',
+              message: 'Create your first folder',
+              imagePath: 'assets/add_folder.png',
             );
           }
           return FoldersGridView(folders: state.folders);
