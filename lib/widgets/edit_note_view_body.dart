@@ -84,17 +84,34 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     );
   }
 
-  _saveEdit(BuildContext context) async {
-    if (titleController.text.isEmpty && contentController.text.isEmpty) {
-      await showDialogMessage(context, "Empty note can't by saved");
-      titleController.text = widget.note.title;
-      contentController.text = widget.note.content;
+  Future<void> _saveEdit(BuildContext context) async {
+    if (_isNoteEmpty()) {
+      await showDialogMessage(context, "Empty note can't be saved");
+      _resetNoteFields();
     } else {
-      widget.note.title = titleController.text;
-      widget.note.content = contentController.text;
-      widget.note.save();
+      await _saveNote();
+      if (!mounted) return;
       Navigator.pop(context);
-      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+      _updateNotesList(context);
     }
+  }
+
+  bool _isNoteEmpty() {
+    return titleController.text.isEmpty && contentController.text.isEmpty;
+  }
+
+  void _resetNoteFields() {
+    titleController.text = widget.note.title;
+    contentController.text = widget.note.content;
+  }
+
+  Future<void> _saveNote() async {
+    widget.note.title = titleController.text;
+    widget.note.content = contentController.text;
+    await widget.note.save();
+  }
+
+  void _updateNotesList(BuildContext context) {
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 }
