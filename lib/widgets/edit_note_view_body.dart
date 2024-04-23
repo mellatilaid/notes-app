@@ -10,7 +10,12 @@ import 'edit_note_colors_list_view.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   final NoteModel note;
-  const EditNoteViewBody({super.key, required this.note});
+  final bool isReadOnly;
+  const EditNoteViewBody({
+    Key? key,
+    required this.note,
+    required this.isReadOnly,
+  }) : super(key: key);
 
   @override
   State<EditNoteViewBody> createState() => _EditNoteViewBodyState();
@@ -42,6 +47,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
       child: Column(
         children: [
           CustomTextField(
+            readOnly: widget.isReadOnly,
             controller: titleController,
             textStyle: const TextStyle(
               fontSize: 24,
@@ -53,27 +59,33 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           ),
           Expanded(
             child: CustomTextField(
+              readOnly: widget.isReadOnly,
               controller: contentController,
               isExpand: true,
             ),
           ),
-          EditNoteColorsListView(
-            note: widget.note,
-          ),
-          CustomActionButton(
-            title: 'Save Edit',
-            onPressed: () {
-              _saveEdit();
-              Navigator.pop(context);
-            },
-            backGroundColor: kPrimaryColor,
-          ),
+          !widget.isReadOnly
+              ? EditNoteColorsListView(
+                  note: widget.note,
+                )
+              : const SizedBox(),
+          !widget.isReadOnly
+              ? CustomActionButton(
+                  title: 'Save Edit',
+                  onPressed: () {
+                    _saveEdit();
+                    Navigator.pop(context);
+                  },
+                  backGroundColor: kPrimaryColor,
+                )
+              : const SizedBox(),
         ],
       ),
     );
   }
 
   _saveEdit() {
+    if (widget.note.title.isEmpty && widget.note.content.isEmpty) return;
     widget.note.title = titleController.text;
     widget.note.content = contentController.text;
     widget.note.save();

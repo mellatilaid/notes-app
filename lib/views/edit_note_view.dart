@@ -14,24 +14,34 @@ class EditNoteView extends StatefulWidget {
 }
 
 class _EditNoteViewState extends State<EditNoteView> {
+  bool isReadOnly = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                isReadOnly = !isReadOnly;
+              });
+            },
             icon: const Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _deleteNote(context: context);
+            },
             icon: const Icon(Icons.delete_forever),
           ),
         ],
       ),
       body: EditNoteViewBody(
+        isReadOnly: isReadOnly,
         note: widget.note,
       ),
     );
