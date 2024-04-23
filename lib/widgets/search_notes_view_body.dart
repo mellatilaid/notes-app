@@ -31,6 +31,19 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
                 BlocProvider.of<SearchNoteCubit>(context).searchNotes(data);
               },
             ),
+            SegmentedButton(
+              segments: const <ButtonSegment>[
+                ButtonSegment(
+                  value: 'laid',
+                  label: Text('primary'),
+                ),
+                ButtonSegment(
+                  value: 'mellati',
+                  label: Text('secondry'),
+                ),
+              ],
+              selected: const <dynamic>{},
+            ),
             const SizedBox(
               height: 32,
             ),
