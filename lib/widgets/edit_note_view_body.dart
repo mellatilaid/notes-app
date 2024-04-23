@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/helper/show_dialag.dart';
 import 'package:note_app/models/note_model.dart';
 
 import '../helper/const.dart';
@@ -72,9 +73,8 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           !widget.isReadOnly
               ? CustomActionButton(
                   title: 'Save Edit',
-                  onPressed: () {
-                    _saveEdit();
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    await _saveEdit(context);
                   },
                   backGroundColor: kPrimaryColor,
                 )
@@ -84,11 +84,17 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     );
   }
 
-  _saveEdit() {
-    if (widget.note.title.isEmpty && widget.note.content.isEmpty) return;
-    widget.note.title = titleController.text;
-    widget.note.content = contentController.text;
-    widget.note.save();
-    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+  _saveEdit(BuildContext context) async {
+    if (titleController.text.isEmpty && contentController.text.isEmpty) {
+      await showDialogMessage(context, "Empty note can't by saved");
+      titleController.text = widget.note.title;
+      contentController.text = widget.note.content;
+    } else {
+      widget.note.title = titleController.text;
+      widget.note.content = contentController.text;
+      widget.note.save();
+      Navigator.pop(context);
+      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    }
   }
 }
