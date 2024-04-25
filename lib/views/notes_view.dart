@@ -4,6 +4,7 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
 import 'package:note_app/views/search_notes_view.dart';
+import 'package:note_app/widgets/add_image_note_bottom_sheet.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/add_voice_note_bottom_sheet.dart';
 import 'package:note_app/widgets/image_notes_view_body.dart';
@@ -90,6 +91,14 @@ class _NotesViewState extends State<NotesView>
             customSpeedDialChild(
               icon: const Icon(Icons.image),
               label: 'Add Image',
+              onTap: () {
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return const AddImageNoteBottomSheet();
+                    });
+              },
             ),
           ],
         ),
