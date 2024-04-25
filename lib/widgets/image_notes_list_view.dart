@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'image_notes_view_body.dart';
+import 'package:note_app/widgets/image_note_item.dart';
 
 class ImageNotesListView extends StatelessWidget {
   const ImageNotesListView({super.key});
@@ -12,7 +11,7 @@ class ImageNotesListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return CustomListTile(
+        return ImageNoteItem(
           leading: Image.asset('assets/messi.jpg'),
           title: 'mellati laid',
           trailing: const Icon(Icons.more_vert),
