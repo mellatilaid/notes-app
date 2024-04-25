@@ -25,6 +25,7 @@ void main() async {
   Hive.registerAdapter(VoiceNoteModelAdapter());
   await Hive.openBox<VoiceNoteModel>(kVoiceNoteBox);
   runApp(const NotesApp());
+  int laid = 10;
 }
 
 class NotesApp extends StatelessWidget {
