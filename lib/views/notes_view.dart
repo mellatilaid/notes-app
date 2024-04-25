@@ -6,6 +6,7 @@ import 'package:note_app/views/add_notes_view.dart';
 import 'package:note_app/views/search_notes_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/add_voice_note_bottom_sheet.dart';
+import 'package:note_app/widgets/image_notes_view_body.dart';
 import 'package:note_app/widgets/text_notes_view_body.dart';
 import 'package:note_app/widgets/voice_notes_view_body.dart';
 
@@ -61,7 +62,7 @@ class _NotesViewState extends State<NotesView>
           children: const [
             TextNotesViewBody(),
             VoiceNotesViewBody(),
-            Text('mellati'),
+            ImageNotesViewBody(),
           ],
         ),
         floatingActionButton: AddNoteOptionsSpeedDial(
