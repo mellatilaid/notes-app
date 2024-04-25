@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomListTile extends StatelessWidget {
+class OverlayActionTile extends StatelessWidget {
   final String title;
   final Widget leading;
   final VoidCallback? onTap;
-  const CustomListTile({
+  const OverlayActionTile({
     super.key,
     required this.title,
     required this.leading,

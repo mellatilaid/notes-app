@@ -3,7 +3,7 @@ import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/widgets/edit_folder_bottom_sheet.dart';
 
 import '../widgets/custom_alert_dialag.dart';
-import '../widgets/custom_list_tile.dart';
+import '../widgets/overlay_action_tile.dart';
 
 class OverlayHelper {
   OverlayEntry? entry;
@@ -71,7 +71,7 @@ class OverlayHelper {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            CustomListTile(
+            OverlayActionTile(
               title: 'Edit',
               leading: const Icon(Icons.edit),
               onTap: () {
@@ -87,7 +87,7 @@ class OverlayHelper {
                 );
               },
             ),
-            CustomListTile(
+            OverlayActionTile(
               title: 'Delete',
               leading: const Icon(Icons.delete),
               onTap: () {
