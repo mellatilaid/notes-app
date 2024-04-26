@@ -6,8 +6,8 @@ import 'package:note_app/models/note_model.dart';
 
 import '../helper/const.dart';
 import 'custom_action_button.dart';
-import 'custom_text_field.dart';
 import 'edit_note_colors_list_view.dart';
+import 'invisible_text_field.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   final NoteModel note;

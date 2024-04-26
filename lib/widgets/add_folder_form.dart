@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
 
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
@@ -57,7 +58,10 @@ class _AddFolderFormState extends State<AddFolderForm> {
           CustomTextButton(
             title: 'Gallery',
             onPressed: () async {
-              await _imagePicker(context: context);
+              await _imagePicker(
+                context: context,
+                imageSource: ImageSource.gallery,
+              );
             },
           ),
           const SizedBox(
@@ -103,8 +107,9 @@ class _AddFolderFormState extends State<AddFolderForm> {
     addFolderCubit.addFolder(folder: folder);
   }
 
-  _imagePicker({required BuildContext context}) async {
-    final pickedImage = await ImageHelper().pickImage();
+  _imagePicker(
+      {required BuildContext context, required ImageSource imageSource}) async {
+    final pickedImage = await ImageHelper().pickImage(imageSource: imageSource);
 
     if (pickedImage != null) {
       coverImagePath = pickedImage.path;

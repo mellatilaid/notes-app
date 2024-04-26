@@ -8,7 +8,7 @@ import '../helper/const.dart';
 import '../models/note_model.dart';
 import 'colors_list_view.dart';
 import 'custom_action_button.dart';
-import 'custom_text_field.dart';
+import 'invisible_text_field.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({super.key});

@@ -6,7 +6,7 @@ import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voic
 import '../helper/const.dart';
 import '../models/voice_note_model.dart';
 import 'custom_rounded_icon.dart';
-import 'custom_text_field.dart';
+import 'invisible_text_field.dart';
 
 //!!!!!!!refactor this widget
 class VoicePlayerViewBody extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
 import '../helper/const.dart';
 import '../models/note_model.dart';
 import 'custom_action_button.dart';
-import 'custom_text_field.dart';
+import 'invisible_text_field.dart';
 
 class AddSubNoteViewBody extends StatefulWidget {
   const AddSubNoteViewBody({super.key});

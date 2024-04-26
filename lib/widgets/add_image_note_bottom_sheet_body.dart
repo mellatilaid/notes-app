@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/custom_text_field.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:note_app/widgets/invisible_text_field.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
 
 import '../helper/const.dart';
@@ -26,7 +27,7 @@ class _AddImageNoteBottomSheetBodyState
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: 16,
+        top: 28,
         left: 16,
         right: 16,
         bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -37,6 +38,7 @@ class _AddImageNoteBottomSheetBodyState
           children: <Widget>[
             SizedBox(
               height: 350,
+              width: double.infinity,
               child: Card(
                 elevation: 10,
                 child: ClipRRect(
@@ -44,7 +46,7 @@ class _AddImageNoteBottomSheetBodyState
                   child: (imageNotePath != null)
                       ? Image.file(
                           File(imageNotePath!),
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         )
                       : Image.asset('assets/text.png'),
                 ),
@@ -63,17 +65,35 @@ class _AddImageNoteBottomSheetBodyState
             const SectionDividerWithTitle(title: 'Upload image'),
             const SizedBox(height: 8),
             CustomTextButton(
-                title: 'Upload Image',
-                onPressed: () async {
-                  final imagePath = await _imagePicker(context: context);
-                  //if iamgePath var not null then set state to display
-                  //picked image to the user immedietly
-                  if (imagePath != null) {
-                    setState(() {
-                      imageNotePath = imagePath;
-                    });
-                  }
-                }),
+              title: 'Choose Image',
+              onPressed: () async {
+                final imagePath = await _imagePicker(
+                  context: context,
+                  imageSource: ImageSource.gallery,
+                );
+                //if iamgePath var not null then set state to display
+                //picked image to the user immedietly
+                if (imagePath != null) {
+                  setState(() {
+                    imageNotePath = imagePath;
+                  });
+                }
+              },
+            ),
+            CustomTextButton(
+              title: 'Take Image',
+              onPressed: () async {
+                final imagePath = await _imagePicker(
+                  context: context,
+                  imageSource: ImageSource.camera,
+                );
+                if (imagePath != null) {
+                  setState(() {
+                    imageNotePath = imagePath;
+                  });
+                }
+              },
+            ),
             const SizedBox(
               height: 16,
             ),
@@ -88,8 +108,11 @@ class _AddImageNoteBottomSheetBodyState
     );
   }
 
-  _imagePicker({required BuildContext context}) async {
-    final pickedImage = await ImageHelper().pickImage();
+  _imagePicker(
+      {required BuildContext context, required ImageSource imageSource}) async {
+    final pickedImage = await ImageHelper().pickImage(
+      imageSource: imageSource,
+    );
 
     if (pickedImage != null) {
       return pickedImage.path;
