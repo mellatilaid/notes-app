@@ -8,9 +8,11 @@ class ImageNoteModel extends HiveObject {
   final String? imageTitle;
   @HiveField(1)
   final String imagePath;
-
+  @HiveField(2)
+  final String? imageContent;
   ImageNoteModel({
     this.imageTitle,
+    this.imageContent,
     required this.imagePath,
   });
 }
