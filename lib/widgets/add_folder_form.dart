@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/widgets/section_divider_with_title.dart';
 
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
@@ -47,25 +48,7 @@ class _AddFolderFormState extends State<AddFolderForm> {
           const SizedBox(
             height: 16,
           ),
-          Row(
-            children: [
-              Expanded(
-                  child: Divider(
-                height: 2,
-                color: Colors.grey.withOpacity(0.5),
-              )),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('Upload Folder Cover'),
-              ),
-              Expanded(
-                child: Divider(
-                  height: 2,
-                  color: Colors.grey.withOpacity(0.5),
-                ),
-              ),
-            ],
-          ),
+          const SectionDividerWithTitle(),
           const SizedBox(
             height: 8,
           ),
