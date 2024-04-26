@@ -33,7 +33,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
+        InvisibleTextField(
           controller: _titleController,
           hintText: 'Title',
         ),
@@ -41,7 +41,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
           height: 4,
         ),
         Expanded(
-          child: CustomTextField(
+          child: InvisibleTextField(
             controller: _contentController,
             hintText: 'Content',
             isExpand: true,

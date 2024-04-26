@@ -100,7 +100,7 @@ class VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          CustomTextField(
+          InvisibleTextField(
             readOnly: widget.isReadOnly,
             textStyle: const TextStyle(
               fontSize: 24,

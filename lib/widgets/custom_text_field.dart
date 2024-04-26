@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../helper/const.dart';
 
-class CustomTextField extends StatefulWidget {
+class InvisibleTextField extends StatefulWidget {
   final String? hintText;
   final int? maxLines;
   final bool isExpand;
@@ -14,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final bool readOnly;
 
-  CustomTextField({
+  InvisibleTextField({
     super.key,
     this.hintText,
     this.maxLines,
@@ -27,10 +27,10 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<InvisibleTextField> createState() => _InvisibleTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _InvisibleTextFieldState extends State<InvisibleTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(

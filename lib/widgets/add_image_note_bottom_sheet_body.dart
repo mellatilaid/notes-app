@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/custom_text_field.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
 
 import '../helper/const.dart';
 import '../helper/image_helper.dart';
 import 'custom_action_button.dart';
 import 'custom_text_button.dart';
-import 'dual_action_text_field.dart';
 
 class AddImageNoteBottomSheetBody extends StatefulWidget {
   const AddImageNoteBottomSheetBody({super.key});
@@ -51,17 +51,23 @@ class _AddImageNoteBottomSheetBodyState
               ),
             ),
             const SizedBox(height: 16),
-            DualActionTextField(
+            InvisibleTextField(
               controller: imageNoteTitleController,
-              hintText: 'Enter image title',
+              hintText: 'Image Title',
+              textStyle: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: 10),
+            InvisibleTextField(
+              controller: imageNoteTitleController,
+              hintText: 'Note',
+            ),
             const SectionDividerWithTitle(title: 'Upload image'),
             const SizedBox(height: 8),
             CustomTextButton(
                 title: 'Upload Image',
                 onPressed: () async {
                   final imagePath = await _imagePicker(context: context);
+                  //if iamgePath var not null then set state to display
+                  //picked image to the user immedietly
                   if (imagePath != null) {
                     setState(() {
                       imageNotePath = imagePath;

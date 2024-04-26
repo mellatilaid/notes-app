@@ -32,7 +32,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
+        InvisibleTextField(
           controller: titleController,
           hintText: 'Title',
         ),
@@ -40,7 +40,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           height: 4,
         ),
         Expanded(
-          child: CustomTextField(
+          child: InvisibleTextField(
             controller: contentController,
             hintText: 'Content',
             isExpand: true,

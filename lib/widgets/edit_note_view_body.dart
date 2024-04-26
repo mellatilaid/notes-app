@@ -47,7 +47,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          CustomTextField(
+          InvisibleTextField(
             readOnly: widget.isReadOnly,
             controller: titleController,
             textStyle: const TextStyle(
@@ -59,7 +59,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             height: 4,
           ),
           Expanded(
-            child: CustomTextField(
+            child: InvisibleTextField(
               readOnly: widget.isReadOnly,
               controller: contentController,
               isExpand: true,

@@ -41,14 +41,14 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          CustomTextField(
+          InvisibleTextField(
             controller: titleController,
           ),
           const SizedBox(
             height: 4,
           ),
           Expanded(
-            child: CustomTextField(
+            child: InvisibleTextField(
               controller: contentController,
               isExpand: true,
             ),
