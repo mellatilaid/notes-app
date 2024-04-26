@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SectionDividerWithTitle extends StatelessWidget {
+  final String title;
   const SectionDividerWithTitle({
     super.key,
+    required this.title,
   });
 
   @override
@@ -14,9 +16,9 @@ class SectionDividerWithTitle extends StatelessWidget {
           height: 2,
           color: Colors.grey.withOpacity(0.5),
         )),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Text('Upload Folder Cover'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(title),
         ),
         Expanded(
           child: Divider(

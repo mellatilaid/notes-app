@@ -48,7 +48,9 @@ class _AddFolderFormState extends State<AddFolderForm> {
           const SizedBox(
             height: 16,
           ),
-          const SectionDividerWithTitle(),
+          const SectionDividerWithTitle(
+            title: 'Enter the folder name',
+          ),
           const SizedBox(
             height: 8,
           ),
