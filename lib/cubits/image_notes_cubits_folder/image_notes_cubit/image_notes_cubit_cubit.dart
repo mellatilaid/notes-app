@@ -23,14 +23,13 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState>
 
   @override
   addToNotes({required int index, required note}) {
-    // TODO: implement addToNotes
     revImageNotes!.insert(index, note);
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 
   @override
   removeFromNotes({required int index}) {
-    // TODO: implement removeFromNotes
-    throw UnimplementedError();
+    revImageNotes!.removeAt(index);
+    emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 }

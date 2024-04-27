@@ -8,6 +8,7 @@ import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/basic_class.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/image_note_model.dart';
@@ -149,22 +150,19 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
 
   _deleteNote(BuildContext context, var note) {
     final note = widget.noteModel;
-    print('note index is ${widget.index}');
+
     notesCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () {
       note.delete();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
-      backgroundColor: Colors.grey.withOpacity(0.4),
       content: const Text(
         'Note was deleted',
-        style: TextStyle(
-          color: Colors.white,
-        ),
       ),
       action: SnackBarAction(
         label: 'Undo',
+        textColor: kPrimaryColor,
         onPressed: () async {
           timer.cancel();
 
