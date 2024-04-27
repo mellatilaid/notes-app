@@ -1,12 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:meta/meta.dart';
+import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/image_note_model.dart';
 
 part 'image_notes_cubit_state.dart';
 
-class ImageNotesCubit extends Cubit<ImageNotesCubitState> {
+class ImageNotesCubit extends Cubit<ImageNotesCubitState>
+    implements BaseNoteCubit {
   ImageNotesCubit() : super((ImageNotesInitialState()));
   List<ImageNoteModel>? revImageNotes;
   fetchAllImageNotes() {
@@ -22,5 +24,17 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState> {
   clear() {
     final imageNotesBox = Hive.box<ImageNoteModel>(kImageNoteBox);
     imageNotesBox.clear();
+  }
+
+  @override
+  addToNotes({required int index, required note}) {
+    // TODO: implement addToNotes
+    throw UnimplementedError();
+  }
+
+  @override
+  removeFromNotes({required int index}) {
+    // TODO: implement removeFromNotes
+    throw UnimplementedError();
   }
 }

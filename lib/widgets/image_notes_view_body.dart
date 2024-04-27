@@ -39,7 +39,7 @@ class ImageNotesViewBuilder extends StatelessWidget {
             return const EmptyWidget(
               title: 'Image notes is empty',
               message: 'Add your first image note',
-              imagePath: '',
+              imagePath: 'assets/image_note.png',
             );
           } else {
             return ImageNotesListView(

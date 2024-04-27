@@ -5,7 +5,7 @@ import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/voice_note_model.dart';
 
-class VoiceNotesCubit extends Cubit<VoiceNotesState> implements INoteCubit {
+class VoiceNotesCubit extends Cubit<VoiceNotesState> implements BaseNoteCubit {
   VoiceNotesCubit() : super(VoiceNotesInitialState());
   //this list stors voice notes in reversed order
   //to display them newer one to older one

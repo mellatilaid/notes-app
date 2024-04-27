@@ -3,14 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
+import 'package:note_app/widgets/image_note_item.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
@@ -36,7 +39,7 @@ class NotesViewSlidableNote<T> extends StatefulWidget {
 
 class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   // ignore: prefer_typing_uninitialized_variables
-  late INoteCubit notesCubit;
+  late BaseNoteCubit notesCubit;
   //this var store the specific note model after
   //conferming the noteModel var type
   // ignore: prefer_typing_uninitialized_variables
@@ -56,6 +59,9 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
         notesCubit = context.read<VoiceNotesCubit>();
         note = widget.noteModel as VoiceNoteModel;
         break;
+      case WidgetLocation.imageNotesViewBody:
+        notesCubit = context.read<ImageNotesCubit>();
+        note = widget.noteModel as ImageNoteModel;
       default:
     }
   }
@@ -115,7 +121,11 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
                 editNoteViewOptin: EditNote.editNoteView,
                 note: note,
               )
-            : CustomVoiceNoteItem(voiceNote: note),
+            : (widget.widgetLocation == WidgetLocation.voiceNotesViewBody)
+                ? CustomVoiceNoteItem(voiceNote: note)
+                : ImageNoteItem(
+                    imageNote: note,
+                  ),
       ),
     );
   }
@@ -148,7 +158,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.grey.withOpacity(0.4),
       content: const Text(
-        'Note Will be deleted',
+        'Note was deleted',
         style: TextStyle(
           color: Colors.white,
         ),

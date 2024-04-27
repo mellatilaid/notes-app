@@ -5,7 +5,7 @@ import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 
-class NotesCubit extends Cubit<NotesState> implements INoteCubit {
+class NotesCubit extends Cubit<NotesState> implements BaseNoteCubit {
   NotesCubit() : super(InitialState());
   List<NoteModel>? revNotes;
 

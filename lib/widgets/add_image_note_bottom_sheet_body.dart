@@ -45,7 +45,7 @@ class _AddImageNoteBottomSheetBodyState
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
-              height: 350,
+              height: 330,
               width: double.infinity,
               child: Card(
                 elevation: 10,
@@ -56,7 +56,10 @@ class _AddImageNoteBottomSheetBodyState
                           File(imageNotePath!),
                           fit: BoxFit.cover,
                         )
-                      : Image.asset('assets/text.png'),
+                      : Image.asset(
+                          'assets/image_note.png',
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
             ),
