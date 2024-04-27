@@ -15,8 +15,9 @@ class ImageNoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
+      margin: EdgeInsets.zero,
       child: SizedBox(
-        height: 80,
+        height: 85,
         child: Row(
           children: <Widget>[
             // Leading Widget

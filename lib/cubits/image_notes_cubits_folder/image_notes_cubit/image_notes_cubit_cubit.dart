@@ -21,15 +21,11 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState>
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 
-  clear() {
-    final imageNotesBox = Hive.box<ImageNoteModel>(kImageNoteBox);
-    imageNotesBox.clear();
-  }
-
   @override
   addToNotes({required int index, required note}) {
     // TODO: implement addToNotes
-    throw UnimplementedError();
+    revImageNotes!.insert(index, note);
+    emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 
   @override
