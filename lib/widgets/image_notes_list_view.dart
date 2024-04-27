@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/image_note_item.dart';
+import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
 import '../models/image_note_model.dart';
 
@@ -17,8 +18,10 @@ class ImageNotesListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: imageNotes.length,
       itemBuilder: (context, index) {
-        return ImageNoteItem(
-          imageNote: imageNotes[index],
+        return NotesViewSlidableNote(
+          noteModel: imageNotes[index],
+          index: index,
+          widgetLocation: WidgetLocation.imageNotesViewBody,
         );
       },
     );
