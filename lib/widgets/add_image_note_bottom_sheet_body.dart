@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
 
@@ -118,5 +119,14 @@ class _AddImageNoteBottomSheetBodyState
       return pickedImage.path;
     }
     return null;
+  }
+
+  ImageNoteModel _assembleImageNoteEntry(
+      {required String imagePath, String? title, String? content}) {
+    return ImageNoteModel(
+      imagePath: imagePath,
+      imageTitle: title,
+      imageContent: content,
+    );
   }
 }

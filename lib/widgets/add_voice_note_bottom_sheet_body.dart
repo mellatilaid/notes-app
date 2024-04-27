@@ -143,6 +143,7 @@ class _AddVoiceNoteBottomSheetBodyState
                     BlocProvider.of<AddVoiceNoteCubit>(context)
                         .addVoiceNote(voiceNoteModel: voiceNote);
                   } else {
+                    if (!mounted) return;
                     Navigator.pop(context);
                     //_showMessage(context);
                   }

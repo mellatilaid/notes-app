@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_vioce_note_cubit_states.dart';
@@ -21,6 +22,10 @@ class AddVoiceNoteBottomSheet extends StatelessWidget {
             //Navigating the user to voice notes tab
             //when the voice is added sucussfly
             voiceTabController.animateTo(1);
+          } else if (state is AddVoiceNoteFailure) {
+            if (kDebugMode) {
+              debugPrint(state.errMessage);
+            }
           }
         },
         child: const AddVoiceNoteBottomSheetBody(),
