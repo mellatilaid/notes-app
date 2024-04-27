@@ -10,9 +10,12 @@ class ImageNoteModel extends HiveObject {
   final String imagePath;
   @HiveField(2)
   final String? imageContent;
+  @HiveField(3)
+  final String date;
   ImageNoteModel({
     this.imageTitle,
     this.imageContent,
     required this.imagePath,
+    required this.date,
   });
 }

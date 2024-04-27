@@ -42,7 +42,9 @@ class ImageNoteItem extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        imageNote.imageTitle ?? 'Image title',
+                        imageNote.imageTitle!.isEmpty
+                            ? 'Image title'
+                            : imageNote.imageTitle!,
                         style: Theme.of(context).textTheme.labelLarge,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -52,7 +54,7 @@ class ImageNoteItem extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      'note date',
+                      imageNote.date,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                       ),

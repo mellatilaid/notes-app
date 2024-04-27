@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/add_image_note_cubit/add_image_note_cubit_cubit.dart';
 import 'package:note_app/helper/local_file_manager.dart';
+import 'package:note_app/helper/note_added_time_formater.dart';
 import 'package:note_app/helper/show_snak_bar.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
@@ -157,6 +158,7 @@ class _AddImageNoteBottomSheetBodyState
       imagePath: imagePath,
       imageTitle: title,
       imageContent: content,
+      date: noteFormatDate(time: DateTime.now()),
     );
   }
 

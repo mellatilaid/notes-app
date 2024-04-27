@@ -20,19 +20,22 @@ class ImageNoteModelAdapter extends TypeAdapter<ImageNoteModel> {
       imageTitle: fields[0] as String?,
       imageContent: fields[2] as String?,
       imagePath: fields[1] as String,
+      date: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ImageNoteModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.imageTitle)
       ..writeByte(1)
       ..write(obj.imagePath)
       ..writeByte(2)
-      ..write(obj.imageContent);
+      ..write(obj.imageContent)
+      ..writeByte(3)
+      ..write(obj.date);
   }
 
   @override

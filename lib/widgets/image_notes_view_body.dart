@@ -17,6 +17,7 @@ class _ImageNotesViewBodyState extends State<ImageNotesViewBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     BlocProvider.of<ImageNotesCubit>(context).fetchAllImageNotes();
   }
 

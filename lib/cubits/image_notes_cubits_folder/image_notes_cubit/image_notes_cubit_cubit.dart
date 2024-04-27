@@ -18,4 +18,9 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState> {
     revImageNotes = imageNotes.reversed.toList();
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
+
+  clear() {
+    final imageNotesBox = Hive.box<ImageNoteModel>(kImageNoteBox);
+    imageNotesBox.clear();
+  }
 }
