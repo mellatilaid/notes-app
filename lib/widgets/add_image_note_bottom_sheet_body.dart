@@ -98,7 +98,7 @@ class _AddImageNoteBottomSheetBodyState
               height: 16,
             ),
             CustomActionButton(
-              title: 'Add Image',
+              title: 'Create Note',
               onPressed: () {},
               backGroundColor: kPrimaryColor,
             ),
