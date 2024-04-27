@@ -41,7 +41,9 @@ class ImageNotesViewBuilder extends StatelessWidget {
               imagePath: '',
             );
           } else {
-            return const ImageNotesListView();
+            return ImageNotesListView(
+              imageNotes: state.imageNotes,
+            );
           }
         } else {
           return const Center(

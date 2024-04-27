@@ -1,17 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:note_app/models/image_note_model.dart';
 
 class ImageNoteItem extends StatelessWidget {
-  final Widget leading;
-  final String title;
-  final Widget trailing;
-  final double height;
+  final ImageNoteModel imageNote;
 
   const ImageNoteItem({
     Key? key,
-    required this.leading,
-    required this.title,
-    required this.trailing,
-    this.height = 80.0, // Default height
+    required this.imageNote,
   }) : super(key: key);
 
   @override
@@ -19,7 +16,7 @@ class ImageNoteItem extends StatelessWidget {
     return Card(
       elevation: 5,
       child: SizedBox(
-        height: height,
+        height: 80,
         child: Row(
           children: <Widget>[
             // Leading Widget
@@ -27,7 +24,11 @@ class ImageNoteItem extends StatelessWidget {
               alignment: Alignment.center,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: leading,
+                child: Image.file(
+                  File(imageNote.imagePath),
+                  width: 80,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             // Title Widget
@@ -41,7 +42,7 @@ class ImageNoteItem extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        title,
+                        imageNote.imageTitle ?? 'Image title',
                         style: Theme.of(context).textTheme.labelLarge,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
