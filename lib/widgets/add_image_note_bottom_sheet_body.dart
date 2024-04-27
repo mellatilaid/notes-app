@@ -104,21 +104,30 @@ class _AddImageNoteBottomSheetBodyState
             const SizedBox(
               height: 16,
             ),
-            CustomActionButton(
-              title: 'Create Note',
-              onPressed: () async {
-                if (imageNotePath != null) {
-                  final addImageNoteCubit = context.read<AddImageNoteCubit>();
-                  await _addImageNoteToTheDB(
-                    addImageNoteCubit: addImageNoteCubit,
-                    title: _imageNoteTitleController.text,
-                    content: _iamgeNoteContentController.text,
-                  );
-                } else {
-                  showSnakBar(context, message: 'Upload image first');
-                }
+            BlocBuilder<AddImageNoteCubit, AddImageNoteCubitState>(
+              builder: (context, state) {
+                return CustomActionButton(
+                  isLoading: (state is AddImageNoteLoadingState) ? true : false,
+                  title: 'Create Note',
+                  onPressed: () async {
+                    if (imageNotePath != null) {
+                      final addImageNoteCubit =
+                          context.read<AddImageNoteCubit>();
+                      await _addImageNoteToTheDB(
+                        addImageNoteCubit: addImageNoteCubit,
+                        title: _imageNoteTitleController.text,
+                        content: _iamgeNoteContentController.text,
+                      );
+                    } else {
+                      showSnakBar(
+                        context,
+                        message: 'Upload image first',
+                      );
+                    }
+                  },
+                  backGroundColor: kPrimaryColor,
+                );
               },
-              backGroundColor: kPrimaryColor,
             ),
           ],
         ),
@@ -151,6 +160,7 @@ class _AddImageNoteBottomSheetBodyState
     );
   }
 
+  //adds image to the Data base
   _addImageNoteToTheDB({
     required AddImageNoteCubit addImageNoteCubit,
     required String title,
