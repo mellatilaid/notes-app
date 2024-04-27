@@ -7,7 +7,7 @@ final class AddImageNoteInitialState extends AddImageNoteCubitState {}
 
 final class AddImageNoteLoadingState extends AddImageNoteCubitState {}
 
-final class AddImgeNoteSuccusState extends AddImageNoteCubitState {}
+final class AddImageNoteSuccusState extends AddImageNoteCubitState {}
 
 final class AddImageNoteFailedState extends AddImageNoteCubitState {
   final String errMessage;
