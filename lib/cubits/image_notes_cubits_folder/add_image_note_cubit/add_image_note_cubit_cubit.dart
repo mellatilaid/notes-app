@@ -9,12 +9,12 @@ part 'add_image_note_cubit_state.dart';
 class AddImageNoteCubit extends Cubit<AddImageNoteCubitState> {
   AddImageNoteCubit() : super(AddImageNoteInitialState());
 
-  addImageNote({required ImageNoteModel imageNote}) async {
+  Future<void> addImageNote({required ImageNoteModel imageNote}) async {
     emit(AddImageNoteLoadingState());
 
     try {
-      var notesBox = Hive.box<ImageNoteModel>(kImageNoteBox);
-      await notesBox.add(imageNote);
+      var imageNotesBox = Hive.box<ImageNoteModel>(kImageNoteBox);
+      await imageNotesBox.add(imageNote);
       emit(AddImageNoteSuccusState());
     } catch (e) {
       AddImageNoteFailedState(errMessage: e.toString());
