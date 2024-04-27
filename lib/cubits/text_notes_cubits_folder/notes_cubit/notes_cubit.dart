@@ -12,7 +12,7 @@ class NotesCubit extends Cubit<NotesState> implements INoteCubit {
   fetchAllNotes() {
     var notesBox = Hive.box<NoteModel>(kTextNoteBox);
     final List<NoteModel> notes = notesBox.values.toList();
-    print('notes lenhgth is ${notes.length}');
+
     revNotes = notes.reversed.toList();
     emit(
       NotesSuccuss(
