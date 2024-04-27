@@ -10,6 +10,7 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
+import 'package:note_app/helper/local_file_manager.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
@@ -152,11 +153,18 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
     final note = widget.noteModel;
 
     notesCubit.removeFromNotes(index: widget.index);
-    Timer timer = Timer(const Duration(seconds: 2), () {
+    Timer timer = Timer(const Duration(seconds: 2), () async {
+      //if note model was image note model
+      //the image should be deleted from app's directory first
+      if (note is ImageNoteModel) {
+        await LocalFileManager(filePath: note.imagePath).removeFileFromLocal();
+      }
       note.delete();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.all(8),
       content: const Text(
         'Note was deleted',
       ),
