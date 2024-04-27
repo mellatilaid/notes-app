@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/add_image_note_cubit/add_image_note_cubit_cubit.dart';
@@ -13,7 +14,18 @@ class AddImageNoteBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddImageNoteCubit(),
-      child: const AddImageNoteBottomSheetBody(),
+      child: BlocListener<AddImageNoteCubit, AddImageNoteCubitState>(
+        listener: (context, state) {
+          if (state is AddImageNoteSuccusState) {
+            Navigator.pop(context);
+          } else if (state is AddImageNoteFailedState) {
+            if (kDebugMode) {
+              debugPrint('failed to add image ${state.errMessage}');
+            }
+          }
+        },
+        child: const AddImageNoteBottomSheetBody(),
+      ),
     );
   }
 }
