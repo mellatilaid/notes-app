@@ -1,7 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:note_app/cubits/image_notes_cubits_folder/add_image_note_cubit/add_image_note_cubit_cubit.dart';
+import 'package:note_app/helper/local_file_manager.dart';
+import 'package:note_app/helper/show_snak_bar.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
@@ -21,7 +25,9 @@ class AddImageNoteBottomSheetBody extends StatefulWidget {
 
 class _AddImageNoteBottomSheetBodyState
     extends State<AddImageNoteBottomSheetBody> {
-  final TextEditingController imageNoteTitleController =
+  final TextEditingController _imageNoteTitleController =
+      TextEditingController();
+  final TextEditingController _iamgeNoteContentController =
       TextEditingController();
   String? imageNotePath;
   @override
@@ -55,12 +61,12 @@ class _AddImageNoteBottomSheetBodyState
             ),
             const SizedBox(height: 16),
             InvisibleTextField(
-              controller: imageNoteTitleController,
+              controller: _imageNoteTitleController,
               hintText: 'Image Title',
               textStyle: Theme.of(context).textTheme.headlineSmall,
             ),
             InvisibleTextField(
-              controller: imageNoteTitleController,
+              controller: _iamgeNoteContentController,
               hintText: 'Note',
             ),
             const SectionDividerWithTitle(title: 'Upload image'),
@@ -100,7 +106,18 @@ class _AddImageNoteBottomSheetBodyState
             ),
             CustomActionButton(
               title: 'Create Note',
-              onPressed: () {},
+              onPressed: () async {
+                if (imageNotePath != null) {
+                  final addImageNoteCubit = context.read<AddImageNoteCubit>();
+                  await _addImageNoteToTheDB(
+                    addImageNoteCubit: addImageNoteCubit,
+                    title: _imageNoteTitleController.text,
+                    content: _iamgeNoteContentController.text,
+                  );
+                } else {
+                  showSnakBar(context, message: 'Upload image first');
+                }
+              },
               backGroundColor: kPrimaryColor,
             ),
           ],
@@ -121,12 +138,36 @@ class _AddImageNoteBottomSheetBodyState
     return null;
   }
 
-  ImageNoteModel _assembleImageNoteEntry(
-      {required String imagePath, String? title, String? content}) {
+  //assemble seperated variable into image note model
+  ImageNoteModel _assembleImageNoteEntry({
+    required String imagePath,
+    required String title,
+    required String content,
+  }) {
     return ImageNoteModel(
       imagePath: imagePath,
       imageTitle: title,
       imageContent: content,
     );
+  }
+
+  _addImageNoteToTheDB({
+    required AddImageNoteCubit addImageNoteCubit,
+    required String title,
+    required String content,
+  }) async {
+    //save image file to local
+    final String imageLocalPath =
+        await LocalFileManager(filePath: imageNotePath!).saveFileToLocal();
+    //assemble the received aurgument into image note model
+    final ImageNoteModel imageNote = _assembleImageNoteEntry(
+      imagePath: imageLocalPath,
+      title: _imageNoteTitleController.text,
+      content: _iamgeNoteContentController.text,
+    );
+    //add note to the hive data base
+    if (!mounted) return;
+    BlocProvider.of<AddImageNoteCubit>(context)
+        .addImageNote(imageNote: imageNote);
   }
 }

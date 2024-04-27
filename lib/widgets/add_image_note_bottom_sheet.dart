@@ -24,7 +24,9 @@ class AddImageNoteBottomSheet extends StatelessWidget {
             }
           }
         },
-        child: const AddImageNoteBottomSheetBody(),
+        child: const Scaffold(
+          body: AddImageNoteBottomSheetBody(),
+        ),
       ),
     );
   }
