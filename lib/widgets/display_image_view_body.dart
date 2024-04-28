@@ -11,6 +11,8 @@ class DisplayImageViewBody extends StatefulWidget {
 class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+
+  saveEdit() {}
   @override
   Widget build(BuildContext context) {
     return Padding(

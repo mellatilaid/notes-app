@@ -19,7 +19,7 @@ class _DisplayImageViewState extends State<DisplayImageView> {
   _onEditSaved() {
     if (displayImageVoiceBodyStateKey.currentState != null &&
         displayImageVoiceBodyStateKey.currentState!.mounted) {
-      displayImageVoiceBodyStateKey.currentState!;
+      displayImageVoiceBodyStateKey.currentState!.saveEdit();
       setState(() {
         isReadOnly = true;
       });
@@ -33,7 +33,9 @@ class _DisplayImageViewState extends State<DisplayImageView> {
         automaticallyImplyLeading: false,
         leading: !isReadOnly
             ? IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _onEditSaved();
+                },
                 icon: const Icon(
                   Icons.done,
                 ),
