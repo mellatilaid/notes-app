@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit_states.dart';
-import 'package:note_app/helper/note_added_time_formater.dart';
+import 'package:note_app/helper/assemble_note_helper.dart';
 
 import '../cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit.dart';
 import '../helper/const.dart';
@@ -64,10 +64,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
   }
 
   _addNote() {
-    NoteModel note = NoteModel(
+    NoteModel note = AssembleNote().assembleTextNote(
       title: titleController.text,
       content: contentController.text,
-      date: noteFormatDate(time: DateTime.now()),
       color: Colors.amber.value,
     );
 

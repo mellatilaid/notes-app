@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/add_image_note_cubit/add_image_note_cubit_cubit.dart';
+import 'package:note_app/helper/assemble_note_helper.dart';
 import 'package:note_app/helper/local_file_manager.dart';
-import 'package:note_app/helper/note_added_time_formater.dart';
 import 'package:note_app/helper/show_snak_bar.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
@@ -151,20 +151,6 @@ class _AddImageNoteBottomSheetBodyState
     return null;
   }
 
-  //assemble seperated variable into image note model
-  ImageNoteModel _assembleImageNoteEntry({
-    required String imagePath,
-    required String title,
-    required String content,
-  }) {
-    return ImageNoteModel(
-      imagePath: imagePath,
-      imageTitle: title,
-      imageContent: content,
-      date: noteFormatDate(time: DateTime.now()),
-    );
-  }
-
   //adds image to the Data base
   _addImageNoteToTheDB({
     required AddImageNoteCubit addImageNoteCubit,
@@ -175,7 +161,7 @@ class _AddImageNoteBottomSheetBodyState
     final String imageLocalPath =
         await LocalFileManager(filePath: imageNotePath!).saveFileToLocal();
     //assemble the received aurgument into image note model
-    final ImageNoteModel imageNote = _assembleImageNoteEntry(
+    final ImageNoteModel imageNote = AssembleNote().assembleImageNoteEntry(
       imagePath: imageLocalPath,
       title: _imageNoteTitleController.text,
       content: _iamgeNoteContentController.text,

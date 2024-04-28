@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/add_voice_note_cubit/add_voice_note_cubit.dart';
-import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/formate_time.dart';
-import 'package:note_app/helper/note_added_time_formater.dart';
+import 'package:note_app/helper/local_file_manager.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/widgets/custom_rounded_icon.dart';
 import 'package:note_app/widgets/dual_action_text_field.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../helper/assemble_note_helper.dart';
 
 class AddVoiceNoteBottomSheetBody extends StatefulWidget {
   const AddVoiceNoteBottomSheetBody({super.key});
@@ -48,9 +49,9 @@ class _AddVoiceNoteBottomSheetBodyState
   Future record() async {
     if (!isRecorderReady) return;
     final timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-    audioFilePath = 'audio_$timeStamp.aac';
+    final tempFilePath = 'audio_$timeStamp.aac';
     await recorder.startRecorder(
-      toFile: audioFilePath,
+      toFile: tempFilePath,
     );
 
     isRecording = true;
@@ -135,13 +136,13 @@ class _AddVoiceNoteBottomSheetBodyState
                     await stop();
                   }
                   if (audioFilePath != null) {
-                    final VoiceNoteModel voiceNote = _addVoiceNote(
-                      audioPath: audioFilePath!,
-                      audioTitle: _voiceNotetitle.text,
-                    );
                     if (!mounted) return;
-                    BlocProvider.of<AddVoiceNoteCubit>(context)
-                        .addVoiceNote(voiceNoteModel: voiceNote);
+                    final AddVoiceNoteCubit addVoiceNoteCubit =
+                        context.read<AddVoiceNoteCubit>();
+                    _addImageNoteToTheDB(
+                      addImageNoteCubit: addVoiceNoteCubit,
+                      title: _voiceNotetitle.text,
+                    );
                   } else {
                     if (!mounted) return;
                     Navigator.pop(context);
@@ -156,49 +157,21 @@ class _AddVoiceNoteBottomSheetBodyState
     );
   }
 
-  VoiceNoteModel _addVoiceNote(
-      {required String audioPath, required String audioTitle}) {
-    final VoiceNoteModel voiceNote = VoiceNoteModel(
-      title: audioTitle,
-      voicePath: audioPath,
-      date: noteFormatDate(
-        time: DateTime.now(),
-      ),
+  _addImageNoteToTheDB({
+    required AddVoiceNoteCubit addImageNoteCubit,
+    required String title,
+  }) async {
+    //save image file to local
+    final String voiceLocalPath =
+        await LocalFileManager(filePath: audioFilePath!).saveFileToLocal();
+    //assemble the received aurgument into image note model
+    final VoiceNoteModel imageNote = AssembleNote().assembleVoiceNote(
+      audioPath: voiceLocalPath,
+      audioTitle: title,
     );
-    return voiceNote;
-  }
-}
-
-class RecordVoiceActions extends StatelessWidget {
-  const RecordVoiceActions({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.cancel),
-        ),
-        CircleAvatar(
-          radius: 35,
-          backgroundColor: kPrimaryColor,
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.play_arrow),
-            iconSize: 50,
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.done),
-        ),
-      ],
-    );
+    //add note to the hive data base
+    if (!mounted) return;
+    BlocProvider.of<AddVoiceNoteCubit>(context)
+        .addVoiceNote(voiceNoteModel: imageNote);
   }
 }

@@ -8,7 +8,7 @@ class LocalFileManager {
   final String filePath;
   const LocalFileManager({required this.filePath});
 
-  saveFileToLocal() async {
+  Future<String> saveFileToLocal() async {
     final File file = File(filePath);
     try {
       //get the application document directory
