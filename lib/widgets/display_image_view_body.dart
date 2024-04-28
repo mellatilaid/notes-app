@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
 class DisplayImageViewBody extends StatefulWidget {
-  const DisplayImageViewBody({super.key});
+  const DisplayImageViewBody({Key? key}) : super(key: key);
 
   @override
-  State<DisplayImageViewBody> createState() => _DisplayImageViewBodyState();
+  State<DisplayImageViewBody> createState() => DisplayImageViewBodyState();
 }
 
-class _DisplayImageViewBodyState extends State<DisplayImageViewBody> {
+class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   @override

@@ -11,6 +11,21 @@ class DisplayImageView extends StatefulWidget {
 
 class _DisplayImageViewState extends State<DisplayImageView> {
   bool isReadOnly = true;
+  final GlobalKey<DisplayImageViewBodyState> displayImageVoiceBodyStateKey =
+      GlobalKey();
+
+  //when save icon cicked
+  //then call saveEdit method of voice player view body
+  _onEditSaved() {
+    if (displayImageVoiceBodyStateKey.currentState != null &&
+        displayImageVoiceBodyStateKey.currentState!.mounted) {
+      displayImageVoiceBodyStateKey.currentState!;
+      setState(() {
+        isReadOnly = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
