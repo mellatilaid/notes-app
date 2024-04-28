@@ -139,7 +139,7 @@ class _AddVoiceNoteBottomSheetBodyState
                     if (!mounted) return;
                     final AddVoiceNoteCubit addVoiceNoteCubit =
                         context.read<AddVoiceNoteCubit>();
-                    _addImageNoteToTheDB(
+                    _addVoiceNoteToTheDB(
                       addImageNoteCubit: addVoiceNoteCubit,
                       title: _voiceNotetitle.text,
                     );
@@ -157,7 +157,7 @@ class _AddVoiceNoteBottomSheetBodyState
     );
   }
 
-  _addImageNoteToTheDB({
+  _addVoiceNoteToTheDB({
     required AddVoiceNoteCubit addImageNoteCubit,
     required String title,
   }) async {

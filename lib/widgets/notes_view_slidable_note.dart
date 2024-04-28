@@ -159,6 +159,11 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
       if (note is ImageNoteModel) {
         await LocalFileManager(filePath: note.imagePath).removeFileFromLocal();
       }
+      //if note model was voice note model
+      //the voice should be deleted from app's directory first
+      if (note is VoiceNoteModel) {
+        await LocalFileManager(filePath: note.voicePath).removeFileFromLocal();
+      }
       note.delete();
     });
     final snackBar = SnackBar(
