@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
+import 'package:note_app/helper/local_file_manager.dart';
 import 'package:note_app/models/voice_note_model.dart';
 
 import '../widgets/voice_player_view_body.dart';
@@ -78,9 +79,12 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     );
   }
 
-  _deleteNote({required BuildContext context}) {
+  _deleteNote({required BuildContext context}) async {
     Navigator.pop(context);
+    await LocalFileManager(filePath: widget.voiceNote.voicePath)
+        .removeFileFromLocal();
     widget.voiceNote.delete();
+    if (!mounted) return;
     BlocProvider.of<VoiceNotesCubit>(context).fetchVoiceNotes();
   }
 }
