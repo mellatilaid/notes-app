@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/image_note_model.dart';
 
 import '../widgets/display_image_view_body.dart';
 
 class DisplayImageView extends StatefulWidget {
-  const DisplayImageView({super.key});
+  final ImageNoteModel imageNote;
+  const DisplayImageView({
+    super.key,
+    required this.imageNote,
+  });
 
   @override
   State<DisplayImageView> createState() => _DisplayImageViewState();
@@ -60,7 +65,11 @@ class _DisplayImageViewState extends State<DisplayImageView> {
           ),
         ],
       ),
-      body: const DisplayImageViewBody(),
+      body: DisplayImageViewBody(
+        key: displayImageVoiceBodyStateKey,
+        imageNote: widget.imageNote,
+        isReadOnly: isReadOnly,
+      ),
     );
   }
 }

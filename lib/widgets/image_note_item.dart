@@ -16,7 +16,9 @@ class ImageNoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.toView(const DisplayImageView()),
+      onTap: () => context.toView(DisplayImageView(
+        imageNote: imageNote,
+      )),
       child: Card(
         elevation: 5,
         margin: EdgeInsets.zero,
@@ -47,9 +49,9 @@ class ImageNoteItem extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          imageNote.imageTitle!.isEmpty
+                          imageNote.title!.isEmpty
                               ? 'Image title'
-                              : imageNote.imageTitle!,
+                              : imageNote.title!,
                           style: Theme.of(context).textTheme.labelLarge,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,

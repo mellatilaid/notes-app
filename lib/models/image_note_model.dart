@@ -5,16 +5,16 @@ part 'image_note_model.g.dart';
 @HiveType(typeId: 3)
 class ImageNoteModel extends HiveObject {
   @HiveField(0)
-  final String? imageTitle;
+  String title;
   @HiveField(1)
   final String imagePath;
   @HiveField(2)
-  final String? imageContent;
+  String? content;
   @HiveField(3)
-  final String date;
+  String date;
   ImageNoteModel({
-    this.imageTitle,
-    this.imageContent,
+    required this.title,
+    this.content,
     required this.imagePath,
     required this.date,
   });

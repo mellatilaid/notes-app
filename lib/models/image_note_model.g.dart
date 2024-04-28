@@ -17,8 +17,8 @@ class ImageNoteModelAdapter extends TypeAdapter<ImageNoteModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ImageNoteModel(
-      imageTitle: fields[0] as String?,
-      imageContent: fields[2] as String?,
+      title: fields[0] as String,
+      content: fields[2] as String?,
       imagePath: fields[1] as String,
       date: fields[3] as String,
     );
@@ -29,11 +29,11 @@ class ImageNoteModelAdapter extends TypeAdapter<ImageNoteModel> {
     writer
       ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.imageTitle)
+      ..write(obj.title)
       ..writeByte(1)
       ..write(obj.imagePath)
       ..writeByte(2)
-      ..write(obj.imageContent)
+      ..write(obj.content)
       ..writeByte(3)
       ..write(obj.date);
   }

@@ -12,8 +12,8 @@ class AssembleNote {
   }) {
     return ImageNoteModel(
       imagePath: imagePath,
-      imageTitle: title,
-      imageContent: content,
+      title: title,
+      content: content,
       date: noteFormatDate(time: DateTime.now()),
     );
   }
