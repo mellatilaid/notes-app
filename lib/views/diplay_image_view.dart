@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/display_image_view_body.dart';
+
 class DisplayImageView extends StatefulWidget {
   const DisplayImageView({super.key});
 
@@ -24,7 +26,11 @@ class _DisplayImageViewState extends State<DisplayImageView> {
             : const SizedBox(),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                isReadOnly = !isReadOnly;
+              });
+            },
             icon: const Icon(
               Icons.edit,
             ),
@@ -37,6 +43,7 @@ class _DisplayImageViewState extends State<DisplayImageView> {
           ),
         ],
       ),
+      body: const DisplayImageViewBody(),
     );
   }
 }
