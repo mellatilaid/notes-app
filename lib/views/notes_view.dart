@@ -96,7 +96,9 @@ class _NotesViewState extends State<NotesView>
                     isScrollControlled: true,
                     context: context,
                     builder: (context) {
-                      return const AddImageNoteBottomSheet();
+                      return AddImageNoteBottomSheet(
+                        imageTabController: _tabBarController,
+                      );
                     });
               },
             ),

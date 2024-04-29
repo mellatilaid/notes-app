@@ -35,10 +35,8 @@ class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
   @override
   void initState() {
     super.initState();
-    _titleController.text =
-        widget.imageNote.title.isEmpty ? 'Title' : widget.imageNote.title;
-    _contentController.text =
-        widget.imageNote.content!.isEmpty ? 'Note' : widget.imageNote.content!;
+    _titleController.text = widget.imageNote.title;
+    _contentController.text = widget.imageNote.content!;
   }
 
   @override
@@ -69,11 +67,13 @@ class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
               readOnly: widget.isReadOnly,
               controller: _titleController,
               textStyle: Theme.of(context).textTheme.headlineSmall,
+              hintText: 'Title',
             ),
             InvisibleTextField(
               readOnly: widget.isReadOnly,
               controller: _contentController,
               textStyle: Theme.of(context).textTheme.bodyLarge,
+              hintText: 'Note',
             ),
           ],
         ),

@@ -7,8 +7,10 @@ import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/imag
 import 'add_image_note_bottom_sheet_body.dart';
 
 class AddImageNoteBottomSheet extends StatelessWidget {
+  final TabController imageTabController;
   const AddImageNoteBottomSheet({
     super.key,
+    required this.imageTabController,
   });
 
   @override
@@ -20,6 +22,8 @@ class AddImageNoteBottomSheet extends StatelessWidget {
           if (state is AddImageNoteSuccusState) {
             Navigator.pop(context);
             BlocProvider.of<ImageNotesCubit>(context).fetchAllImageNotes();
+            imageTabController.animateTo(2,
+                duration: const Duration(microseconds: 100));
           } else if (state is AddImageNoteFailedState) {
             if (kDebugMode) {
               debugPrint('failed to add image ${state.errMessage}');

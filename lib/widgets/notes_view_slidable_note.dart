@@ -169,7 +169,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       content: const Text(
         'Note was deleted',
       ),
