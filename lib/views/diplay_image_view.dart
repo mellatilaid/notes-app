@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
 import 'package:note_app/models/image_note_model.dart';
 
+import '../helper/local_file_manager.dart';
 import '../widgets/display_image_view_body.dart';
 
 class DisplayImageView extends StatefulWidget {
@@ -58,7 +61,9 @@ class _DisplayImageViewState extends State<DisplayImageView> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _deleteNote();
+            },
             icon: const Icon(
               Icons.delete_forever,
             ),
@@ -71,5 +76,14 @@ class _DisplayImageViewState extends State<DisplayImageView> {
         isReadOnly: isReadOnly,
       ),
     );
+  }
+
+  _deleteNote() async {
+    Navigator.pop(context);
+    await LocalFileManager(filePath: widget.imageNote.imagePath)
+        .removeFileFromLocal();
+    widget.imageNote.delete();
+    if (!mounted) return;
+    BlocProvider.of<ImageNotesCubit>(context).fetchAllImageNotes();
   }
 }
