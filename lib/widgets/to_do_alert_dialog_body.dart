@@ -38,6 +38,7 @@ class _ToDoAlertDialogBodyState extends State<ToDoAlertDialogBody> {
               children: [
                 for (int i = 0; i < toDoItems.length; i++)
                   CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
                     value: false,
                     onChanged: (bool? value) {
                       if (value!) {
