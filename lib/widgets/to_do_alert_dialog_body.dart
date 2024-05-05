@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/invisible_text_field.dart';
 
-class ToDoAlertDialogBody extends StatelessWidget {
+class ToDoAlertDialogBody extends StatefulWidget {
   const ToDoAlertDialogBody({super.key});
 
   @override
+  State<ToDoAlertDialogBody> createState() => _ToDoAlertDialogBodyState();
+}
+
+class _ToDoAlertDialogBodyState extends State<ToDoAlertDialogBody> {
+  final TextEditingController _titleController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add To-Do Item'),
+      title: InvisibleTextField(
+        controller: _titleController,
+        hintText: 'To do list title',
+        textStyle: Theme.of(context).textTheme.headlineSmall,
+      ),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return SingleChildScrollView(
@@ -40,7 +51,9 @@ class ToDoAlertDialogBody extends StatelessWidget {
       actions: <Widget>[
         ElevatedButton(
           child: const Text('Close'),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ],
     );
