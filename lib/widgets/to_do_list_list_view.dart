@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/to_do_item.dart';
 
 class ToDoListListView extends StatelessWidget {
   const ToDoListListView({super.key});
@@ -11,10 +12,7 @@ class ToDoListListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return Container(
-          height: 20,
-          color: Colors.blue,
-        );
+        return const ToDoItem();
       },
     );
   }
