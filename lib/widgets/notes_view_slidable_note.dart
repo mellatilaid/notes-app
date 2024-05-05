@@ -23,6 +23,7 @@ import 'custom_voice_note_item.dart';
 
 class NotesViewSlidableNote<T> extends StatefulWidget {
   final WidgetLocation widgetLocation;
+
   const NotesViewSlidableNote({
     super.key,
     required this.noteModel,
