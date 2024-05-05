@@ -27,7 +27,7 @@ class _ToDoAlertDialogBodyState extends State<ToDoAlertDialogBody> {
     return AlertDialog(
       title: InvisibleTextField(
         controller: _titleController,
-        hintText: 'To do list title',
+        hintText: 'Title',
         textStyle: Theme.of(context).textTheme.headlineSmall,
       ),
       content: StatefulBuilder(
