@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/custom_floating_action_button.dart';
 import 'package:note_app/widgets/to_do_view_body.dart';
 
-import '../widgets/add_note_options_speed_dial.dart';
+import '../widgets/to_do_alert_dialog_body.dart';
 
 class ToDoView extends StatelessWidget {
   const ToDoView({super.key});
@@ -20,8 +21,17 @@ class ToDoView extends StatelessWidget {
       ),
       drawer: const Drawer(),
       body: const ToDoViewBody(),
-      floatingActionButton: const FloatingAddOptionsSpeedDial(
-        speedDials: [],
+      floatingActionButton: CustomFlaotingActionButton(
+        child: const Icon(Icons.add),
+        onTap: () {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return const ToDoAlertDialogBody();
+            },
+          );
+        },
       ),
     );
   }
