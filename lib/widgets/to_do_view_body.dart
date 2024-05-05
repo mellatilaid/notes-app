@@ -41,6 +41,7 @@ class _ToDoViewBodyState extends State<ToDoViewBody> {
 
   void _showAddToDoDialog() {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -68,8 +69,9 @@ class _ToDoViewBodyState extends State<ToDoViewBody> {
                     TextField(
                       controller: controller,
                       focusNode: focusNode,
-                      decoration:
-                          const InputDecoration(hintText: 'Enter to-do item'),
+                      decoration: const InputDecoration(
+                        hintText: 'Enter to-do item',
+                      ),
                       textInputAction: TextInputAction.next,
                       onSubmitted: (String value) {
                         setState(
@@ -77,6 +79,8 @@ class _ToDoViewBodyState extends State<ToDoViewBody> {
                             toDoItems.add(value);
                           },
                         );
+                        controller.clear();
+                        FocusScope.of(context).requestFocus(focusNode);
                       },
                     )
                   ],
@@ -88,13 +92,14 @@ class _ToDoViewBodyState extends State<ToDoViewBody> {
             ElevatedButton(
               child: const Text('Close'),
               onPressed: () {
-                /*if ( focusNodes.last.hasFocus) {
+                if (focusNode.hasFocus) {
                   FocusScope.of(context).unfocus();
-                }*/
+                }
 
                 Navigator.pop(context);
 
                 controller.clear();
+                toDoItems.clear();
                 //focusNode.clear();
                 //controllers.add(TextEditingController());
                 //focusNode.add(FocusNode());

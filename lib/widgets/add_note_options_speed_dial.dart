@@ -3,9 +3,9 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../helper/const.dart';
 
-class AddNoteOptionsSpeedDial extends StatelessWidget {
+class FloatingAddOptionsSpeedDial extends StatelessWidget {
   final List<SpeedDialChild> speedDials;
-  const AddNoteOptionsSpeedDial({
+  const FloatingAddOptionsSpeedDial({
     super.key,
     required this.speedDials,
   });

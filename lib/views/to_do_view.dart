@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/to_do_view_body.dart';
 
+import '../widgets/add_note_options_speed_dial.dart';
+
 class ToDoView extends StatelessWidget {
   const ToDoView({super.key});
 
@@ -18,6 +20,9 @@ class ToDoView extends StatelessWidget {
       ),
       drawer: const Drawer(),
       body: const ToDoViewBody(),
+      floatingActionButton: const FloatingAddOptionsSpeedDial(
+        speedDials: [],
+      ),
     );
   }
 }

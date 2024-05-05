@@ -68,7 +68,7 @@ class _FolderContentViewState extends State<FolderContentView> {
           }
         },
       ),
-      floatingActionButton: AddNoteOptionsSpeedDial(
+      floatingActionButton: FloatingAddOptionsSpeedDial(
         speedDials: [
           customSpeedDialChild(
             onTap: () => context.toView(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
@@ -10,6 +9,8 @@ import 'package:note_app/widgets/add_voice_note_bottom_sheet.dart';
 import 'package:note_app/widgets/image_notes_view_body.dart';
 import 'package:note_app/widgets/text_notes_view_body.dart';
 import 'package:note_app/widgets/voice_notes_view_body.dart';
+
+import '../helper/custom_action_speed_dial.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -66,7 +67,7 @@ class _NotesViewState extends State<NotesView>
             ImageNotesViewBody(),
           ],
         ),
-        floatingActionButton: AddNoteOptionsSpeedDial(
+        floatingActionButton: FloatingAddOptionsSpeedDial(
           speedDials: [
             customSpeedDialChild(
                 onTap: () => context.toView(AddNotesView(
@@ -105,21 +106,6 @@ class _NotesViewState extends State<NotesView>
           ],
         ),
       ),
-    );
-  }
-
-  SpeedDialChild customSpeedDialChild(
-      {required Icon icon, required String label, VoidCallback? onTap}) {
-    return SpeedDialChild(
-      child: icon,
-      // The background color of the mini FAB
-      backgroundColor: Colors.grey.withOpacity(0.6),
-      // The foreground color of the mini FAB
-      foregroundColor: Colors.white,
-      // The label of the mini FAB
-      label: label,
-      // The action to perform when the mini FAB is tapped
-      onTap: onTap,
     );
   }
 }
