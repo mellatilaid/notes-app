@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tasks_list.dart';
+part of 'tasks_list_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TasksListAdapter extends TypeAdapter<TasksList> {
+class TasksListModelAdapter extends TypeAdapter<TasksListModel> {
   @override
   final int typeId = 5;
 
   @override
-  TasksList read(BinaryReader reader) {
+  TasksListModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TasksList(
+    return TasksListModel(
       title: fields[0] as String?,
       tasksList: (fields[1] as List).cast<ToDoItemModel>(),
       color: fields[2] as int,
@@ -25,7 +25,7 @@ class TasksListAdapter extends TypeAdapter<TasksList> {
   }
 
   @override
-  void write(BinaryWriter writer, TasksList obj) {
+  void write(BinaryWriter writer, TasksListModel obj) {
     writer
       ..writeByte(4)
       ..writeByte(0)
@@ -44,7 +44,7 @@ class TasksListAdapter extends TypeAdapter<TasksList> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TasksListAdapter &&
+      other is TasksListModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
