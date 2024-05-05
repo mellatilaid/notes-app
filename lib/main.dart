@@ -13,6 +13,8 @@ import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voic
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/models/image_note_model.dart';
+import 'package:note_app/models/tasks_list.dart';
+import 'package:note_app/models/to_do_item_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
 
 import 'models/note_model.dart';
@@ -28,6 +30,9 @@ void main() async {
   await Hive.openBox<VoiceNoteModel>(kVoiceNoteBox);
   Hive.registerAdapter(ImageNoteModelAdapter());
   await Hive.openBox<ImageNoteModel>(kImageNoteBox);
+  Hive.registerAdapter(ToDoItemModelAdapter());
+  Hive.registerAdapter(TasksListAdapter());
+  await Hive.openBox<TasksList>(kTasksListBox);
   runApp(const NotesApp());
 }
 

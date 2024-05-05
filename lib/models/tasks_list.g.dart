@@ -1,35 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'to_do_item_model.dart';
+part of 'tasks_list.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ToDoItemModelAdapter extends TypeAdapter<ToDoItemModel> {
+class TasksListAdapter extends TypeAdapter<TasksList> {
   @override
-  final int typeId = 4;
+  final int typeId = 5;
 
   @override
-  ToDoItemModel read(BinaryReader reader) {
+  TasksList read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ToDoItemModel(
-      title: fields[0] as String,
-      isChecked: fields[1] as bool,
+    return TasksList(
+      title: fields[0] as String?,
+      tasksList: (fields[1] as List).cast<ToDoItemModel>(),
+      color: fields[2] as int,
+      date: fields[3] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ToDoItemModel obj) {
+  void write(BinaryWriter writer, TasksList obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.isChecked);
+      ..write(obj.tasksList)
+      ..writeByte(2)
+      ..write(obj.color)
+      ..writeByte(3)
+      ..write(obj.date);
   }
 
   @override
@@ -38,7 +44,7 @@ class ToDoItemModelAdapter extends TypeAdapter<ToDoItemModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ToDoItemModelAdapter &&
+      other is TasksListAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
