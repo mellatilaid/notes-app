@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/tasks_lists_cubits/cubit/add_tasks_list_cubit.dart';
+import 'package:note_app/helper/note_added_time_formater.dart';
+import 'package:note_app/models/tasks_list_model.dart';
+import 'package:note_app/models/to_do_item_model.dart';
+import 'package:note_app/widgets/custom_text_button.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
 class AddTasksListAlertDialogBody extends StatefulWidget {
@@ -76,8 +82,8 @@ class _AddTasksListAlertDialogBodyState
         },
       ),
       actions: <Widget>[
-        ElevatedButton(
-          child: const Text('Close'),
+        CustomTextButton(
+          title: 'Close',
           onPressed: () {
             if (foucusNode.hasFocus) {
               FocusScope.of(context).unfocus();
@@ -88,8 +94,36 @@ class _AddTasksListAlertDialogBodyState
             _toDoItemController.clear();
             toDoItems.clear();
           },
+          textColor: Colors.grey,
+          width: null,
+        ),
+        CustomTextButton(
+          title: 'Save',
+          onPressed: () {
+            if (toDoItems.isNotEmpty) {
+              final AddTasksListCubit addTasksListCubit =
+                  context.read<AddTasksListCubit>();
+              _assembeleTasksList(addTasksListCubit: addTasksListCubit);
+            }
+          },
+          width: null,
         ),
       ],
+    );
+  }
+
+  //constructs seperated variables
+  //to taks list model
+  _assembeleTasksList({required AddTasksListCubit addTasksListCubit}) {
+    List<ToDoItemModel> tasksList = [];
+    for (var item in toDoItems) {
+      ToDoItemModel toDoItem = ToDoItemModel(title: item, isChecked: false);
+      tasksList.add(toDoItem);
+    }
+    return TasksListModel(
+      tasksList: tasksList,
+      color: Colors.blue.value,
+      date: noteFormatDate(time: DateTime.now()),
     );
   }
 }
