@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/widgets/custom_floating_action_button.dart';
 import 'package:note_app/widgets/to_do_view_body.dart';
 
-import '../widgets/to_do_alert_dialog_body.dart';
+import '../widgets/add_tasks_list_alert_dialog.dart';
 
 class ToDoView extends StatelessWidget {
   const ToDoView({super.key});
@@ -28,7 +28,7 @@ class ToDoView extends StatelessWidget {
             barrierDismissible: false,
             context: context,
             builder: (context) {
-              return const ToDoAlertDialogBody();
+              return const AddTasksListAlertDialog();
             },
           );
         },

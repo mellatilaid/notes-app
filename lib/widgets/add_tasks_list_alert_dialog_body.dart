@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
-class ToDoAlertDialogBody extends StatefulWidget {
-  const ToDoAlertDialogBody({super.key});
+class AddTasksListAlertDialogBody extends StatefulWidget {
+  const AddTasksListAlertDialogBody({super.key});
 
   @override
-  State<ToDoAlertDialogBody> createState() => _ToDoAlertDialogBodyState();
+  State<AddTasksListAlertDialogBody> createState() =>
+      _AddTasksListAlertDialogBodyState();
 }
 
-class _ToDoAlertDialogBodyState extends State<ToDoAlertDialogBody> {
+class _AddTasksListAlertDialogBodyState
+    extends State<AddTasksListAlertDialogBody> {
   List<String> toDoItems = [];
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _toDoItemController = TextEditingController();
