@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/cubit/add_tasks_list_cubit.dart';
-import 'package:note_app/helper/note_added_time_formater.dart';
+import 'package:note_app/helper/show_snak_bar.dart';
+import 'package:note_app/helper/tasks_list_organizer.dart';
 import 'package:note_app/models/tasks_list_model.dart';
-import 'package:note_app/models/to_do_item_model.dart';
 import 'package:note_app/widgets/custom_text_button.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
@@ -103,7 +103,9 @@ class _AddTasksListAlertDialogBodyState
             if (toDoItems.isNotEmpty) {
               final AddTasksListCubit addTasksListCubit =
                   context.read<AddTasksListCubit>();
-              _assembeleTasksList(addTasksListCubit: addTasksListCubit);
+              _addTasksListToHive(addTasksListCubit: addTasksListCubit);
+            } else {
+              showSnakBar(context, message: 'add tasks first');
             }
           },
           width: null,
@@ -112,18 +114,11 @@ class _AddTasksListAlertDialogBodyState
     );
   }
 
-  //constructs seperated variables
-  //to taks list model
-  _assembeleTasksList({required AddTasksListCubit addTasksListCubit}) {
-    List<ToDoItemModel> tasksList = [];
-    for (var item in toDoItems) {
-      ToDoItemModel toDoItem = ToDoItemModel(title: item, isChecked: false);
-      tasksList.add(toDoItem);
-    }
-    return TasksListModel(
-      tasksList: tasksList,
-      color: Colors.blue.value,
-      date: noteFormatDate(time: DateTime.now()),
+  _addTasksListToHive({required AddTasksListCubit addTasksListCubit}) {
+    final TasksListModel tasksList = TasksListOrganize().createTasksListModel(
+      toDoItems: toDoItems,
+      title: _titleController.text,
     );
+    addTasksListCubit.addTasksList(tasksListModel: tasksList);
   }
 }

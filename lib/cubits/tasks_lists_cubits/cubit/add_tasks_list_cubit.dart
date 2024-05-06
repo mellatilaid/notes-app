@@ -11,7 +11,7 @@ class AddTasksListCubit extends Cubit<AddTasksListState> {
   AddTasksListCubit() : super(AddTasksListInitial());
 
   Color tasksListColor = kColors[0];
-  addSubNote({required TasksListModel tasksListModel}) async {
+  addTasksList({required TasksListModel tasksListModel}) async {
     emit(AddTasksListLoading());
     final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
 
