@@ -18,8 +18,7 @@ class SlidableTasksList extends StatefulWidget {
     required this.tasksListModel,
     required this.index,
   });
-  //we use this widget in deff places
-  //so the type of note model is deff
+
   final TasksListModel tasksListModel;
 
   final int index;
@@ -40,56 +39,53 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Slidable(
-        key: UniqueKey(),
-        startActionPane: ActionPane(
-            dismissible: DismissiblePane(
-              onDismissed: () => _onDismissed(),
+    return Slidable(
+      key: UniqueKey(),
+      startActionPane: ActionPane(
+          dismissible: DismissiblePane(
+            onDismissed: () => _onDismissed(),
+          ),
+          extentRatio: 0.8,
+          motion: const StretchMotion(),
+          children: [
+            SlidableAction(
+              onPressed: (context) => _onSlidableActionTapped(
+                context,
+                widget.index,
+                NoteSlidableAction.delete,
+                widget.tasksListModel,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
             ),
-            extentRatio: 0.8,
-            motion: const StretchMotion(),
-            children: [
-              SlidableAction(
-                onPressed: (context) => _onSlidableActionTapped(
-                  context,
-                  widget.index,
-                  NoteSlidableAction.delete,
-                  widget.tasksListModel,
-                ),
-                borderRadius: BorderRadius.circular(8),
-                backgroundColor: const Color(0xFFFE4A49),
-                foregroundColor: Colors.white,
-                icon: Icons.delete,
-                label: 'Delete',
+            SlidableAction(
+              onPressed: (context) => _onSlidableActionTapped(
+                context,
+                widget.index,
+                NoteSlidableAction.share,
+                widget.tasksListModel,
               ),
-              SlidableAction(
-                onPressed: (context) => _onSlidableActionTapped(
-                  context,
-                  widget.index,
-                  NoteSlidableAction.share,
-                  widget.tasksListModel,
-                ),
-                borderRadius: BorderRadius.circular(8),
-                backgroundColor: const Color(0xFF21B7CA),
-                foregroundColor: Colors.white,
-                icon: Icons.share,
-                label: 'Share',
-              ),
-              SlidableAction(
-                onPressed: (context) {
-                  context.toView(const NotePassCodeView());
-                },
-                borderRadius: BorderRadius.circular(8),
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.white,
-                icon: Icons.lock_outline,
-                label: 'Lock',
-              ),
-            ]),
-        child: ToDoItem(tasksList: widget.tasksListModel),
-      ),
+              borderRadius: BorderRadius.circular(8),
+              backgroundColor: const Color(0xFF21B7CA),
+              foregroundColor: Colors.white,
+              icon: Icons.share,
+              label: 'Share',
+            ),
+            SlidableAction(
+              onPressed: (context) {
+                context.toView(const NotePassCodeView());
+              },
+              borderRadius: BorderRadius.circular(8),
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.white,
+              icon: Icons.lock_outline,
+              label: 'Lock',
+            ),
+          ]),
+      child: ToDoItem(tasksList: widget.tasksListModel),
     );
   }
 

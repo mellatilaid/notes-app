@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/tasks_list_model.dart';
-
-import 'invisible_text_field.dart';
+import 'package:note_app/views/tasks_list_detail_view.dart';
 
 class ToDoItem extends StatefulWidget {
   final TasksListModel tasksList;
@@ -26,40 +26,48 @@ class _ToDoItemState extends State<ToDoItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _title.text.isNotEmpty
-              ? InvisibleTextField(
-                  controller: _title,
-                  textStyle: Theme.of(context).textTheme.headlineMedium,
-                )
-              : const SizedBox(),
-          for (int i = 0; i < loopLength; i++)
-            CheckboxListTile(
-              controlAffinity: ListTileControlAffinity.leading,
-              value: widget.tasksList.tasksList[i].isChecked,
-              onChanged: (bool? value) {
-                if (value!) {}
-              },
-              title: Text(widget.tasksList.tasksList[i].title),
-            ),
-          _isShowDots(tasksListLength: widget.tasksList.tasksList.length)
-              ? const Padding(
-                  padding: EdgeInsets.only(left: 24, bottom: 8),
-                  child: Text(
-                    '...',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+    return GestureDetector(
+      onTap: () {
+        context.toView(TasksListDetailView(
+          tasksList: widget.tasksList,
+        ));
+      },
+      child: Card(
+        elevation: 5,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _title.text.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 8),
+                    child: Text(
+                      widget.tasksList.title ?? '',
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                  ),
-                )
-              : const SizedBox(),
-        ],
+                  )
+                : const SizedBox(),
+            for (int i = 0; i < loopLength; i++)
+              CheckboxListTile(
+                controlAffinity: ListTileControlAffinity.leading,
+                value: widget.tasksList.tasksList[i].isChecked,
+                onChanged: null,
+                title: Text(widget.tasksList.tasksList[i].title),
+              ),
+            _isShowDots(tasksListLength: widget.tasksList.tasksList.length)
+                ? const Padding(
+                    padding: EdgeInsets.only(left: 24, bottom: 8),
+                    child: Text(
+                      '...',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ],
+        ),
       ),
     );
   }
