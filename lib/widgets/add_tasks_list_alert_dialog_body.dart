@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
 import 'package:note_app/helper/show_snak_bar.dart';
 import 'package:note_app/helper/tasks_list_organizer.dart';
 import 'package:note_app/models/tasks_list_model.dart';
@@ -105,6 +106,8 @@ class _AddTasksListAlertDialogBodyState
               final AddTasksListCubit addTasksListCubit =
                   context.read<AddTasksListCubit>();
               _addTasksListToHive(addTasksListCubit: addTasksListCubit);
+              BlocProvider.of<FetchTasksListCubit>(context)
+                  .fetchAllTasksLists();
             } else {
               showSnakBar(context, message: 'add tasks first');
             }
