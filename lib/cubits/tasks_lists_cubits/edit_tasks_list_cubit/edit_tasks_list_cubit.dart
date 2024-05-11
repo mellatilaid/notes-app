@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
@@ -14,14 +16,18 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
 
   saveEdit({required List<ToDoItemModel> tasks, String? title}) {
     final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
+    log('$tasksListIndex');
+    try {
+      final tasksList = tasksListBox.getAt(tasksListIndex!);
 
-    final tasksList = tasksListBox.getAt(tasksListIndex!);
-
-    if (tasksList != null) {
-      tasksList.tasksList = tasks;
-      tasksList.title = title ?? tasksList.title;
-      tasksList.save();
-      emit(EditTasksListSuccusState());
+      if (tasksList != null) {
+        tasksList.tasksList = tasks;
+        tasksList.title = title ?? tasksList.title;
+        tasksList.save();
+        emit(EditTasksListSuccusState());
+      }
+    } on Exception catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

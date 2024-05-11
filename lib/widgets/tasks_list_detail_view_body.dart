@@ -8,29 +8,33 @@ import '../models/tasks_list_model.dart';
 
 class TasksListDetailViewBody extends StatefulWidget {
   final TasksListModel tasksList;
-  const TasksListDetailViewBody({super.key, required this.tasksList});
+  final Function(List<ToDoItemModel> toDoItems, String toDoItemsTitle)
+      onSaveChnged;
+  const TasksListDetailViewBody(
+      {super.key, required this.tasksList, required this.onSaveChnged});
 
   @override
   State<TasksListDetailViewBody> createState() =>
-      _TasksListDetailViewBodyState();
+      TasksListDetailViewBodyState();
 }
 
-class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
-  final TextEditingController _title = TextEditingController();
+class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
+  final TextEditingController title = TextEditingController();
   late List<ToDoItemModel> tasks;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _title.text = widget.tasksList.title ?? '';
+    title.text = widget.tasksList.title ?? '';
     tasks = widget.tasksList.tasksList;
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    widget.onSaveChnged(tasks, title.text);
     super.dispose();
-    _title.dispose();
+    title.dispose();
   }
 
   @override
@@ -40,7 +44,7 @@ class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
       child: Column(
         children: [
           InvisibleTextField(
-            controller: _title,
+            controller: title,
             hintText: 'Title',
             textStyle: Theme.of(context).textTheme.headlineSmall,
           ),
