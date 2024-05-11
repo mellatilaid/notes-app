@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/to_do_item.dart';
+import 'package:note_app/widgets/slidable_task.dart';
 
 import '../models/tasks_list_model.dart';
 
@@ -15,8 +15,9 @@ class ToDoListListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: tasksLists.length,
       itemBuilder: (context, index) {
-        return ToDoItem(
-          tasksList: tasksLists[index],
+        return SlidableTaskList(
+          tasksListModel: tasksLists[index],
+          index: index,
         );
       },
     );

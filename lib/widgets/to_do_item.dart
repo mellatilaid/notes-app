@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 
@@ -20,7 +18,7 @@ class _ToDoItemState extends State<ToDoItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    log(widget.tasksList.title ?? '');
+
     _title.text = widget.tasksList.title ?? '';
     loopLength =
         _setLoopLength(taskListLength: widget.tasksList.tasksList.length);
