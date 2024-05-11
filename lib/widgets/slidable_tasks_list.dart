@@ -12,8 +12,8 @@ import 'package:note_app/widgets/to_do_item.dart';
 
 import '../helper/const.dart';
 
-class SlidableTaskList extends StatefulWidget {
-  const SlidableTaskList({
+class SlidableTasksList extends StatefulWidget {
+  const SlidableTasksList({
     super.key,
     required this.tasksListModel,
     required this.index,
@@ -25,10 +25,10 @@ class SlidableTaskList extends StatefulWidget {
   final int index;
 
   @override
-  State<SlidableTaskList> createState() => _SlidableTaskListState();
+  State<SlidableTasksList> createState() => _SlidableTasksListState();
 }
 
-class _SlidableTaskListState extends State<SlidableTaskList> {
+class _SlidableTasksListState extends State<SlidableTasksList> {
   late final FetchTasksListCubit fetchTasksListCubit;
 
   @override
