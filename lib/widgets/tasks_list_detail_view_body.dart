@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
+import 'package:note_app/widgets/tasks_list_view.dart';
 
 import '../models/tasks_list_model.dart';
 
@@ -38,6 +39,15 @@ class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
           InvisibleTextField(
             controller: _title,
             textStyle: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Expanded(
+              child: TasksListView(
+            tasks: widget.tasksList.tasksList,
+          )),
+          IconButton.outlined(
+            iconSize: 35,
+            icon: const Icon(Icons.add),
+            onPressed: () {},
           ),
         ],
       ),
