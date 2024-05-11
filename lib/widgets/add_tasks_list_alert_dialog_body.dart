@@ -7,7 +7,7 @@ import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/widgets/custom_text_button.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
-import '../cubits/tasks_lists_cubits/add_tasks_cubit/add_tasks_list_cubit.dart';
+import '../cubits/tasks_lists_cubits/add_tasks_list_cubit/add_tasks_list_cubit.dart';
 
 class AddTasksListAlertDialogBody extends StatefulWidget {
   const AddTasksListAlertDialogBody({super.key});
