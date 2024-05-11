@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/to_do_item.dart';
+
+import '../helper/const.dart';
 
 class SlidableTaskList extends StatefulWidget {
   const SlidableTaskList({
@@ -23,6 +29,15 @@ class SlidableTaskList extends StatefulWidget {
 }
 
 class _SlidableTaskListState extends State<SlidableTaskList> {
+  late final FetchTasksListCubit fetchTasksListCubit;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchTasksListCubit = context.read<FetchTasksListCubit>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -80,11 +95,11 @@ class _SlidableTaskListState extends State<SlidableTaskList> {
 
   //this fucntion triggred when one of slidable action button
   //tapped (delete, share)
-  _onSlidableActionTapped(
-      BuildContext context, int index, NoteSlidableAction action, var note) {
+  _onSlidableActionTapped(BuildContext context, int index,
+      NoteSlidableAction action, TasksListModel tasksList) {
     switch (action) {
       case NoteSlidableAction.delete:
-        //_deleteNote(context, note);
+        _deleteNote(context, tasksList);
         break;
       case NoteSlidableAction.share:
         _shareNote();
@@ -95,29 +110,19 @@ class _SlidableTaskListState extends State<SlidableTaskList> {
 
   _shareNote() {}
 
-  /* _deleteNote(BuildContext context, var note) {
-    final note = widget.noteModel;
+  _deleteNote(BuildContext context, TasksListModel tasksList) {
+    final taskList = widget.tasksListModel;
 
-    notesCubit.removeFromNotes(index: widget.index);
+    fetchTasksListCubit.removeFromNotes(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () async {
-      //if note model was image note model
-      //the image should be deleted from app's directory first
-      if (note is ImageNoteModel) {
-        await LocalFileManager(filePath: note.imagePath).removeFileFromLocal();
-      }
-      //if note model was voice note model
-      //the voice should be deleted from app's directory first
-      if (note is VoiceNoteModel) {
-        await LocalFileManager(filePath: note.voicePath).removeFileFromLocal();
-      }
-      note.delete();
+      taskList.delete();
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.symmetric(horizontal: 8),
       content: const Text(
-        'Note was deleted',
+        'TaskList was deleted',
       ),
       action: SnackBarAction(
         label: 'Undo',
@@ -125,14 +130,20 @@ class _SlidableTaskListState extends State<SlidableTaskList> {
         onPressed: () async {
           timer.cancel();
 
-          notesCubit.addToNotes(index: widget.index, note: note);
+          fetchTasksListCubit.addToNotes(
+            index: widget.index,
+            model: taskList,
+          );
         },
       ),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }*/
+  }
 
   //this function triggred when the note is dissmissed
-  _onDismissed() {}
+  _onDismissed() {
+    widget.tasksListModel.delete();
+    fetchTasksListCubit.fetchAllTasksLists();
+  }
 }

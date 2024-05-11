@@ -24,10 +24,12 @@ class FetchTasksListCubit extends Cubit<FetchTasksListState>
   @override
   addToNotes({required int index, required model}) {
     revTasksLists!.insert(index, model);
+    emit(FetchTasksListSuccuss(tasksList: revTasksLists!));
   }
 
   @override
   removeFromNotes({required int index}) {
     revTasksLists!.removeAt(index);
+    emit(FetchTasksListSuccuss(tasksList: revTasksLists!));
   }
 }
