@@ -18,7 +18,9 @@ class ToDoListBuilder extends StatelessWidget {
                 message: 'Creat your first task',
                 imagePath: 'assets/audio.png');
           }
-          return const ToDoListListView();
+          return ToDoListListView(
+            tasksLists: state.tasksList,
+          );
         } else {
           return const Center(
             child: Text('oops there was a problem, try later'),

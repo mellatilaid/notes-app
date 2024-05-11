@@ -9,11 +9,13 @@ part 'fetch_tasks_list_state.dart';
 
 class FetchTasksListCubit extends Cubit<FetchTasksListState> {
   FetchTasksListCubit() : super(FetchTasksListInitial());
-
+  List<TasksListModel>? revTasksLists;
   fetchAllTasksLists() {
     final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
 
-    final List<TasksListModel> tasksList = tasksListBox.values.toList();
-    emit(FetchTasksListSuccuss(tasksList: tasksList));
+    final List<TasksListModel> tasksLists = tasksListBox.values.toList();
+
+    revTasksLists = tasksLists.reversed.toList();
+    emit(FetchTasksListSuccuss(tasksList: revTasksLists!));
   }
 }

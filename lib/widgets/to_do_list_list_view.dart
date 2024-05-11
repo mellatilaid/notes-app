@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/to_do_item.dart';
 
+import '../models/tasks_list_model.dart';
+
 class ToDoListListView extends StatelessWidget {
-  const ToDoListListView({super.key});
+  final List<TasksListModel> tasksLists;
+  const ToDoListListView({super.key, required this.tasksLists});
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +13,11 @@ class ToDoListListView extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       key: UniqueKey(),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      itemCount: 10,
+      itemCount: tasksLists.length,
       itemBuilder: (context, index) {
-        return const ToDoItem();
+        return ToDoItem(
+          tasksList: tasksLists[index],
+        );
       },
     );
   }
