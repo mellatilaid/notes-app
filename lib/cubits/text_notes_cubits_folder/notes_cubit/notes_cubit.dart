@@ -22,8 +22,8 @@ class NotesCubit extends Cubit<NotesState> implements BaseNoteCubit {
   }
 
   @override
-  addToNotes({required int index, required var note}) {
-    revNotes!.insert(index, note);
+  addToNotes({required int index, required var model}) {
+    revNotes!.insert(index, model);
     emit(NotesSuccuss(notes: revNotes!));
   }
 

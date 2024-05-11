@@ -21,8 +21,8 @@ class VoiceNotesCubit extends Cubit<VoiceNotesState> implements BaseNoteCubit {
   }
 
   @override
-  addToNotes({required int index, required var note}) {
-    reversedVoiceNotes!.insert(index, note);
+  addToNotes({required int index, required var model}) {
+    reversedVoiceNotes!.insert(index, model);
     emit(VoiceNotesSuccussState(voiceNotes: reversedVoiceNotes!));
   }
 

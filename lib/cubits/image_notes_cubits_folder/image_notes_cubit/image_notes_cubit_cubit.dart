@@ -22,8 +22,8 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState>
   }
 
   @override
-  addToNotes({required int index, required note}) {
-    revImageNotes!.insert(index, note);
+  addToNotes({required int index, required model}) {
+    revImageNotes!.insert(index, model);
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 

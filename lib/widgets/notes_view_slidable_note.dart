@@ -180,7 +180,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
         onPressed: () async {
           timer.cancel();
 
-          notesCubit.addToNotes(index: widget.index, note: note);
+          notesCubit.addToNotes(index: widget.index, model: note);
         },
       ),
     );
