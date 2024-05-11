@@ -85,7 +85,8 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
               label: 'Lock',
             ),
           ]),
-      child: ToDoItem(tasksList: widget.tasksListModel),
+      child: ToDoItem(
+          tasksListIndex: widget.index, tasksList: widget.tasksListModel),
     );
   }
 

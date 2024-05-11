@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/views/tasks_list_detail_view.dart';
 
 class ToDoItem extends StatefulWidget {
   final TasksListModel tasksList;
-  const ToDoItem({super.key, required this.tasksList});
+  final int tasksListIndex;
+  const ToDoItem(
+      {super.key, required this.tasksList, required this.tasksListIndex});
 
   @override
   State<ToDoItem> createState() => _ToDoItemState();
@@ -31,6 +35,10 @@ class _ToDoItemState extends State<ToDoItem> {
         context.toView(TasksListDetailView(
           tasksList: widget.tasksList,
         ));
+        //give EditTasksListCubit the tasks list index
+        //that it can get it from hive later
+        BlocProvider.of<EditTasksListCubit>(context).tasksListIndex =
+            widget.tasksListIndex;
       },
       child: Card(
         elevation: 5,

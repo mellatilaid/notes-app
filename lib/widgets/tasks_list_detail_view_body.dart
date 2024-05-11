@@ -41,6 +41,7 @@ class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
         children: [
           InvisibleTextField(
             controller: _title,
+            hintText: 'Title',
             textStyle: Theme.of(context).textTheme.headlineSmall,
           ),
           Expanded(
