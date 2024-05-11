@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 
@@ -9,10 +11,16 @@ class TasksListDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: TasksListDetailViewBody(
-        tasksList: tasksList,
+    return WillPopScope(
+      onWillPop: () async {
+        log('hello');
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(),
+        body: TasksListDetailViewBody(
+          tasksList: tasksList,
+        ),
       ),
     );
   }

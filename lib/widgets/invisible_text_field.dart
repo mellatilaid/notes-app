@@ -8,7 +8,7 @@ class InvisibleTextField extends StatefulWidget {
   final String? hintText;
   final int? maxLines;
   final bool isExpand;
-
+  final FocusNode? focusNode;
   final Function(String?)? onSaved;
   final Function(String?)? onChanged;
   TextEditingController controller;
@@ -25,6 +25,7 @@ class InvisibleTextField extends StatefulWidget {
     required this.controller,
     this.textStyle,
     this.readOnly = false,
+    this.focusNode,
   });
 
   @override
@@ -35,6 +36,7 @@ class _InvisibleTextFieldState extends State<InvisibleTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: widget.focusNode,
       readOnly: widget.readOnly,
       autofocus: widget.readOnly,
       style: widget.textStyle,
