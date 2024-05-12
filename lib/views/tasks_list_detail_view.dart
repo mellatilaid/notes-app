@@ -14,48 +14,63 @@ class TasksListDetailView extends StatefulWidget {
   const TasksListDetailView({super.key, required this.tasksList});
 
   @override
-  State<TasksListDetailView> createState() => _TasksListDetailViewState();
+  State<TasksListDetailView> createState() => TasksListDetailViewState();
 }
 
-class _TasksListDetailViewState extends State<TasksListDetailView> {
+class TasksListDetailViewState extends State<TasksListDetailView> {
   late List<ToDoItemModel> tasks;
   String? title;
+  late FetchTasksListCubit fetchTasksListCubit;
+  late EditTasksListCubit editTasksListCubit;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tasks = widget.tasksList.tasksList;
     title = widget.tasksList.title;
-  }
-
-  final GlobalKey<TasksListDetailViewBodyState>
-      tasksListDetailViewBodyStateKey = GlobalKey();
-
-  getUpdatedTasks(List<ToDoItemModel> toDoItems, String toDoItemsTitle) {
-    setState(() {
-      tasks = toDoItems;
-      title = toDoItemsTitle;
-    });
-    log(title ?? 'title is empty');
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        BlocProvider.of<EditTasksListCubit>(context)
-            .saveEdit(tasks: tasks, title: title);
-        BlocProvider.of<FetchTasksListCubit>(context).fetchAllTasksLists();
+        //giving the 2 cubit variable there cubit befor diposing this widget
+        //to let the saveChangesToHive to do its job correcty
+        editTasksListCubit = context.read<EditTasksListCubit>();
+        fetchTasksListCubit = context.read<FetchTasksListCubit>();
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+        ),
         body: TasksListDetailViewBody(
-          onSaveChnged: getUpdatedTasks,
+          onSaveChnged: onTasksUpdated,
           tasksList: widget.tasksList,
+          onTitleChanged: onTitleUpdated,
         ),
       ),
     );
+  }
+
+//called whenever a new task added to tasks list
+//in add task alert dialog widget
+  onTasksUpdated(List<ToDoItemModel> toDoItems) {
+    tasks = toDoItems;
+  }
+
+  //called when the child wiget disposed
+  //to take the updated title
+  onTitleUpdated(String toDoTitle) {
+    title = toDoTitle;
+
+    saveChangesToHive();
+  }
+
+  //save changes title/tasks to hive DB
+  saveChangesToHive() {
+    log(title ?? 'title is null');
+    editTasksListCubit.saveEdit(tasks: tasks, title: title);
+    fetchTasksListCubit.fetchAllTasksLists();
   }
 }

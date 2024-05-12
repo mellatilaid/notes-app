@@ -8,17 +8,21 @@ import '../models/tasks_list_model.dart';
 
 class TasksListDetailViewBody extends StatefulWidget {
   final TasksListModel tasksList;
-  final Function(List<ToDoItemModel> toDoItems, String toDoItemsTitle)
-      onSaveChnged;
-  const TasksListDetailViewBody(
-      {super.key, required this.tasksList, required this.onSaveChnged});
+  final Function(List<ToDoItemModel> toDoItems) onSaveChnged;
+  final Function(String toDoItemsTitle) onTitleChanged;
+  const TasksListDetailViewBody({
+    super.key,
+    required this.tasksList,
+    required this.onSaveChnged,
+    required this.onTitleChanged,
+  });
 
   @override
   State<TasksListDetailViewBody> createState() =>
-      TasksListDetailViewBodyState();
+      _TasksListDetailViewBodyState();
 }
 
-class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
+class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
   final TextEditingController title = TextEditingController();
   late List<ToDoItemModel> tasks;
   @override
@@ -31,9 +35,9 @@ class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
-    widget.onSaveChnged(tasks, title.text);
+    //callback to save changes to hive
+    //when this disposed
+    widget.onTitleChanged(title.text);
     super.dispose();
     title.dispose();
   }
@@ -62,7 +66,10 @@ class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
                 context: context,
                 builder: (context) {
                   return AddTaskAlertDialog(
+                    tasks: tasks,
+                    title: title.text,
                     onAddTask: _addTask,
+                    onSaveChnged: widget.onSaveChnged,
                   );
                 },
               );
@@ -73,6 +80,8 @@ class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
     );
   }
 
+//added the new task to tasks to display it immiedetly
+//without saving it to hive
   void _addTask(String taskTitle) {
     setState(() {
       tasks.insert(0, ToDoItemModel(title: taskTitle, isChecked: false));

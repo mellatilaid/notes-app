@@ -24,7 +24,7 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
 
       if (tasksList != null) {
         tasksList.tasksList = tasks;
-        tasksList.title = title ?? tasksList.title;
+        tasksList.title = title;
         tasksList.save();
         emit(EditTasksListSuccusState());
       }

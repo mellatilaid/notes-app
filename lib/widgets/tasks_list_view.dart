@@ -24,7 +24,17 @@ class _TasksListViewState extends State<TasksListView> {
                 widget.tasks[index].isChecked = value!;
               });
             },
-            title: Text(widget.tasks[index].title),
+            title: Text(
+              widget.tasks[index].title,
+              style: TextStyle(
+                decoration: widget.tasks[index].isChecked
+                    ? TextDecoration.lineThrough
+                    : null,
+                decorationColor:
+                    widget.tasks[index].isChecked ? Colors.green : null,
+                decorationThickness: 3,
+              ),
+            ),
           );
         });
   }
