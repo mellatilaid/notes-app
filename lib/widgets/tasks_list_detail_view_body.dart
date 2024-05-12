@@ -32,6 +32,7 @@ class TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
   @override
   void dispose() {
     // TODO: implement dispose
+
     widget.onSaveChnged(tasks, title.text);
     super.dispose();
     title.dispose();

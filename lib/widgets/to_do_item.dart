@@ -37,7 +37,7 @@ class _ToDoItemState extends State<ToDoItem> {
         ));
         //give EditTasksListCubit the tasks list index
         //that it can get it from hive later
-        BlocProvider.of<EditTasksListCubit>(context).tasksListIndex =
+        BlocProvider.of<EditTasksListCubit>(context).displayListIndex =
             widget.tasksListIndex;
       },
       child: Card(

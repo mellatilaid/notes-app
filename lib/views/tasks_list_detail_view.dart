@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/models/tasks_list_model.dart';
@@ -17,21 +19,25 @@ class TasksListDetailView extends StatefulWidget {
 
 class _TasksListDetailViewState extends State<TasksListDetailView> {
   late List<ToDoItemModel> tasks;
-  String title = '';
+  String? title;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     tasks = widget.tasksList.tasksList;
+    title = widget.tasksList.title;
   }
 
   final GlobalKey<TasksListDetailViewBodyState>
       tasksListDetailViewBodyStateKey = GlobalKey();
 
   getUpdatedTasks(List<ToDoItemModel> toDoItems, String toDoItemsTitle) {
-    tasks = toDoItems;
-    title = toDoItemsTitle;
+    setState(() {
+      tasks = toDoItems;
+      title = toDoItemsTitle;
+    });
+    log(title ?? 'title is empty');
   }
 
   @override

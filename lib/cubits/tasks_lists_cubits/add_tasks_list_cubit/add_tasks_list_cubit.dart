@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -21,6 +23,7 @@ class AddTasksListCubit extends Cubit<AddTasksListState> {
       await tasksListBox.add(tasksListModel);
       emit(AddTasksListSuccuss());
     } catch (e) {
+      log(e.toString());
       emit(AddTasksListFailure(
         errMessage: e.toString(),
       ));

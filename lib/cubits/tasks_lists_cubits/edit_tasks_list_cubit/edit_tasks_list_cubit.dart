@@ -12,13 +12,15 @@ part 'edit_tasks_list_state.dart';
 
 class EditTasksListCubit extends Cubit<EditTasksListState> {
   EditTasksListCubit() : super(EditTasksListInitial());
-  int? tasksListIndex;
+  int? displayListIndex;
 
   saveEdit({required List<ToDoItemModel> tasks, String? title}) {
     final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
-    log('$tasksListIndex');
+    log('$displayListIndex');
     try {
-      final tasksList = tasksListBox.getAt(tasksListIndex!);
+      final tasksLists = tasksListBox.values.toList();
+      final actaulIndex = tasksLists.length - 1 - displayListIndex!;
+      final tasksList = tasksListBox.getAt(actaulIndex);
 
       if (tasksList != null) {
         tasksList.tasksList = tasks;
