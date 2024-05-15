@@ -5,4 +5,7 @@ sealed class EditTasksListState {}
 
 final class EditTasksListInitial extends EditTasksListState {}
 
-final class EditTasksListSuccusState extends EditTasksListState {}
+final class EditTasksListSuccusState extends EditTasksListState {
+  final List<ToDoItemModel> tasks;
+  EditTasksListSuccusState({required this.tasks});
+}

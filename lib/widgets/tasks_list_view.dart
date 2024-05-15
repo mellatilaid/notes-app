@@ -17,7 +17,17 @@ class _TasksListViewState extends State<TasksListView> {
     return ListView.builder(
         itemCount: widget.tasks.length,
         itemBuilder: (context, index) {
-          return SlidabletoDoItem(task: widget.tasks[index]);
+          return SlidabletoDoItem(
+            taskIndex: index,
+            task: widget.tasks[index],
+            onTaskDelete: deleteTask,
+          );
         });
+  }
+
+  deleteTask(int taskIndex) {
+    setState(() {
+      widget.tasks.removeAt(taskIndex);
+    });
   }
 }

@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
 
 import '../models/to_do_item_model.dart';
 import 'custom_text_button.dart';
 import 'invisible_text_field.dart';
 
 class AddTaskAlertDialog extends StatefulWidget {
-  final List<ToDoItemModel> tasks;
-  final String title;
-  final Function(String) onAddTask;
-  final Function(List<ToDoItemModel> toDoItems) onSaveChnged;
   const AddTaskAlertDialog({
     super.key,
-    required this.onAddTask,
-    required this.tasks,
-    required this.title,
-    required this.onSaveChnged,
   });
 
   @override
@@ -22,23 +16,21 @@ class AddTaskAlertDialog extends StatefulWidget {
 }
 
 class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
-  final TextEditingController _taskTile = TextEditingController();
+  final TextEditingController _taskTitle = TextEditingController();
   final FocusNode focusNode = FocusNode();
-  late List<ToDoItemModel> updatedTasks;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     focusNode.requestFocus();
-    updatedTasks = widget.tasks;
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _taskTile.dispose();
+    _taskTitle.dispose();
     focusNode.dispose();
   }
 
@@ -47,7 +39,7 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
     return AlertDialog(
       content: InvisibleTextField(
         focusNode: focusNode,
-        controller: _taskTile,
+        controller: _taskTitle,
         hintText: 'Task title',
       ),
       actions: [
@@ -62,16 +54,11 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
         CustomTextButton(
           title: 'Save',
           onPressed: () {
-            if (_taskTile.text.isNotEmpty) {
-              //callback to display new task in immiedtly in tasks
-              //without saving it to hive
-              widget.onAddTask(_taskTile.text);
-              //add the new task to updated tasks
-              //befor adding it to hive
-              _addTask(_taskTile.text);
-              //callback to add new tasks to hive
+            if (_taskTitle.text.isNotEmpty) {
+              final EditTasksListCubit editTasksListCubit =
+                  context.read<EditTasksListCubit>();
 
-              widget.onSaveChnged(updatedTasks);
+              _addTaskToHive(_taskTitle.text, editTasksListCubit);
             }
             Navigator.pop(context);
           },
@@ -81,10 +68,9 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
     );
   }
 
-  //added the new task to updatedTasks list
-  void _addTask(String taskTitle) {
-    setState(() {
-      updatedTasks.insert(0, ToDoItemModel(title: taskTitle, isChecked: false));
-    });
+  //added the new task to local DB list
+  void _addTaskToHive(String taskTitle, EditTasksListCubit editTasksListCubit) {
+    editTasksListCubit
+        .saveNewTaskToLocal(ToDoItemModel(title: taskTitle, isChecked: false));
   }
 }
