@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/slidable_to_do_item.dart';
 
 import '../models/to_do_item_model.dart';
 
@@ -16,26 +17,7 @@ class _TasksListViewState extends State<TasksListView> {
     return ListView.builder(
         itemCount: widget.tasks.length,
         itemBuilder: (context, index) {
-          return CheckboxListTile(
-            controlAffinity: ListTileControlAffinity.leading,
-            value: widget.tasks[index].isChecked,
-            onChanged: (value) {
-              setState(() {
-                widget.tasks[index].isChecked = value!;
-              });
-            },
-            title: Text(
-              widget.tasks[index].title,
-              style: TextStyle(
-                decoration: widget.tasks[index].isChecked
-                    ? TextDecoration.lineThrough
-                    : null,
-                decorationColor:
-                    widget.tasks[index].isChecked ? Colors.green : null,
-                decorationThickness: 3,
-              ),
-            ),
-          );
+          return SlidabletoDoItem(task: widget.tasks[index]);
         });
   }
 }

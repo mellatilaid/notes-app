@@ -32,4 +32,6 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
       throw Exception(e.toString());
     }
   }
+
+  deleteTask({required int taskIndex}) {}
 }

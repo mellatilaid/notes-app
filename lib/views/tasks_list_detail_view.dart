@@ -28,27 +28,28 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
     super.initState();
     tasks = widget.tasksList.tasksList;
     title = widget.tasksList.title;
+    editTasksListCubit = context.read<EditTasksListCubit>();
+    fetchTasksListCubit = context.read<FetchTasksListCubit>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        //giving the 2 cubit variable there cubit befor diposing this widget
-        //to let the saveChangesToHive to do its job correcty
-        editTasksListCubit = context.read<EditTasksListCubit>();
-        fetchTasksListCubit = context.read<FetchTasksListCubit>();
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-        ),
-        body: TasksListDetailViewBody(
-          onSaveChnged: onTasksUpdated,
-          tasksList: widget.tasksList,
-          onTitleChanged: onTitleUpdated,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _deleteTasksList();
+            },
+            icon: const Icon(Icons.delete_forever),
+          ),
+        ],
+      ),
+      body: TasksListDetailViewBody(
+        onSaveChnged: onTasksUpdated,
+        tasksList: widget.tasksList,
+        onTitleChanged: onTitleUpdated,
       ),
     );
   }
@@ -71,6 +72,13 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
   saveChangesToHive() {
     log(title ?? 'title is null');
     editTasksListCubit.saveEdit(tasks: tasks, title: title);
+    fetchTasksListCubit.fetchAllTasksLists();
+  }
+
+  _deleteTasksList() {
+    widget.tasksList.delete();
+    Navigator.pop(context);
+
     fetchTasksListCubit.fetchAllTasksLists();
   }
 }
