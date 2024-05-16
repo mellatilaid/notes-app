@@ -25,6 +25,9 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
 
     editTasksListCubit = context.read<EditTasksListCubit>();
     fetchTasksListCubit = context.read<FetchTasksListCubit>();
+    //fetch tasks list from edit tasks list cubit
+    //because it is responsible for editing it
+    //it should have the aiginal takss list first
     editTasksListCubit.getExistingTasks();
   }
 
@@ -32,6 +35,8 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        //check if the new tasks list is empty before saving it
+        //if yes then can't be saved
         if (editTasksListCubit.checkTasksLength()) {
           showDialog(
             context: context,

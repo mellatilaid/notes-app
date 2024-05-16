@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
-import 'package:note_app/helper/show_dialag.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/widgets/simple_alert_dialag_message.dart';
 
 import '../helper/const.dart';
 import 'custom_action_button.dart';
@@ -86,7 +86,13 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
 
   Future<void> _saveEdit(BuildContext context) async {
     if (_isNoteEmpty()) {
-      await showDialogMessage(context, "Empty note can't be saved");
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialaugMessage(
+              content: "Empty Note can't be saved");
+        },
+      );
       _resetNoteFields();
     } else {
       await _saveNote();

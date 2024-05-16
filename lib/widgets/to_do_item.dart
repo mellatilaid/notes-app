@@ -50,8 +50,7 @@ class _ToDoItemState extends State<ToDoItem> {
             children: [
               _title.text.isNotEmpty
                   ? Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 8, bottom: 16),
+                      padding: const EdgeInsets.only(left: 20, top: 8),
                       child: Text(
                         widget.tasksList.title ?? '',
                         style: Theme.of(context).textTheme.headlineSmall,
