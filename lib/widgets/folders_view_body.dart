@@ -49,7 +49,7 @@ class _FoldersViewBodyState extends State<FoldersViewBody> {
               },
               title: 'Folder is empty',
               message: 'Create your first folder',
-              imagePath: 'assets/add_folder.png',
+              imagePath: 'assets/files-and-folder-55.png',
             );
           }
           return FoldersGridView(folders: state.folders);

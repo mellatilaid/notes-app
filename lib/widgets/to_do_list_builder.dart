@@ -14,9 +14,9 @@ class ToDoListBuilder extends StatelessWidget {
         if (state is FetchTasksListSuccuss) {
           if (state.tasksList.isEmpty) {
             return const EmptyWidget(
-                title: 'There is no taks yet',
-                message: 'Creat your first task',
-                imagePath: 'assets/audio.png');
+                title: 'There is no tasks yet',
+                message: 'Creat your first tasks list',
+                imagePath: 'assets/task.png');
           }
           return ToDoListListView(
             tasksLists: state.tasksList,

@@ -57,7 +57,7 @@ class _AddImageNoteBottomSheetBodyState
                           fit: BoxFit.cover,
                         )
                       : Image.asset(
-                          'assets/image_note.png',
+                          'assets/210.png',
                           fit: BoxFit.cover,
                         ),
                 ),

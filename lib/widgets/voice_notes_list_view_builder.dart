@@ -23,7 +23,7 @@ class VoiceNotesBuilder extends StatelessWidget {
             return const EmptyWidget(
               title: 'Audio notes is empty',
               message: 'Add your first audio note',
-              imagePath: 'assets/add_audio.png',
+              imagePath: 'assets/podcaster-28.png',
             );
           }
           return VoiceNotesListView(

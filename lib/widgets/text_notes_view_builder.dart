@@ -29,7 +29,7 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
             return const EmptyWidget(
               title: 'Text notes is empty',
               message: 'Add your first text note',
-              imagePath: 'assets/text.png',
+              imagePath: 'assets/note_taking.png',
             );
           }
           return TextNotesListview(
