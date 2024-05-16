@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/models/tasks_list_model.dart';
+import 'package:note_app/widgets/simple_alert_dialag_message.dart';
 
 import '../cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
 import '../cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
@@ -24,12 +25,23 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
 
     editTasksListCubit = context.read<EditTasksListCubit>();
     fetchTasksListCubit = context.read<FetchTasksListCubit>();
+    editTasksListCubit.getExistingTasks();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        if (editTasksListCubit.checkTasksLength()) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialaugMessage(
+                  content: "Empty Tasks list can't be saved");
+            },
+          );
+          return true;
+        }
         saveTitleChangesToHive();
         return true;
       },

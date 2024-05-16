@@ -14,15 +14,24 @@ class TasksListView extends StatefulWidget {
 class _TasksListViewState extends State<TasksListView> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: widget.tasks.length,
-        itemBuilder: (context, index) {
-          return SlidabletoDoItem(
-            taskIndex: index,
-            task: widget.tasks[index],
-            onTaskDelete: deleteTask,
-          );
-        });
+    if (widget.tasks.isNotEmpty) {
+      return ListView.builder(
+          itemCount: widget.tasks.length,
+          itemBuilder: (context, index) {
+            return SlidabletoDoItem(
+              taskIndex: index,
+              task: widget.tasks[index],
+              onTaskDelete: deleteTask,
+            );
+          });
+    } else {
+      return const CheckboxListTile(
+        controlAffinity: ListTileControlAffinity.leading,
+        value: false,
+        onChanged: null,
+        title: Text('add task'),
+      );
+    }
   }
 
   deleteTask(int taskIndex) {

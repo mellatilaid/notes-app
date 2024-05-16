@@ -12,15 +12,28 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
   EditTasksListCubit() : super(EditTasksListInitial());
   int? displayListIndex;
   String? title;
+  List<ToDoItemModel> tasks = [];
   bool isTitleChanged = false;
+
+  getExistingTasks() {
+    try {
+      final listOfTasks = getTasksList();
+
+      tasks = listOfTasks.tasksList;
+      emit(EditTasksListSuccusState(tasks: tasks));
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   saveNewTaskToLocal(ToDoItemModel task) {
     try {
       final listOfTasks = getTasksList();
 
       listOfTasks.tasksList.insert(0, task);
       listOfTasks.save();
-
-      emit(EditTasksListSuccusState(tasks: listOfTasks.tasksList));
+      tasks = listOfTasks.tasksList;
+      emit(EditTasksListSuccusState(tasks: tasks));
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
@@ -40,13 +53,13 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
     }
   }
 
-  getTasksList() {
+  TasksListModel getTasksList() {
     final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
     final tasksLists = tasksListBox.values.toList();
     /*gets the correct index of the tasks list because 
     tasks lists is reversed in fetch tasks lists cubit*/
     final actaulIndex = tasksLists.length - 1 - displayListIndex!;
-    final listOfTasks = tasksLists[actaulIndex];
+    TasksListModel listOfTasks = tasksLists[actaulIndex];
     return listOfTasks;
   }
 
@@ -61,21 +74,20 @@ class EditTasksListCubit extends Cubit<EditTasksListState> {
   }
 
   deleteTaskFromLocal({required int taskIndex}) {
-    final tasksListBox = Hive.box<TasksListModel>(kTasksListBox);
-
     try {
-      final tasksLists = tasksListBox.values.toList();
-      final actaulIndex = tasksLists.length - 1 - displayListIndex!;
-      final tasksList = tasksListBox.getAt(actaulIndex);
+      final listOfTasks = getTasksList();
 
-      if (tasksList != null) {
-        tasksList.tasksList.removeAt(taskIndex);
+      listOfTasks.tasksList.removeAt(taskIndex);
 
-        tasksList.save();
-        emit(EditTasksListSuccusState(tasks: tasksList.tasksList));
-      }
+      listOfTasks.save();
+      tasks = listOfTasks.tasksList;
+      emit(EditTasksListSuccusState(tasks: tasks));
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  bool checkTasksLength() {
+    return (tasks.isEmpty) ? true : false;
   }
 }

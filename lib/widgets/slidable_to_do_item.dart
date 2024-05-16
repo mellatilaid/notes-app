@@ -73,7 +73,7 @@ class _SlidabletoDoItemState extends State<SlidabletoDoItem> {
 
   //this function triggred when the note is dissmissed
   _onDelete({required BuildContext context}) {
-    widget.onTaskDelete(widget.taskIndex);
+    //widget.onTaskDelete(widget.taskIndex);
     BlocProvider.of<EditTasksListCubit>(context)
         .deleteTaskFromLocal(taskIndex: widget.taskIndex);
   }

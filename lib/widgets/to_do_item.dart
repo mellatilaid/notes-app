@@ -17,14 +17,14 @@ class ToDoItem extends StatefulWidget {
 
 class _ToDoItemState extends State<ToDoItem> {
   final TextEditingController _title = TextEditingController();
-  int loopLength = 0;
+  int tasksCount = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     _title.text = widget.tasksList.title ?? '';
-    loopLength =
+    tasksCount =
         _setLoopLength(taskListLength: widget.tasksList.tasksList.length);
   }
 
@@ -40,41 +40,45 @@ class _ToDoItemState extends State<ToDoItem> {
         BlocProvider.of<EditTasksListCubit>(context).displayListIndex =
             widget.tasksListIndex;
       },
-      child: Card(
-        elevation: 5,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _title.text.isNotEmpty
-                ? Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 8),
-                    child: Text(
-                      widget.tasksList.title ?? '',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  )
-                : const SizedBox(),
-            for (int i = 0; i < loopLength; i++)
-              CheckboxListTile(
-                controlAffinity: ListTileControlAffinity.leading,
-                value: widget.tasksList.tasksList[i].isChecked,
-                onChanged: null,
-                title: Text(widget.tasksList.tasksList[i].title),
-              ),
-            _isShowDots(tasksListLength: widget.tasksList.tasksList.length)
-                ? const Padding(
-                    padding: EdgeInsets.only(left: 24, bottom: 8),
-                    child: Text(
-                      '...',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+      child: SizedBox(
+        width: double.infinity,
+        child: Card(
+          elevation: 5,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _title.text.isNotEmpty
+                  ? Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 8, bottom: 16),
+                      child: Text(
+                        widget.tasksList.title ?? '',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                    ),
-                  )
-                : const SizedBox(),
-          ],
+                    )
+                  : const SizedBox(),
+              for (int i = 0; i < tasksCount; i++)
+                CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: widget.tasksList.tasksList[i].isChecked,
+                  onChanged: null,
+                  title: Text(widget.tasksList.tasksList[i].title),
+                ),
+              _isShowDots(tasksListLength: widget.tasksList.tasksList.length)
+                  ? const Padding(
+                      padding: EdgeInsets.only(left: 24, bottom: 8),
+                      child: Text(
+                        '...',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+            ],
+          ),
         ),
       ),
     );

@@ -65,7 +65,9 @@ class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
                       tasks: state.tasks,
                     );
                   } else {
-                    return TasksListView(tasks: widget.tasksList.tasksList);
+                    return const Center(
+                      child: Text('oops there was a problem'),
+                    );
                   }
                 },
               )),
