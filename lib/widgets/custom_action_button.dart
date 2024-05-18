@@ -22,7 +22,7 @@ class CustomActionButton extends StatelessWidget {
       padding: padding,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(MediaQuery.of(context).size.width, 30),
+          fixedSize: Size(MediaQuery.sizeOf(context).width, 30),
           backgroundColor: backGroundColor,
         ),
         onPressed: onPressed,

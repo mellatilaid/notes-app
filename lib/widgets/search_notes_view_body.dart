@@ -26,7 +26,8 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SearchTextField(
+            RoundedTextField(
+              hintText: 'Search Notes',
               onChanged: (data) {
                 BlocProvider.of<SearchNoteCubit>(context).searchNotes(data);
               },
