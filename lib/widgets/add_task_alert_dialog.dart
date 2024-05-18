@@ -71,6 +71,6 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
   //added the new task to local DB list
   void _addTaskToHive(String taskTitle, EditTasksListCubit editTasksListCubit) {
     editTasksListCubit
-        .saveNewTaskToLocal(ToDoItemModel(title: taskTitle, isChecked: false));
+        .saveNewTaskToTasks(ToDoItemModel(title: taskTitle, isChecked: false));
   }
 }

@@ -72,7 +72,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
   //save title changes to hive
   //when navigating back
   void saveTitleChangesToHive() {
-    editTasksListCubit.saveTitleChangesToLocal();
+    editTasksListCubit.saveChangesToHive();
     fetchTasksListCubit.fetchAllTasksLists();
   }
 

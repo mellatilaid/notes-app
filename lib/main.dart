@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -77,6 +79,57 @@ class NotesApp extends StatelessWidget {
         theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
         debugShowCheckedModeBanner: false,
         home: const BottomNavPage(),
+      ),
+    );
+  }
+}
+
+class CustomReorderListView extends StatefulWidget {
+  const CustomReorderListView({super.key});
+
+  @override
+  State<CustomReorderListView> createState() => _CustomReorderListViewState();
+}
+
+class _CustomReorderListViewState extends State<CustomReorderListView> {
+  final List tasks = ['a', 'b', 'c', 'd'];
+
+  void updateTasks(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final String task = tasks.removeAt(oldIndex);
+      tasks.insert(newIndex, task);
+    });
+  }
+
+  void logTasksList() {
+    for (var task in tasks) {
+      log(task);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        minimum: const EdgeInsets.only(top: 50),
+        child: ReorderableListView(
+          onReorder: (oldIndex, newIndex) {
+            updateTasks(oldIndex, newIndex);
+            logTasksList();
+          },
+          children: List.generate(tasks.length, (index) {
+            return Card(
+              key: ValueKey(tasks[index]),
+              child: ListTile(
+                title: Text(tasks[index]),
+                trailing: const Icon(Icons.drag_handle),
+              ),
+            );
+          }),
+        ),
       ),
     );
   }

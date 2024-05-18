@@ -49,9 +49,9 @@ class ImageNoteItem extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          imageNote.title!.isEmpty
+                          imageNote.title.isEmpty
                               ? 'Image title'
-                              : imageNote.title!,
+                              : imageNote.title,
                           style: Theme.of(context).textTheme.labelLarge,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,

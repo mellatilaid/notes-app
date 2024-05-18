@@ -44,34 +44,36 @@ class _EmptyWidgetState extends State<EmptyWidget>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: widget.onTap,
-              child: SlideTransition(
-                position: _animation,
-                child: Image.asset(
-                  widget.imagePath,
-                  width: 300,
-                  fit: BoxFit.cover,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: widget.onTap,
+                child: SlideTransition(
+                  position: _animation,
+                  child: Image.asset(
+                    widget.imagePath,
+                    width: 300,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.message,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
+              const SizedBox(height: 20),
+              Text(
+                widget.title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.message,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
         ),
       ),
     );

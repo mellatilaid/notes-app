@@ -75,6 +75,6 @@ class _SlidabletoDoItemState extends State<SlidabletoDoItem> {
   _onDelete({required BuildContext context}) {
     //widget.onTaskDelete(widget.taskIndex);
     BlocProvider.of<EditTasksListCubit>(context)
-        .deleteTaskFromLocal(taskIndex: widget.taskIndex);
+        .deleteTaskFromTasks(taskIndex: widget.taskIndex);
   }
 }
