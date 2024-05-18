@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/widgets/add_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/reminder_view_body.dart';
 
-import '../widgets/add_tasks_list_alert_dialog.dart';
 import '../widgets/custom_floating_action_button.dart';
 
 class RemindersView extends StatelessWidget {
@@ -28,7 +28,7 @@ class RemindersView extends StatelessWidget {
             barrierDismissible: false,
             context: context,
             builder: (context) {
-              return const AddTasksListAlertDialog();
+              return const AddReminderAlertDialog();
             },
           );
         },
