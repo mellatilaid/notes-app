@@ -54,8 +54,9 @@ class _AddReminderAlertDialogBodyState
             ),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: PickerTextField(
+                    onTap: () {},
                     hintText: 'Choose Date',
                   ),
                 ),
