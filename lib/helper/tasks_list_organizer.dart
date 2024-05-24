@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/tasks_list_model.dart';
 import '../models/to_do_item_model.dart';
-import 'note_added_time_formater.dart';
+import 'date_formatter.dart';
 
 class TasksListOrganize {
   // Function to create a single ToDo item
@@ -27,7 +27,7 @@ class TasksListOrganize {
       title: title,
       tasksList: tasksList,
       color: Colors.blue.value,
-      date: noteFormatDate(time: DateTime.now()),
+      date: DateTimeFormatter().dateFormatter(time: DateTime.now()),
     );
   }
 }

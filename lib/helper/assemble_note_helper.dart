@@ -2,7 +2,7 @@ import 'package:note_app/models/note_model.dart';
 
 import '../models/image_note_model.dart';
 import '../models/voice_note_model.dart';
-import 'note_added_time_formater.dart';
+import 'date_formatter.dart';
 
 class AssembleNote {
   ImageNoteModel assembleImageNoteEntry({
@@ -14,7 +14,7 @@ class AssembleNote {
       imagePath: imagePath,
       title: title,
       content: content,
-      date: noteFormatDate(time: DateTime.now()),
+      date: DateTimeFormatter().dateFormatter(time: DateTime.now()),
     );
   }
 
@@ -23,7 +23,7 @@ class AssembleNote {
     final VoiceNoteModel voiceNote = VoiceNoteModel(
       title: audioTitle,
       voicePath: audioPath,
-      date: noteFormatDate(
+      date: DateTimeFormatter().dateFormatter(
         time: DateTime.now(),
       ),
     );
@@ -35,7 +35,7 @@ class AssembleNote {
     return NoteModel(
       title: title,
       content: content,
-      date: noteFormatDate(time: DateTime.now()),
+      date: DateTimeFormatter().dateFormatter(time: DateTime.now()),
       color: color,
     );
   }

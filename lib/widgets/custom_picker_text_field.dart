@@ -15,17 +15,20 @@ class PickerTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.none,
-        decoration: InputDecoration(
-          hintText: hintText,
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey,
+      child: AbsorbPointer(
+        child: TextField(
+          readOnly: true,
+          controller: controller,
+          keyboardType: TextInputType.none,
+          decoration: InputDecoration(
+            hintText: hintText,
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey,
+              ),
             ),
+            enabledBorder: const UnderlineInputBorder(),
           ),
-          enabledBorder: const UnderlineInputBorder(),
         ),
       ),
     );
