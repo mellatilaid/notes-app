@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/date_formatter.dart';
+import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/widgets/search_text_field.dart';
 
 import '../helper/const.dart';
@@ -19,36 +20,6 @@ class _AddReminderAlertDialogBodyState
       TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
-    if (pickedDate != null) {
-      String finalDate = DateTimeFormatter().dateFormatter(time: pickedDate);
-      _dateController.text = finalDate;
-    }
-  }
-
-  Future<void> _seleceTime(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (pickedTime != null && pickedTime != selectedTime) {
-      setState(() {
-        // Combine the date and time into a single DateTime object
-        String finalTime = DateTimeFormatter().timeFormatter(time: pickedTime);
-        _timeController.text = finalTime;
-      });
-    }
-  }
 
   @override
   void initState() {
@@ -110,7 +81,8 @@ class _AddReminderAlertDialogBodyState
                     controller: _dateController,
                     onTap: () async {
                       //FocusScope.of(context).requestFocus(FocusNode());
-                      await _selectDate(context);
+                      _dateController.text =
+                          await DateTimePicker().selectDate(context);
                     },
                     hintText: 'Choose Date',
                   ),
@@ -122,8 +94,9 @@ class _AddReminderAlertDialogBodyState
                   child: PickerTextField(
                     controller: _timeController,
                     hintText: 'Choose Time',
-                    onTap: () {
-                      _seleceTime(context);
+                    onTap: () async {
+                      _timeController.text =
+                          await DateTimePicker().seleceTime(context);
                     },
                   ),
                 ),
