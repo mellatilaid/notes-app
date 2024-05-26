@@ -74,33 +74,25 @@ class _AddReminderAlertDialogBodyState
             const SizedBox(
               height: 16,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: PickerTextField(
-                    controller: _dateController,
-                    onTap: () async {
-                      //FocusScope.of(context).requestFocus(FocusNode());
-                      _dateController.text =
-                          await DateTimePicker().selectDate(context);
-                    },
-                    hintText: 'Choose Date',
-                  ),
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Expanded(
-                  child: PickerTextField(
-                    controller: _timeController,
-                    hintText: 'Choose Time',
-                    onTap: () async {
-                      _timeController.text =
-                          await DateTimePicker().seleceTime(context);
-                    },
-                  ),
-                ),
-              ],
+            PickerTextField(
+              controller: _dateController,
+              onTap: () async {
+                //FocusScope.of(context).requestFocus(FocusNode());
+                _dateController.text =
+                    await DateTimePicker().selectDate(context);
+              },
+              hintText: 'Choose Date',
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            PickerTextField(
+              controller: _timeController,
+              hintText: 'Choose Time',
+              onTap: () async {
+                _timeController.text =
+                    await DateTimePicker().seleceTime(context);
+              },
             ),
             const SizedBox(
               height: 16,

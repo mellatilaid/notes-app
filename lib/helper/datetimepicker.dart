@@ -20,15 +20,19 @@ class DateTimePicker {
   }
 
   Future<String> seleceTime(BuildContext context) async {
+    final now = DateTime.now();
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
-    if (pickedTime != null && pickedTime != selectedTime) {
+    if (pickedTime != null &&
+        pickedTime != selectedTime &&
+        (pickedTime.hour > now.hour ||
+            (pickedTime.hour == now.hour && pickedTime.minute > now.minute))) {
       String finalTime = DateTimeFormatter().timeFormatter(time: pickedTime);
       return finalTime;
     } else {
-      return 'Choose Time';
+      return 'Choose future time';
     }
   }
 }
