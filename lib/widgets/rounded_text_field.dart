@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/const.dart';
 
 class RoundedTextField extends StatelessWidget {
   final Function(String)? onChanged;
@@ -28,21 +29,27 @@ class RoundedTextField extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
         hintText: hintText,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
             color: Colors.grey,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
             color: Colors.grey,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
             color: Colors.red,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: kPrimaryColor,
           ),
         ),
       ),

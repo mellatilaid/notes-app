@@ -25,9 +25,9 @@ class _AddReminderAlertDialogBodyState
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _dateController.text =
         DateTimeToString().dateToString(time: DateTime.now());
@@ -49,6 +49,7 @@ class _AddReminderAlertDialogBodyState
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
+          autovalidateMode: autovalidateMode,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -64,9 +65,14 @@ class _AddReminderAlertDialogBodyState
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
                         final reminderModel = _assembleReminderModel();
                         _createReminder(
                             context: context, reminderModel: reminderModel);
+                      } else {
+                        setState(() {
+                          autovalidateMode = AutovalidateMode.always;
+                        });
                       }
                     },
                     child: const Text(
