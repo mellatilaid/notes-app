@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
+import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/widgets/search_text_field.dart';
 
 import '../helper/const.dart';
@@ -102,6 +103,15 @@ class _AddReminderAlertDialogBodyState
           ],
         ),
       ),
+    );
+  }
+
+  //takes seperate parameters for reminder model
+  ReminderModel _assembleReminderModel() {
+    return ReminderModel(
+      id: 1,
+      title: _reminderTitleController.text,
+      date: '${_dateController.text} ${_timeController.text}',
     );
   }
 }
