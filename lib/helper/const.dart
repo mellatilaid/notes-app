@@ -7,6 +7,7 @@ const String kFoldersBox = 'folders_box';
 const String kVoiceNoteBox = 'voice_note_box';
 const String kImageNoteBox = 'image_note_box';
 const String kTasksListBox = 'tasks_list_box';
+const String kRemindersBox = 'reminders_box';
 const List<Color> kColors = [
   Colors.blue,
   Color(0xff6BC9BA),
