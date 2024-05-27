@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
+import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/widgets/search_text_field.dart';
 
@@ -108,10 +109,14 @@ class _AddReminderAlertDialogBodyState
 
   //takes seperate parameters for reminder model
   ReminderModel _assembleReminderModel() {
+    //genereate unique id for each reminder
+    int id = generateUniqueId();
     return ReminderModel(
-      id: 1,
+      id: id,
       title: _reminderTitleController.text,
       date: '${_dateController.text} ${_timeController.text}',
     );
   }
+
+  void _createReminder() {}
 }

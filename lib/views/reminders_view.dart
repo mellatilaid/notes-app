@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/widgets/add_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/reminder_view_body.dart';
 
@@ -9,29 +11,32 @@ class RemindersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text('Reminders'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-        ],
-      ),
-      drawer: const Drawer(),
-      body: const ReminderViewBody(),
-      floatingActionButton: CustomFlaotingActionButton(
-        child: const Icon(Icons.add),
-        onTap: () {
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) {
-              return const AddReminderAlertDialog();
-            },
-          );
-        },
+    return BlocProvider(
+      create: (context) => AddReminderCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0,
+          title: const Text('Reminders'),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          ],
+        ),
+        drawer: const Drawer(),
+        body: const ReminderViewBody(),
+        floatingActionButton: CustomFlaotingActionButton(
+          child: const Icon(Icons.add),
+          onTap: () {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return const AddReminderAlertDialog();
+              },
+            );
+          },
+        ),
       ),
     );
   }
