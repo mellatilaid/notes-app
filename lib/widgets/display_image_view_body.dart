@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
-import 'package:note_app/helper/date_formatter.dart';
+import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
@@ -28,7 +28,7 @@ class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
     widget.imageNote.title = _titleController.text;
     widget.imageNote.content = _contentController.text;
     widget.imageNote.date =
-        DateTimeFormatter().dateFormatter(time: DateTime.now());
+        DateTimeToString().dateToString(time: DateTime.now());
     widget.imageNote.save();
     BlocProvider.of<ImageNotesCubit>(context).fetchAllImageNotes();
   }

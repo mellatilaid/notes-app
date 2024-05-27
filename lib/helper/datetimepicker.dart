@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/date_formatter.dart';
+import 'package:note_app/helper/date_time_to_%20string.dart';
 
 class DateTimePicker {
   DateTime selectedDate = DateTime.now();
@@ -12,7 +12,7 @@ class DateTimePicker {
       lastDate: DateTime(2100),
     );
     if (pickedDate != null) {
-      String finalDate = DateTimeFormatter().dateFormatter(time: pickedDate);
+      String finalDate = DateTimeToString().dateToString(time: pickedDate);
       return finalDate;
     } else {
       return 'Choose Date';
@@ -29,7 +29,7 @@ class DateTimePicker {
         pickedTime != selectedTime &&
         (pickedTime.hour > now.hour ||
             (pickedTime.hour == now.hour && pickedTime.minute > now.minute))) {
-      String finalTime = DateTimeFormatter().timeFormatter(time: pickedTime);
+      String finalTime = DateTimeToString().timeToString(time: pickedTime);
       return finalTime;
     } else {
       return 'Choose future time';

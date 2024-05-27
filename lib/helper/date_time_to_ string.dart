@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DateTimeFormatter {
-  String dateFormatter({required DateTime time}) {
+class DateTimeToString {
+  String dateToString({required DateTime time}) {
     final year = time.year.toString();
 
     final String month = time.month.toString();
@@ -11,7 +11,7 @@ class DateTimeFormatter {
     return '$day/$month/$year';
   }
 
-  String timeFormatter({required TimeOfDay time}) {
+  String timeToString({required TimeOfDay time}) {
     final String hour = time.hour.toString();
     final String minute = time.minute.toString();
     return '$hour:$minute';

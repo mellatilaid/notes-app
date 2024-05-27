@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/date_formatter.dart';
+import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/widgets/search_text_field.dart';
 
@@ -26,7 +26,7 @@ class _AddReminderAlertDialogBodyState
     // TODO: implement initState
     super.initState();
     _dateController.text =
-        DateTimeFormatter().dateFormatter(time: DateTime.now());
+        DateTimeToString().dateToString(time: DateTime.now());
   }
 
   @override
@@ -77,7 +77,6 @@ class _AddReminderAlertDialogBodyState
             PickerTextField(
               controller: _dateController,
               onTap: () async {
-                //FocusScope.of(context).requestFocus(FocusNode());
                 _dateController.text =
                     await DateTimePicker().selectDate(context);
               },
