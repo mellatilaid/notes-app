@@ -9,23 +9,22 @@ class AddReminderAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddReminderCubit, AddReminderState>(
-      builder: (context, state) {
-        return BlocListener<AddReminderCubit, AddReminderState>(
-          listener: (context, state) {
-            if (state is AddReminderSuccuss) {
-              Navigator.pop(context);
-            } else if (state is AddReminderFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errMessage),
-                ),
-              );
-            }
-          },
-          child: const AddReminderAlertDialogBody(),
-        );
-      },
+    return BlocProvider(
+      create: (context) => AddReminderCubit(),
+      child: BlocListener<AddReminderCubit, AddReminderState>(
+        listener: (context, state) {
+          if (state is AddReminderSuccuss) {
+            Navigator.pop(context);
+          } else if (state is AddReminderFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.errMessage),
+              ),
+            );
+          }
+        },
+        child: const AddReminderAlertDialogBody(),
+      ),
     );
   }
 }

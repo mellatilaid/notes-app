@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
-import 'package:note_app/widgets/search_text_field.dart';
+import 'package:note_app/widgets/rounded_text_field.dart';
 
 import '../helper/const.dart';
 import 'custom_picker_text_field.dart';
@@ -22,7 +24,7 @@ class _AddReminderAlertDialogBodyState
       TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     // TODO: implement initState
@@ -45,63 +47,72 @@ class _AddReminderAlertDialogBodyState
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.close),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(color: kPrimaryColor),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.close),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            RoundedTextField(
-              controller: _reminderTitleController,
-              hintText: 'Reminder Title',
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            PickerTextField(
-              controller: _dateController,
-              onTap: () async {
-                _dateController.text =
-                    await DateTimePicker().selectDate(context);
-              },
-              hintText: 'Choose Date',
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            PickerTextField(
-              controller: _timeController,
-              hintText: 'Choose Time',
-              onTap: () async {
-                _timeController.text =
-                    await DateTimePicker().seleceTime(context);
-              },
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const PickerTextField(
-              hintText: 'Choose Righntoon',
-            ),
-          ],
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        final reminderModel = _assembleReminderModel();
+                        _createReminder(
+                            context: context, reminderModel: reminderModel);
+                      }
+                    },
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: kPrimaryColor),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              RoundedTextField(
+                controller: _reminderTitleController,
+                hintText: 'Reminder Title',
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              PickerTextField(
+                controller: _dateController,
+                onTap: () async {
+                  _dateController.text =
+                      await DateTimePicker().selectDate(context);
+                },
+                hintText: 'Choose Date',
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              PickerTextField(
+                controller: _timeController,
+                hintText: 'Choose Time',
+                onTap: () async {
+                  _timeController.text =
+                      await DateTimePicker().seleceTime(context);
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const PickerTextField(
+                hintText: 'Choose Righntoon',
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -118,5 +129,9 @@ class _AddReminderAlertDialogBodyState
     );
   }
 
-  void _createReminder() {}
+  void _createReminder(
+      {required BuildContext context, required ReminderModel reminderModel}) {
+    BlocProvider.of<AddReminderCubit>(context)
+        .addReminder(reminderModel: reminderModel);
+  }
 }

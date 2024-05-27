@@ -13,7 +13,13 @@ class RoundedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'reminder title cannot be empty';
+        }
+        return null;
+      },
       controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
@@ -31,6 +37,12 @@ class RoundedTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           borderSide: const BorderSide(
             color: Colors.grey,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: const BorderSide(
+            color: Colors.red,
           ),
         ),
       ),
