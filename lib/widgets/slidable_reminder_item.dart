@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
+import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/reminder_model.dart';
@@ -26,12 +27,13 @@ class SlidableReminderItem extends StatefulWidget {
 }
 
 class _SlidableReminderItemState extends State<SlidableReminderItem> {
-  late final FetchTasksListCubit fetchTasksListCubit;
+  late final RemindersCubit _remindersCubit;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _remindersCubit = context.read<RemindersCubit>();
   }
 
   @override
@@ -46,8 +48,8 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
           motion: const StretchMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) => _onSlidableActionTapped(
-                  context, widget.index, NoteSlidableAction.delete),
+              onPressed: (context) =>
+                  _onSlidableActionTapped(context, NoteSlidableAction.delete),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -55,8 +57,8 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Delete',
             ),
             SlidableAction(
-              onPressed: (context) => _onSlidableActionTapped(
-                  context, widget.index, NoteSlidableAction.share),
+              onPressed: (context) =>
+                  _onSlidableActionTapped(context, NoteSlidableAction.share),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
@@ -83,7 +85,9 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   //this fucntion triggred when one of slidable action button
   //tapped (delete, share)
   _onSlidableActionTapped(
-      BuildContext context, int index, NoteSlidableAction action) {
+    BuildContext context,
+    NoteSlidableAction action,
+  ) {
     switch (action) {
       case NoteSlidableAction.delete:
         _deleteNote(context);
@@ -98,20 +102,24 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   _shareNote() {}
 
   _deleteNote(BuildContext context) {
-    fetchTasksListCubit.removeFromList(index: widget.index);
-    Timer timer = Timer(const Duration(seconds: 2), () async {});
+    _remindersCubit.removeFromList(index: widget.index);
+    Timer timer = Timer(const Duration(seconds: 2), () async {
+      widget.reminder.delete();
+    });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.symmetric(horizontal: 8),
       content: const Text(
-        'TaskList was deleted',
+        'Reminder was deleted',
       ),
       action: SnackBarAction(
         label: 'Undo',
         textColor: kPrimaryColor,
         onPressed: () async {
           timer.cancel();
+          _remindersCubit.addToList(
+              index: widget.index, model: widget.reminder);
         },
       ),
     );
@@ -120,5 +128,8 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   }
 
   //this function triggred when the note is dissmissed
-  _onDismissed() {}
+  _onDismissed() {
+    widget.reminder.delete();
+    _remindersCubit.removeFromList(index: widget.index);
+  }
 }

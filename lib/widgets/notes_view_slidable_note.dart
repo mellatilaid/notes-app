@@ -139,18 +139,18 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
       BuildContext context, int index, NoteSlidableAction action, var note) {
     switch (action) {
       case NoteSlidableAction.delete:
-        _deleteNote(context, note);
+        _deleteReminder(context, note);
         break;
       case NoteSlidableAction.share:
-        _shareNote();
+        _shareReminder();
         break;
       default:
     }
   }
 
-  _shareNote() {}
+  _shareReminder() {}
 
-  _deleteNote(BuildContext context, var note) {
+  _deleteReminder(BuildContext context, var note) {
     final note = widget.noteModel;
 
     notesCubit.removeFromList(index: widget.index);
