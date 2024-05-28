@@ -70,7 +70,8 @@ class CustomNoteItem extends StatelessWidget {
                 note.title,
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                   color: (Color(note.color) == Colors.transparent)
                       ? Colors.white
                       : kforeGroundColor,

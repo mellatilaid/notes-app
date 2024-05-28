@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/reminder_item.dart';
 
@@ -14,9 +15,11 @@ class SlidableReminderItem extends StatefulWidget {
   const SlidableReminderItem({
     super.key,
     required this.index,
+    required this.reminder,
   });
 
   final int index;
+  final ReminderModel reminder;
 
   @override
   State<SlidableReminderItem> createState() => _SlidableReminderItemState();
@@ -71,7 +74,9 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Lock',
             ),
           ]),
-      child: const ReminderItem(),
+      child: ReminderItem(
+        reminder: widget.reminder,
+      ),
     );
   }
 

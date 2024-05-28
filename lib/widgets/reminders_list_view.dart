@@ -16,6 +16,7 @@ class RemindersListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return SlidableReminderItem(
           index: index,
+          reminder: reminders[index],
         );
       },
     );

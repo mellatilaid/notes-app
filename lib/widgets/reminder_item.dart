@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/reminder_model.dart';
 
 class ReminderItem extends StatelessWidget {
+  final ReminderModel reminder;
   const ReminderItem({
     super.key,
+    required this.reminder,
   });
 
   @override
@@ -33,16 +36,16 @@ class ReminderItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'reminder title',
-                  style: TextStyle(
+                Text(
+                  reminder.title,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  '2002/12/12',
+                  reminder.date.toString(),
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.grey[600],
