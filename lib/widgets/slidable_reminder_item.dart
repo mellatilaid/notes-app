@@ -6,6 +6,7 @@ import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
+import 'package:note_app/widgets/reminder_item.dart';
 
 import '../helper/const.dart';
 
@@ -70,11 +71,7 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Lock',
             ),
           ]),
-      child: Container(
-        width: double.infinity,
-        height: 150,
-        color: Colors.white,
-      ),
+      child: const ReminderItem(),
     );
   }
 

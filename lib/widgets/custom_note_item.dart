@@ -51,6 +51,14 @@ class CustomNoteItem extends StatelessWidget {
           color: Color(note.color),
           borderRadius: BorderRadius.circular(8),
           border: _setBorderColor(),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
