@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/reminder_model.dart';
+import 'package:note_app/widgets/slidable_reminder_item.dart';
 
 class RemindersListView extends StatelessWidget {
   final List<ReminderModel> reminders;
@@ -13,10 +14,8 @@ class RemindersListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: reminders.length,
       itemBuilder: (context, index) {
-        return Container(
-          width: double.infinity,
-          height: 150,
-          color: Colors.blue,
+        return SlidableReminderItem(
+          index: index,
         );
       },
     );
