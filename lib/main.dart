@@ -7,6 +7,7 @@ import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_not
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
+import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/simple_add_note_cubit_abserver.dart';
@@ -74,6 +75,9 @@ class NotesApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EditTasksListCubit(),
+        ),
+        BlocProvider(
+          create: (context) => RemindersCubit(),
         ),
       ],
       child: MaterialApp(
