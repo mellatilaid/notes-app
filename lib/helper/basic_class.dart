@@ -1,5 +1,5 @@
-abstract class BaseNoteCubit {
-  addToNotes({required int index, required var model}) {}
+abstract class BaseCubit {
+  addToList({required int index, required var model}) {}
 
-  removeFromNotes({required int index}) {}
+  removeFromList({required int index}) {}
 }

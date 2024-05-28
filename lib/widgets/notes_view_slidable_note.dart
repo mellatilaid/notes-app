@@ -42,7 +42,7 @@ class NotesViewSlidableNote<T> extends StatefulWidget {
 
 class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   // ignore: prefer_typing_uninitialized_variables
-  late BaseNoteCubit notesCubit;
+  late BaseCubit notesCubit;
   //this var store the specific note model after
   //conferming the noteModel var type
   // ignore: prefer_typing_uninitialized_variables
@@ -153,7 +153,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   _deleteNote(BuildContext context, var note) {
     final note = widget.noteModel;
 
-    notesCubit.removeFromNotes(index: widget.index);
+    notesCubit.removeFromList(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () async {
       //if note model was image note model
       //the image should be deleted from app's directory first
@@ -180,7 +180,7 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
         onPressed: () async {
           timer.cancel();
 
-          notesCubit.addToNotes(index: widget.index, model: note);
+          notesCubit.addToList(index: widget.index, model: note);
         },
       ),
     );
@@ -191,6 +191,6 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
   //this function triggred when the note is dissmissed
   _onDismissed() {
     widget.noteModel.delete();
-    notesCubit.removeFromNotes(index: widget.index);
+    notesCubit.removeFromList(index: widget.index);
   }
 }

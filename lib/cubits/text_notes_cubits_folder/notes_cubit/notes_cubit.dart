@@ -5,7 +5,7 @@ import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/note_model.dart';
 
-class NotesCubit extends Cubit<NotesState> implements BaseNoteCubit {
+class NotesCubit extends Cubit<NotesState> implements BaseCubit {
   NotesCubit() : super(InitialState());
   List<NoteModel>? revNotes;
 
@@ -22,13 +22,13 @@ class NotesCubit extends Cubit<NotesState> implements BaseNoteCubit {
   }
 
   @override
-  addToNotes({required int index, required var model}) {
+  addToList({required int index, required var model}) {
     revNotes!.insert(index, model);
     emit(NotesSuccuss(notes: revNotes!));
   }
 
   @override
-  removeFromNotes({required int index}) {
+  removeFromList({required int index}) {
     revNotes!.removeAt(index);
     emit(NotesSuccuss(notes: revNotes!));
   }

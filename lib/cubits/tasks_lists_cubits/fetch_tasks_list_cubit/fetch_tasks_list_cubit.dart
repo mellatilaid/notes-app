@@ -9,7 +9,7 @@ import '../../../helper/const.dart';
 part 'fetch_tasks_list_state.dart';
 
 class FetchTasksListCubit extends Cubit<FetchTasksListState>
-    implements BaseNoteCubit {
+    implements BaseCubit {
   FetchTasksListCubit() : super(FetchTasksListInitial());
   List<TasksListModel>? revTasksLists;
   fetchAllTasksLists() {
@@ -22,13 +22,13 @@ class FetchTasksListCubit extends Cubit<FetchTasksListState>
   }
 
   @override
-  addToNotes({required int index, required model}) {
+  addToList({required int index, required model}) {
     revTasksLists!.insert(index, model);
     emit(FetchTasksListSuccuss(tasksList: revTasksLists!));
   }
 
   @override
-  removeFromNotes({required int index}) {
+  removeFromList({required int index}) {
     revTasksLists!.removeAt(index);
     emit(FetchTasksListSuccuss(tasksList: revTasksLists!));
   }

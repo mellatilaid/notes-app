@@ -7,8 +7,7 @@ import 'package:note_app/models/image_note_model.dart';
 
 part 'image_notes_cubit_state.dart';
 
-class ImageNotesCubit extends Cubit<ImageNotesCubitState>
-    implements BaseNoteCubit {
+class ImageNotesCubit extends Cubit<ImageNotesCubitState> implements BaseCubit {
   ImageNotesCubit() : super((ImageNotesInitialState()));
   List<ImageNoteModel>? revImageNotes;
   fetchAllImageNotes() {
@@ -22,13 +21,13 @@ class ImageNotesCubit extends Cubit<ImageNotesCubitState>
   }
 
   @override
-  addToNotes({required int index, required model}) {
+  addToList({required int index, required model}) {
     revImageNotes!.insert(index, model);
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }
 
   @override
-  removeFromNotes({required int index}) {
+  removeFromList({required int index}) {
     revImageNotes!.removeAt(index);
     emit(ImageNotesSucusState(imageNotes: revImageNotes!));
   }

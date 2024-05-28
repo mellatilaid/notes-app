@@ -110,7 +110,7 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
   _deleteNote(BuildContext context, TasksListModel tasksList) {
     final taskList = widget.tasksListModel;
 
-    fetchTasksListCubit.removeFromNotes(index: widget.index);
+    fetchTasksListCubit.removeFromList(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () async {
       taskList.delete();
     });
@@ -127,7 +127,7 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
         onPressed: () async {
           timer.cancel();
 
-          fetchTasksListCubit.addToNotes(
+          fetchTasksListCubit.addToList(
             index: widget.index,
             model: taskList,
           );

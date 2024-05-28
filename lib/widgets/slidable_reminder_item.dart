@@ -98,7 +98,7 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   _shareNote() {}
 
   _deleteNote(BuildContext context) {
-    fetchTasksListCubit.removeFromNotes(index: widget.index);
+    fetchTasksListCubit.removeFromList(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () async {});
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
