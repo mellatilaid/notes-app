@@ -11,7 +11,11 @@ class RemindersListView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const Placeholder();
+        return Container(
+          width: double.infinity,
+          height: 150,
+          color: Colors.blue,
+        );
       },
     );
   }
