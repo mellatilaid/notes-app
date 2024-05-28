@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/reminder_model.dart';
 
 class RemindersListView extends StatelessWidget {
-  const RemindersListView({super.key});
+  final List<ReminderModel> reminders;
+  const RemindersListView({super.key, required this.reminders});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,7 @@ class RemindersListView extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       key: UniqueKey(),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      itemCount: 10,
+      itemCount: reminders.length,
       itemBuilder: (context, index) {
         return Container(
           width: double.infinity,

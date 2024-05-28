@@ -20,7 +20,7 @@ class RemindersView extends StatelessWidget {
         ],
       ),
       drawer: const Drawer(),
-      body: const ReminderViewBody(),
+      body: const RemindersViewBody(),
       floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),
         onTap: () {
