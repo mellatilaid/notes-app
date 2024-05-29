@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/set_border.dart';
 import 'package:note_app/models/reminder_model.dart';
 
 class ReminderItem extends StatelessWidget {
@@ -17,8 +18,9 @@ class ReminderItem extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: Color(reminder.color!),
         borderRadius: BorderRadius.circular(12.0),
+        border: setBorder(color: reminder.color!),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),

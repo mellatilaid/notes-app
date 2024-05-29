@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/helper/set_border.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
 import 'package:note_app/views/edit_sub_note_view.dart';
@@ -50,7 +51,7 @@ class CustomNoteItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(note.color),
           borderRadius: BorderRadius.circular(8),
-          border: _setBorderColor(),
+          border: setBorder(color: note.color),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -95,16 +96,5 @@ class CustomNoteItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Border? _setBorderColor() {
-    if (Color(note.color) == Colors.transparent) {
-      return Border.all(
-        color: Colors.grey,
-        width: 2,
-      );
-    } else {
-      return null;
-    }
   }
 }

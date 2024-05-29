@@ -45,8 +45,9 @@ class _AddReminderAlertDialogBodyState
   }
 
   void _handleColorSelection(Color color) {
-    //BlocProvider.of<AddReminderCubit>(context).reminderColor = color.value;
+    BlocProvider.of<AddReminderCubit>(context).reminderColor = color;
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -55,78 +56,80 @@ class _AddReminderAlertDialogBodyState
         child: Form(
           key: _formKey,
           autovalidateMode: autovalidateMode,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        final reminderModel = _assembleReminderModel();
-                        _createReminder(
-                            context: context, reminderModel: reminderModel);
-                      } else {
-                        setState(() {
-                          autovalidateMode = AutovalidateMode.always;
-                        });
-                      }
-                    },
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(color: kPrimaryColor),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.close),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              RoundedTextField(
-                controller: _reminderTitleController,
-                hintText: 'Reminder Title',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              PickerTextField(
-                controller: _dateController,
-                onTap: () async {
-                  _dateController.text =
-                      await DateTimePicker().selectDate(context);
-                },
-                hintText: 'Choose Date',
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              PickerTextField(
-                controller: _timeController,
-                hintText: 'Choose Time',
-                onTap: () async {
-                  _timeController.text =
-                      await DateTimePicker().seleceTime(context);
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const PickerTextField(
-                hintText: 'Choose Righntoon',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ColorPicker(onColorSelected: _handleColorSelection),
-            ],
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          final reminderModel = _assembleReminderModel();
+                          _createReminder(
+                              context: context, reminderModel: reminderModel);
+                        } else {
+                          setState(() {
+                            autovalidateMode = AutovalidateMode.always;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(color: kPrimaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                RoundedTextField(
+                  controller: _reminderTitleController,
+                  hintText: 'Reminder Title',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                PickerTextField(
+                  controller: _dateController,
+                  onTap: () async {
+                    _dateController.text =
+                        await DateTimePicker().selectDate(context);
+                  },
+                  hintText: 'Choose Date',
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                PickerTextField(
+                  controller: _timeController,
+                  hintText: 'Choose Time',
+                  onTap: () async {
+                    _timeController.text =
+                        await DateTimePicker().seleceTime(context);
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const PickerTextField(
+                  hintText: 'Choose Righntoon',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ColorPicker(onColorSelected: _handleColorSelection),
+              ],
+            ),
           ),
         ),
       ),

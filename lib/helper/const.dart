@@ -9,6 +9,7 @@ const String kImageNoteBox = 'image_note_box';
 const String kTasksListBox = 'tasks_list_box';
 const String kRemindersBox = 'reminders_box';
 const List<Color> kColors = [
+  Colors.transparent,
   Colors.blue,
   Color(0xff6BC9BA),
   Color(0xffc8d96f),
