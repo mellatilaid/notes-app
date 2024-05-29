@@ -18,7 +18,8 @@ const List<Color> kColors = [
   Color(0xff9fb7b9),
   Color(0xffbcc1ba),
   Color(0xffefa48b),
-  Color(0xffc6d8af)
+  Color(0xffc6d8af),
+  Colors.green,
 ];
 
 bool isClicked = false;

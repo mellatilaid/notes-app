@@ -6,6 +6,7 @@ import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
+import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/rounded_text_field.dart';
 
 import '../helper/const.dart';
@@ -43,6 +44,9 @@ class _AddReminderAlertDialogBodyState
     _reminderTitleController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    //BlocProvider.of<AddReminderCubit>(context).reminderColor = color.value;
+  }
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -118,6 +122,10 @@ class _AddReminderAlertDialogBodyState
               const PickerTextField(
                 hintText: 'Choose Righntoon',
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              ColorPicker(onColorSelected: _handleColorSelection),
             ],
           ),
         ),
@@ -133,6 +141,7 @@ class _AddReminderAlertDialogBodyState
       id: id,
       title: _reminderTitleController.text,
       date: '${_dateController.text} ${_timeController.text}',
+      color: kColors.first.value,
     );
   }
 

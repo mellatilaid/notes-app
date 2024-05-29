@@ -20,19 +20,22 @@ class ReminderModelAdapter extends TypeAdapter<ReminderModel> {
       id: fields[0] as int,
       title: fields[1] as String,
       date: fields[2] as String,
+      color: fields[3] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ReminderModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.color);
   }
 
   @override
