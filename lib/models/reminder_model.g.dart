@@ -20,7 +20,7 @@ class ReminderModelAdapter extends TypeAdapter<ReminderModel> {
       id: fields[0] as int,
       title: fields[1] as String,
       date: fields[2] as String,
-      color: fields[3] as int,
+      color: fields[3] as int?,
     );
   }
 

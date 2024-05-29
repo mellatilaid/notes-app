@@ -36,9 +36,9 @@ void main() async {
   await Hive.openBox<ImageNoteModel>(kImageNoteBox);
   Hive.registerAdapter(ToDoItemModelAdapter());
   Hive.registerAdapter(TasksListModelAdapter());
-  Hive.openBox<TasksListModel>(kTasksListBox);
+  await Hive.openBox<TasksListModel>(kTasksListBox);
   Hive.registerAdapter(ReminderModelAdapter());
-  Hive.openBox<ReminderModel>(kRemindersBox);
+  await Hive.openBox<ReminderModel>(kRemindersBox);
   runApp(const NotesApp());
 }
 

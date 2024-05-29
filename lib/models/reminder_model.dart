@@ -11,12 +11,12 @@ class ReminderModel extends HiveObject {
   @HiveField(2)
   String date;
   @HiveField(3)
-  int color;
+  int? color;
 
   ReminderModel({
     required this.id,
     required this.title,
     required this.date,
-    required this.color,
+    this.color,
   });
 }
