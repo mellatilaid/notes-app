@@ -15,9 +15,9 @@ class RemindersViewBodyBuilder extends StatelessWidget {
         if (state is RemindersSuccussState) {
           if (state.reminders.isEmpty) {
             return const EmptyWidget(
-                title: 'There is no tasks yet',
-                message: 'Creat your first tasks list',
-                imagePath: 'assets/task.png');
+                title: 'There is no reminders yet',
+                message: 'Creat your first reminder',
+                imagePath: 'assets/reminder.png');
           }
           return RemindersListView(
             reminders: state.reminders,
