@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/models/note_model.dart';
+import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/simple_alert_dialag_message.dart';
 
 import '../helper/const.dart';
 import 'custom_action_button.dart';
-import 'edit_note_colors_list_view.dart';
 import 'invisible_text_field.dart';
 
 class EditNoteViewBody extends StatefulWidget {
@@ -41,6 +41,11 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     contentController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    widget.note.color = color.value;
+    widget.note.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,9 +71,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             ),
           ),
           !widget.isReadOnly
-              ? EditNoteColorsListView(
-                  note: widget.note,
-                )
+              ? ColorPicker(onColorSelected: _handleColorSelection)
               : const SizedBox(),
           !widget.isReadOnly
               ? CustomActionButton(

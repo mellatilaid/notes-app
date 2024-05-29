@@ -9,7 +9,7 @@ import 'package:note_app/models/note_model.dart';
 class AddSubNoteCubit extends Cubit<AddSubNoteState> {
   AddSubNoteCubit() : super(InitialState());
   int? folderIndex;
-  Color folderColor = kColors[0];
+  Color subNoteColor = kColors[0];
   addSubNote({required NoteModel note}) async {
     emit(LoadingState());
     final foldersBox = Hive.box<FolderModel>(kFoldersBox);
@@ -17,7 +17,7 @@ class AddSubNoteCubit extends Cubit<AddSubNoteState> {
     final folder = foldersBox.getAt(folderIndex!);
 
     if (folder != null) {
-      note.color = folderColor.value;
+      note.color = subNoteColor.value;
       folder.notes.insert(0, note);
       try {
         await foldersBox.put(folder.key, folder);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
-import 'package:note_app/widgets/add_sub_note_colors_list_view.dart';
+import 'package:note_app/widgets/color_picker.dart';
 
 import '../helper/const.dart';
 import '../models/note_model.dart';
@@ -29,6 +29,10 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
     _contentController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    BlocProvider.of<AddSubNoteCubit>(context).subNoteColor = color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,7 +51,7 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
             isExpand: true,
           ),
         ),
-        const AddSubNoteColorsListView(),
+        ColorPicker(onColorSelected: _handleColorSelection),
         CustomActionButton(
           title: 'Save Note',
           onPressed: () {

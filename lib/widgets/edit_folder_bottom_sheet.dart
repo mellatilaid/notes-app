@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folders_cubit/folders_cubit.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
+import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/custom_action_button.dart';
-import 'package:note_app/widgets/edit_folder_colors_list_view.dart';
 
 import '../helper/image_helper.dart';
 import 'custom_text_button.dart';
@@ -36,6 +36,10 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
     _folderNameController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    widget.folder.color = color.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,10 +65,7 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
               const SizedBox(
                 height: 8,
               ),
-              EditFolderColorsListView(
-                folder: widget.folder,
-                onChnagedColor: _changeColor,
-              ),
+              ColorPicker(onColorSelected: _handleColorSelection),
               const SizedBox(
                 height: 8,
               ),
@@ -127,10 +128,5 @@ class _EditFolderBottomSheetState extends State<EditFolderBottomSheet> {
       widget.folder.coverPath = pickedImage.path;
       setState(() {});
     }
-  }
-
-  void _changeColor() {
-    // update the state of the widget
-    setState(() {});
   }
 }

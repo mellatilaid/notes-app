@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
-import 'package:note_app/widgets/edit_sub_note_colors_list_view.dart';
+import 'package:note_app/widgets/color_picker.dart';
 
 import '../helper/const.dart';
 import '../models/note_model.dart';
@@ -35,6 +35,10 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
     contentController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    BlocProvider.of<EditSubNoteCubit>(context).noteColor = color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,7 +57,7 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
               isExpand: true,
             ),
           ),
-          EditSubNoteColorsListView(note: widget.note),
+          ColorPicker(onColorSelected: _handleColorSelection),
           CustomActionButton(
             title: 'Save Edit',
             onPressed: () {

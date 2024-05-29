@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/section_divider_with_title.dart';
 
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_cubit.dart';
@@ -12,7 +13,6 @@ import '../models/folder_model.dart';
 import 'custom_action_button.dart';
 import 'custom_text_button.dart';
 import 'dual_action_text_field.dart';
-import 'folders_colors_list_view.dart';
 
 class AddFolderForm extends StatefulWidget {
   const AddFolderForm({
@@ -30,6 +30,10 @@ class _AddFolderFormState extends State<AddFolderForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? coverImagePath;
+  void _handleColorSelection(Color color) {
+    BlocProvider.of<AddFolderCubit>(context).folderColer = color.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -45,7 +49,7 @@ class _AddFolderFormState extends State<AddFolderForm> {
           const SizedBox(
             height: 16,
           ),
-          const FoldersColorsListView(),
+          ColorPicker(onColorSelected: _handleColorSelection),
           const SizedBox(
             height: 16,
           ),
