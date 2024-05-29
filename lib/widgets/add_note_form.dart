@@ -6,7 +6,7 @@ import 'package:note_app/helper/assemble_note_helper.dart';
 import '../cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit.dart';
 import '../helper/const.dart';
 import '../models/note_model.dart';
-import 'colors_list_view.dart';
+import 'color_picker.dart';
 import 'custom_action_button.dart';
 import 'invisible_text_field.dart';
 
@@ -28,6 +28,10 @@ class _AddNoteFormState extends State<AddNoteForm> {
     contentController.dispose();
   }
 
+  void _handleColorSelection(Color color) {
+    BlocProvider.of<AddNoteCubit>(context).itemColor = color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +50,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
             isExpand: true,
           ),
         ),
-        const ColorsListView(),
+        ColorPicker(
+          onColorSelected: _handleColorSelection,
+        ),
         BlocBuilder<AddNoteCubit, AddNoteState>(
           builder: (context, state) {
             return CustomActionButton(

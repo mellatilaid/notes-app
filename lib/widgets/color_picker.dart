@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/cubits/text_notes_cubits_folder/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app/helper/const.dart';
 
 import 'color_item.dart';
 
-class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key});
+typedef OnColorSelected = void Function(Color color);
+
+class ColorPicker extends StatefulWidget {
+  final OnColorSelected onColorSelected;
+  const ColorPicker({super.key, required this.onColorSelected});
 
   @override
-  State<ColorsListView> createState() => _ColorsListViewState();
+  State<ColorPicker> createState() => _ColorPickerState();
 }
 
-class _ColorsListViewState extends State<ColorsListView> {
+class _ColorPickerState extends State<ColorPicker> {
   int itemSelected = 0;
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,9 @@ class _ColorsListViewState extends State<ColorsListView> {
                 onTap: () {
                   setState(() {
                     itemSelected = index;
-                    BlocProvider.of<AddNoteCubit>(context).itemColor =
-                        kColors[index];
+                    widget.onColorSelected(kColors[index]);
+                    /* BlocProvider.of<AddNoteCubit>(context).itemColor =
+                        kColors[index];*/
                   });
                 },
                 child: ColorItem(
