@@ -62,10 +62,11 @@ class LocalNotifications {
   }
 
   Future showShuduledNotification({
+    required int id,
     required String title,
     required String body,
     required String payload,
-    //required DateTime sheduleDate,
+    required DateTime sheduleDate,
   }) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -98,10 +99,10 @@ class LocalNotifications {
     log(tz.TZDateTime.now(tz.local).hour.toString());
     try {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
-        1,
+        id,
         title,
         body,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 15)),
+        tz.TZDateTime.from(sheduleDate, tz.local),
         notificationDetails,
         payload: payload,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,

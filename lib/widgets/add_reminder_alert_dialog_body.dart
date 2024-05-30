@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
+import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
@@ -143,7 +144,7 @@ class _AddReminderAlertDialogBodyState
     return ReminderModel(
       id: id,
       title: _reminderTitleController.text,
-      date: '${_dateController.text} ${_timeController.text}',
+      date: convertToDateTime(_dateController.text, _timeController.text),
       color: kColors.first.value,
     );
   }

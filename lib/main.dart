@@ -20,6 +20,7 @@ import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/models/to_do_item_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
+import 'package:note_app/services/local_notifications_service.dart';
 
 import 'models/note_model.dart';
 
@@ -39,6 +40,7 @@ void main() async {
   await Hive.openBox<TasksListModel>(kTasksListBox);
   Hive.registerAdapter(ReminderModelAdapter());
   await Hive.openBox<ReminderModel>(kRemindersBox);
+  await LocalNotifications.init();
   runApp(const NotesApp());
 }
 
