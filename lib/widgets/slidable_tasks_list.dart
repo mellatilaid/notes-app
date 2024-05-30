@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
-import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/to_do_item.dart';

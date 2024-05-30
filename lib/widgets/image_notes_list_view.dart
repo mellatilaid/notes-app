@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
 import '../models/image_note_model.dart';

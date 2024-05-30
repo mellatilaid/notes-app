@@ -6,7 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 
-import '../helper/slidable_note_enums.dart';
+import '../helper/slidable_enums.dart';
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
 

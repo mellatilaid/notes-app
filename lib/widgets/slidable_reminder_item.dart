@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
-import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/services/local_notifications_service.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
@@ -49,8 +49,8 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
           motion: const StretchMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) =>
-                  _onSlidableActionTapped(context, NoteSlidableAction.delete),
+              onPressed: (context) => _onSlidableActionTapped(
+                  context, ReminderSlidableAction.delete),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
@@ -58,8 +58,8 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Delete',
             ),
             SlidableAction(
-              onPressed: (context) =>
-                  _onSlidableActionTapped(context, NoteSlidableAction.share),
+              onPressed: (context) => _onSlidableActionTapped(
+                  context, ReminderSlidableAction.complete),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
@@ -87,13 +87,13 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   //tapped (delete, share)
   _onSlidableActionTapped(
     BuildContext context,
-    NoteSlidableAction action,
+    ReminderSlidableAction action,
   ) {
     switch (action) {
-      case NoteSlidableAction.delete:
+      case ReminderSlidableAction.delete:
         _deleteReminder(context);
         break;
-      case NoteSlidableAction.share:
+      case ReminderSlidableAction.complete:
         _completeReminder();
         break;
       default:

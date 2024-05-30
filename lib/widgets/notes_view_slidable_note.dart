@@ -11,7 +11,7 @@ import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/edit_note_enum.dart';
 import 'package:note_app/helper/local_file_manager.dart';
-import 'package:note_app/helper/slidable_note_enums.dart';
+import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';

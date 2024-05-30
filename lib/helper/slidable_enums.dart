@@ -15,3 +15,9 @@ enum WidgetLocation {
   voiceNotesViewBody,
   imageNotesViewBody,
 }
+
+enum ReminderSlidableAction {
+  delete,
+  complete,
+  edit,
+}
