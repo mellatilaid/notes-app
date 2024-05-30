@@ -32,7 +32,10 @@ class ReminderItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.alarm, color: Theme.of(context).primaryColor),
+          Icon(
+            Icons.alarm,
+            color: _setItemColor(context),
+          ),
           const SizedBox(width: 16.0),
           Expanded(
             child: Column(
@@ -40,9 +43,10 @@ class ReminderItem extends StatelessWidget {
               children: [
                 Text(
                   reminder.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
+                    color: _setItemColor(context),
                   ),
                 ),
                 const SizedBox(height: 8.0),
@@ -50,7 +54,7 @@ class ReminderItem extends StatelessWidget {
                   reminder.date.toString(),
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.grey[600],
+                    color: _setItemColor(context),
                   ),
                 ),
               ],
@@ -59,5 +63,13 @@ class ReminderItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color _setItemColor(BuildContext context) {
+    if (Color(reminder.color!) == Colors.transparent) {
+      return Colors.white;
+    } else {
+      return Theme.of(context).primaryColor;
+    }
   }
 }

@@ -7,6 +7,7 @@ import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_note_enums.dart';
 import 'package:note_app/models/reminder_model.dart';
+import 'package:note_app/services/local_notifications_service.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/reminder_item.dart';
 
@@ -62,18 +63,18 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
-              icon: Icons.share,
-              label: 'Share',
+              icon: Icons.done,
+              label: 'Completed',
             ),
             SlidableAction(
               onPressed: (context) {
                 context.toView(const NotePassCodeView());
               },
               borderRadius: BorderRadius.circular(8),
-              backgroundColor: Colors.transparent,
+              backgroundColor: kPrimaryColor,
               foregroundColor: Colors.white,
-              icon: Icons.lock_outline,
-              label: 'Lock',
+              icon: Icons.edit,
+              label: 'Edit',
             ),
           ]),
       child: ReminderItem(
@@ -90,20 +91,25 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   ) {
     switch (action) {
       case NoteSlidableAction.delete:
-        _deleteNote(context);
+        _deleteReminder(context);
         break;
       case NoteSlidableAction.share:
-        _shareNote();
+        _completeReminder();
         break;
       default:
     }
   }
 
-  _shareNote() {}
+  _completeReminder() {
+    _remindersCubit.removeFromList(index: widget.index);
+    LocalNotifications().cancelNotification(widget.reminder.id);
+    widget.reminder.delete();
+  }
 
-  _deleteNote(BuildContext context) {
+  _deleteReminder(BuildContext context) {
     _remindersCubit.removeFromList(index: widget.index);
     Timer timer = Timer(const Duration(seconds: 2), () async {
+      LocalNotifications().cancelNotification(widget.reminder.id);
       widget.reminder.delete();
     });
     final snackBar = SnackBar(

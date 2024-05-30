@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:developer';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -80,29 +79,28 @@ class LocalNotifications {
 
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
-    /*final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime.from(sheduleDate, tz.local);
 
-    // Check if the scheduledDate is in the past, and if so, add a day to it
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(minutes: 2));
-    }*/
     tz.initializeTimeZones();
 // Get the local timezone string
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
 
 // Set the local location
     tz.setLocalLocation(tz.getLocation(timeZoneName));
+    //set now locan time
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate = tz.TZDateTime.from(sheduleDate, tz.local);
 
-// Now you can use tz.TZDateTime.now(tz.local) to get the correct local time
-    log(tz.local.name);
-    log(tz.TZDateTime.now(tz.local).hour.toString());
+    // Check if the scheduledDate is in the past, and if so, add a 5 minutes to it
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(minutes: 5));
+    }
+
     try {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
         body,
-        tz.TZDateTime.from(sheduleDate, tz.local),
+        scheduledDate,
         notificationDetails,
         payload: payload,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
