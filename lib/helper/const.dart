@@ -24,3 +24,6 @@ const List<Color> kColors = [
 ];
 
 bool isClicked = false;
+
+//this message to notice the user to choose future time for his reminder
+const String kFutureTime = 'Choose future now ';

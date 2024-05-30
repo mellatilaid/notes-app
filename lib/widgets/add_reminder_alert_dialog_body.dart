@@ -29,6 +29,8 @@ class _AddReminderAlertDialogBodyState
   final TextEditingController _timeController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  bool isButtonEnabled = false;
+
   @override
   void initState() {
     super.initState();
@@ -67,22 +69,27 @@ class _AddReminderAlertDialogBodyState
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        DateTimePicker().resetSelectedDate();
                       },
                       icon: const Icon(Icons.close),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          final reminderModel = _assembleReminderModel();
-                          _createReminder(
-                              context: context, reminderModel: reminderModel);
-                        } else {
-                          setState(() {
-                            autovalidateMode = AutovalidateMode.always;
-                          });
-                        }
-                      },
+                      onPressed: isButtonEnabled
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                final reminderModel = _assembleReminderModel();
+                                _createReminder(
+                                    context: context,
+                                    reminderModel: reminderModel);
+                              } else {
+                                setState(() {
+                                  autovalidateMode = AutovalidateMode.always;
+                                });
+                              }
+                              DateTimePicker().resetSelectedDate();
+                            }
+                          : null,
                       child: const Text(
                         'Save',
                         style: TextStyle(color: kPrimaryColor),
@@ -103,8 +110,7 @@ class _AddReminderAlertDialogBodyState
                 PickerTextField(
                   controller: _dateController,
                   onTap: () async {
-                    _dateController.text =
-                        await DateTimePicker().selectDate(context);
+                    _setReminderDate();
                   },
                   hintText: 'Choose Date',
                 ),
@@ -113,10 +119,9 @@ class _AddReminderAlertDialogBodyState
                 ),
                 PickerTextField(
                   controller: _timeController,
-                  hintText: 'Choose Time',
+                  hintText: 'Reminder Time',
                   onTap: () async {
-                    _timeController.text =
-                        await DateTimePicker().seleceTime(context);
+                    _setReminderTime();
                   },
                 ),
                 const SizedBox(
@@ -154,5 +159,25 @@ class _AddReminderAlertDialogBodyState
     BlocProvider.of<AddReminderCubit>(context)
         .addReminder(reminderModel: reminderModel);
     BlocProvider.of<RemindersCubit>(context).fetchAllNotes();
+  }
+
+  _setReminderDate() async {
+    DateTime? selectDate = await DateTimePicker().selectDate(context);
+    if (selectDate != null) {
+      _dateController.text = DateTimeToString().dateToString(time: selectDate);
+    }
+  }
+
+  _setReminderTime() async {
+    TimeOfDay? selectedTime = await DateTimePicker().seleceTime(context);
+    if (selectedTime != null) {
+      _timeController.text =
+          DateTimeToString().timeToString(time: selectedTime);
+      setState(() {
+        isButtonEnabled = true;
+      });
+    } else {
+      _timeController.text = 'Pick future time >= 5 min later';
+    }
   }
 }

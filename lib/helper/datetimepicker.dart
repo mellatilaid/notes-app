@@ -1,38 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/helper/date_time_to_%20string.dart';
 
 class DateTimePicker {
-  DateTime selectedDate = DateTime.now();
+  static DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
-  Future<String> selectDate(BuildContext context) async {
+  Future<DateTime?> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
     if (pickedDate != null) {
-      String finalDate = DateTimeToString().dateToString(time: pickedDate);
-      return finalDate;
+      selectedDate = pickedDate;
+      return selectedDate;
     } else {
-      return 'Choose Date';
+      return null;
     }
   }
 
-  Future<String> seleceTime(BuildContext context) async {
+  Future<TimeOfDay?> seleceTime(BuildContext context) async {
     final now = DateTime.now();
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialTime: selectedTime,
+      initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
     );
-    if (pickedTime != null &&
-        pickedTime != selectedTime &&
-        (pickedTime.hour > now.hour ||
-            (pickedTime.hour == now.hour && pickedTime.minute > now.minute))) {
-      String finalTime = DateTimeToString().timeToString(time: pickedTime);
-      return finalTime;
-    } else {
-      return 'Choose future time';
+    if (pickedTime != null) {
+      //if selected date is after current date, return selected time
+      //else make sure time selected is a future time at least 5 min after current time
+      if (!isSameDay(selectedDate, now)) {
+        return pickedTime;
+      } else if (pickedTime != selectedTime &&
+          (pickedTime.hour > now.hour ||
+              (pickedTime.hour == now.hour &&
+                  pickedTime.minute > (now.minute + 5)))) {
+        return pickedTime;
+      } else {
+        return null;
+      }
     }
+    return null;
+  }
+
+  bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
+//because of selected date var is a static var it should be reseted once completed picking date and time
+  void resetSelectedDate() {
+    selectedDate = DateTime.now();
   }
 }
