@@ -113,4 +113,8 @@ class LocalNotifications {
       throw Exception(e.toString());
     }
   }
+
+  void cancelNotification(int id) async {
+    await _flutterLocalNotificationsPlugin.cancel(id);
+  }
 }
