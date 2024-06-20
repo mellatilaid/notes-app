@@ -60,6 +60,7 @@ dependencies:
   flutter_timezone: ^1.0.8
   file_picker: ^8.0.3
   sentry_flutter: ^8.3.0
+  feedback_gitlab: ^3.0.0
   
  
   
