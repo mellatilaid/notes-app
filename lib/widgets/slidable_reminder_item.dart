@@ -135,6 +135,7 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
 
   //this function triggred when the note is dissmissed
   _onDismissed() {
+    LocalNotifications().cancelNotification(widget.reminder.id);
     widget.reminder.delete();
     _remindersCubit.removeFromList(index: widget.index);
   }

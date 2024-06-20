@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
@@ -127,8 +128,11 @@ class _AddReminderAlertDialogBodyState
                 const SizedBox(
                   height: 16,
                 ),
-                const PickerTextField(
+                PickerTextField(
                   hintText: 'Choose Righntoon',
+                  onTap: () async {
+                    await pickReminderSound();
+                  },
                 ),
                 const SizedBox(
                   height: 16,
@@ -179,5 +183,18 @@ class _AddReminderAlertDialogBodyState
     } else {
       _timeController.text = 'Pick future time >= 5 min later';
     }
+  }
+}
+
+Future<String?> pickReminderSound() async {
+  FilePickerResult? result =
+      await FilePicker.platform.pickFiles(type: FileType.audio);
+
+  if (result != null) {
+    return result
+        .files.single.path; // Return the path of the selected audio file
+  } else {
+    // User canceled the picker
+    return null;
   }
 }

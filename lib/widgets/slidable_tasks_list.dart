@@ -52,19 +52,6 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
               onPressed: (context) => _onSlidableActionTapped(
                 context,
                 widget.index,
-                NoteSlidableAction.delete,
-                widget.tasksListModel,
-              ),
-              borderRadius: BorderRadius.circular(8),
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
-            SlidableAction(
-              onPressed: (context) => _onSlidableActionTapped(
-                context,
-                widget.index,
                 NoteSlidableAction.share,
                 widget.tasksListModel,
               ),

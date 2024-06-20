@@ -54,8 +54,8 @@ class _FolderContentViewState extends State<FolderContentView> {
               return EmptyWidget(
                 onTap: () {},
                 title: 'Folder is empty',
-                message: 'Create your first folder',
-                imagePath: 'assets/audio.png',
+                message: 'Create your first Note',
+                imagePath: 'assets/note_taking.png',
               );
             }
             return FolderSubNotesBody(

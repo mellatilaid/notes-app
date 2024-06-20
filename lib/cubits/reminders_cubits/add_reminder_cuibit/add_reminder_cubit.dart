@@ -28,7 +28,6 @@ class AddReminderCubit extends Cubit<AddReminderState> {
     LocalNotifications().showShuduledNotification(
       id: reminderModel.id,
       title: reminderModel.title,
-      body: 'reminder body',
       payload: reminderModel.id.toString(),
       sheduleDate: DateTime.parse(reminderModel.date),
     );

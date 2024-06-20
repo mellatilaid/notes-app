@@ -63,7 +63,6 @@ class LocalNotifications {
   Future showShuduledNotification({
     required int id,
     required String title,
-    required String body,
     required String payload,
     required DateTime sheduleDate,
   }) async {
@@ -99,7 +98,7 @@ class LocalNotifications {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
-        body,
+        "Don't ignore your reminder",
         scheduledDate,
         notificationDetails,
         payload: payload,
