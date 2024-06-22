@@ -5,8 +5,14 @@ class RemindersStates {}
 final class RemindersInitialState extends RemindersStates {}
 
 class RemindersSuccussState extends RemindersStates {
-  final List<ReminderModel> reminders;
-  RemindersSuccussState({required this.reminders});
+  final List<ReminderModel> soonReminders;
+  final List<ReminderModel> futureReminders;
+  final List<ReminderModel> passedReminders;
+
+  RemindersSuccussState(
+      {required this.soonReminders,
+      required this.futureReminders,
+      required this.passedReminders});
 }
 
 class RemindersFailureState extends RemindersStates {

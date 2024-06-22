@@ -31,13 +31,7 @@ class RemindersView extends StatelessWidget {
               ]),
         ),
         drawer: const Drawer(),
-        body: const TabBarView(
-          children: [
-            RemindersViewBody(),
-            Text('future'),
-            Text('passed'),
-          ],
-        ),
+        body: const RemindersViewBody(),
         floatingActionButton: CustomFlaotingActionButton(
           child: const Icon(Icons.add),
           onTap: () {
