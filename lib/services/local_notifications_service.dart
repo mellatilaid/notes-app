@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -12,7 +14,7 @@ class LocalNotifications {
   static final onNotifications = BehaviorSubject<String>();
 
   static void onNotificationTap(NotificationResponse notificationResponse) {
-    //onNotifications.add(notificationResponse.payload!);
+    onNotifications.add(notificationResponse.payload!);
   }
 
   static Future init() async {
@@ -21,7 +23,9 @@ class LocalNotifications {
         AndroidInitializationSettings('@mipmap/ic_launcher');
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) {},
+      onDidReceiveLocalNotification: (id, title, body, payload) {
+        onNotifications.add('$id $title $body $payload');
+      },
     );
     _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -34,9 +38,11 @@ class LocalNotifications {
             android: initializationSettingsAndroid,
             iOS: initializationSettingsDarwin,
             linux: initializationSettingsLinux);
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onNotificationTap,
-        onDidReceiveBackgroundNotificationResponse: onNotificationTap);
+    await _flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onNotificationTap,
+      onDidReceiveBackgroundNotificationResponse: onNotificationTap,
+    );
   }
 
   Future showSimpleNotification({
@@ -106,6 +112,10 @@ class LocalNotifications {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
+      //call the on notification received function when it is triggred
+      Timer(scheduledDate.difference(now), () {
+        onNotificationReceived(id);
+      });
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
@@ -113,5 +123,10 @@ class LocalNotifications {
 
   void cancelNotification(int id) async {
     await _flutterLocalNotificationsPlugin.cancel(id);
+  }
+
+//call reminders cubit with the triggred reminder id
+  static void onNotificationReceived(int id) async {
+    log(id.toString());
   }
 }
