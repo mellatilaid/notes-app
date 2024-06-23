@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/enums.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/services/local_notifications_service.dart';
@@ -18,10 +19,12 @@ class SlidableReminderItem extends StatefulWidget {
     super.key,
     required this.index,
     required this.reminder,
+    required this.reminderSource,
   });
 
   final int index;
   final ReminderModel reminder;
+  final ReminderSource reminderSource;
 
   @override
   State<SlidableReminderItem> createState() => _SlidableReminderItemState();
@@ -101,13 +104,19 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   }
 
   _completeReminder() {
-    _remindersCubit.removeFromList(index: widget.index);
+    _remindersCubit.removeFromList(
+      index: widget.index,
+      reminderSource: widget.reminderSource,
+    );
     LocalNotifications().cancelNotification(widget.reminder.id);
     widget.reminder.delete();
   }
 
   _deleteReminder(BuildContext context) {
-    _remindersCubit.removeFromList(index: widget.index);
+    _remindersCubit.removeFromList(
+      index: widget.index,
+      reminderSource: widget.reminderSource,
+    );
     Timer timer = Timer(const Duration(seconds: 2), () async {
       LocalNotifications().cancelNotification(widget.reminder.id);
       widget.reminder.delete();
@@ -125,7 +134,10 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
         onPressed: () async {
           timer.cancel();
           _remindersCubit.addToList(
-              index: widget.index, model: widget.reminder);
+            index: widget.index,
+            model: widget.reminder,
+            reminderSource: widget.reminderSource,
+          );
         },
       ),
     );
