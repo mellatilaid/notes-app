@@ -56,7 +56,10 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
   void seperateReminderList() {
     for (var reminder in revReminders!) {
       final date = DateTime.parse(reminder.date);
-      if (date.day == DateTime.now().day && date.hour > DateTime.now().hour) {
+      if ((date.day == DateTime.now().day && date.hour > DateTime.now().hour) ||
+          (date.day == DateTime.now().day &&
+              date.hour == DateTime.now().hour &&
+              date.minute > DateTime.now().minute)) {
         soonReminders.add(reminder);
       } else if (date.day > DateTime.now().day) {
         futureReminders.add(reminder);
@@ -64,5 +67,28 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
         passedReminders.add(reminder);
       }
     }
+  }
+
+  void moveReminderToPassed(int reminderId) {
+    // Find and remove the reminder from soon or future lists
+    ReminderModel? movedReminder;
+    movedReminder =
+        soonReminders.firstWhere((reminder) => reminder.id == reminderId,
+            orElse: () => futureReminders.firstWhere(
+                  (reminder) => reminder.id == reminderId,
+                ));
+
+    soonReminders.remove(movedReminder);
+    futureReminders.remove(movedReminder);
+
+    // Add the reminder to passed reminders
+    passedReminders.add(movedReminder);
+
+    // Emit the updated state
+    emit(RemindersSuccussState(
+      soonReminders: soonReminders,
+      futureReminders: futureReminders,
+      passedReminders: passedReminders,
+    ));
   }
 }
