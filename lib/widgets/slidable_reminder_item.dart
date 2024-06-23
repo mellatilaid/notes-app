@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
-import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/enums.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/services/local_notifications_service.dart';
-import 'package:note_app/views/note_pass_code_view.dart';
+import 'package:note_app/widgets/edit_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/reminder_item.dart';
 
 import '../helper/const.dart';
@@ -70,9 +69,10 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Completed',
             ),
             SlidableAction(
-              onPressed: (context) {
-                context.toView(const NotePassCodeView());
-              },
+              onPressed: (context) => _onSlidableActionTapped(
+                context,
+                ReminderSlidableAction.edit,
+              ),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: kPrimaryColor,
               foregroundColor: Colors.white,
@@ -99,17 +99,11 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
       case ReminderSlidableAction.complete:
         _completeReminder();
         break;
+      case ReminderSlidableAction.edit:
+        _editReminder(context);
+        break;
       default:
     }
-  }
-
-  _completeReminder() {
-    _remindersCubit.removeFromList(
-      index: widget.index,
-      reminderSource: widget.reminderSource,
-    );
-    LocalNotifications().cancelNotification(widget.reminder.id);
-    widget.reminder.delete();
   }
 
   _deleteReminder(BuildContext context) {
@@ -143,6 +137,25 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  _completeReminder() {
+    _remindersCubit.removeFromList(
+      index: widget.index,
+      reminderSource: widget.reminderSource,
+    );
+    LocalNotifications().cancelNotification(widget.reminder.id);
+    widget.reminder.delete();
+  }
+
+  _editReminder(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return const EditReminderAlertDialog();
+      },
+    );
   }
 
   //this function triggred when the note is dissmissed
