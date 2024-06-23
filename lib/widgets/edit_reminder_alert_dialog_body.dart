@@ -1,13 +1,17 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
+import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
+import 'package:note_app/helper/add_sheduled_notification.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
+import 'package:note_app/services/local_notifications_service.dart';
 import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/rounded_text_field.dart';
 
@@ -42,8 +46,13 @@ class _EditReminderAlertDialogBodyState
   _setInitialValues() {
     DateTime dateTime = DateTime.parse(widget.reminder.date);
     _reminderTitleController.text = widget.reminder.title;
-    _dateController.text = DateFormat('yyyy-MM-dd').format(dateTime);
-    _timeController.text = DateFormat('HH:mm').format(dateTime);
+
+    try {
+      _dateController.text = DateFormat('dd/MM/yyyy').format(dateTime);
+      _timeController.text = DateFormat('HH:mm').format(dateTime);
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
@@ -86,10 +95,13 @@ class _EditReminderAlertDialogBodyState
                           ? () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                final reminderModel = _assembleReminderModel();
-                                _createReminder(
-                                    context: context,
-                                    reminderModel: reminderModel);
+
+                                _editReminder(
+                                  context: context,
+                                  reminderModel: widget.reminder,
+                                );
+                                Navigator.pop(context);
+                                _updateRemindersList(context);
                               } else {
                                 setState(() {
                                   autovalidateMode = AutovalidateMode.always;
@@ -135,15 +147,6 @@ class _EditReminderAlertDialogBodyState
                 const SizedBox(
                   height: 16,
                 ),
-                PickerTextField(
-                  hintText: 'Choose Righntoon',
-                  onTap: () async {
-                    await pickReminderSound();
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
                 ColorPicker(onColorSelected: _handleColorSelection),
               ],
             ),
@@ -153,22 +156,27 @@ class _EditReminderAlertDialogBodyState
     );
   }
 
-  //takes seperate parameters for reminder model
-  ReminderModel _assembleReminderModel() {
-    //genereate unique id for each reminder
-    int id = generateUniqueId();
-    return ReminderModel(
-      id: id,
-      title: _reminderTitleController.text,
-      date: convertToDateTime(_dateController.text, _timeController.text),
-      color: kColors.first.value,
-    );
+  void _editReminder(
+      {required BuildContext context, required ReminderModel reminderModel}) {
+    LocalNotifications().cancelNotification(widget.reminder.id);
+    _saveEdits();
+    addSheduledNotification(reminderModel: reminderModel);
   }
 
-  void _createReminder(
-      {required BuildContext context, required ReminderModel reminderModel}) {
-    BlocProvider.of<AddReminderCubit>(context)
-        .addReminder(reminderModel: reminderModel);
+  _saveEdits() {
+    final newID = generateUniqueId();
+    widget.reminder.id = newID;
+    widget.reminder.title = _reminderTitleController.text;
+
+    widget.reminder.date = convertToDateTime(
+      _dateController.text,
+      _timeController.text,
+    );
+    widget.reminder.save();
+  }
+
+  _updateRemindersList(BuildContext context) {
+    BlocProvider.of<RemindersCubit>(context).fetchAllNotes();
   }
 
   _setReminderDate() async {
@@ -189,18 +197,5 @@ class _EditReminderAlertDialogBodyState
     } else {
       _timeController.text = 'Pick future time >= 5 min later';
     }
-  }
-}
-
-Future<String?> pickReminderSound() async {
-  FilePickerResult? result =
-      await FilePicker.platform.pickFiles(type: FileType.audio);
-
-  if (result != null) {
-    return result
-        .files.single.path; // Return the path of the selected audio file
-  } else {
-    // User canceled the picker
-    return null;
   }
 }

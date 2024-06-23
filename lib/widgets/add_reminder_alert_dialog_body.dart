@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -122,6 +124,7 @@ class _AddReminderAlertDialogBodyState
                   hintText: 'Reminder Time',
                   onTap: () async {
                     _setReminderTime();
+                    log(_timeController.text);
                   },
                 ),
                 const SizedBox(
@@ -149,6 +152,8 @@ class _AddReminderAlertDialogBodyState
   ReminderModel _assembleReminderModel() {
     //genereate unique id for each reminder
     int id = generateUniqueId();
+    log(_dateController.text);
+    log(_timeController.text);
     return ReminderModel(
       id: id,
       title: _reminderTitleController.text,
