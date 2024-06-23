@@ -3,6 +3,8 @@ import 'dart:core';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:note_app/event/reminder_triggred_event.dart';
+import 'package:note_app/helper/event_bus.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -126,6 +128,6 @@ class LocalNotifications {
 
 //call reminders cubit with the triggred reminder id
   static void onNotificationReceived(int id) async {
-    //BlocProvider.of<RemindersCubit>(context).moveReminderToPassed(id);
+    eventBus.fire(ReminderTriggredEvent(reminderID: id));
   }
 }
