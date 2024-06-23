@@ -3,12 +3,18 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminder_cubit_states.dart';
+import 'package:note_app/event/reminder_triggred_event.dart';
 import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/helper/event_bus.dart';
 import 'package:note_app/models/reminder_model.dart';
 
 class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
-  RemindersCubit() : super(RemindersInitialState());
+  RemindersCubit() : super(RemindersInitialState()) {
+    eventBus.on<ReminderTriggredEvent>().listen((event) {
+      _moveReminderToPassed(event.reminderID);
+    });
+  }
 
   List<ReminderModel>? revReminders;
   List<ReminderModel> soonReminders = [];
@@ -69,7 +75,7 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
     }
   }
 
-  void moveReminderToPassed(int reminderId) {
+  void _moveReminderToPassed(int reminderId) {
     // Find and remove the reminder from soon or future lists
     ReminderModel? movedReminder;
     movedReminder =
