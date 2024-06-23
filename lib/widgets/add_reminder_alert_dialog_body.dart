@@ -2,7 +2,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
-import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
@@ -162,7 +161,6 @@ class _AddReminderAlertDialogBodyState
       {required BuildContext context, required ReminderModel reminderModel}) {
     BlocProvider.of<AddReminderCubit>(context)
         .addReminder(reminderModel: reminderModel);
-    BlocProvider.of<RemindersCubit>(context).fetchAllNotes();
   }
 
   _setReminderDate() async {
