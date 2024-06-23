@@ -9,7 +9,7 @@ import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voic
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
-import 'package:note_app/helper/edit_note_enum.dart';
+import 'package:note_app/helper/enums.dart';
 import 'package:note_app/helper/local_file_manager.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/image_note_model.dart';

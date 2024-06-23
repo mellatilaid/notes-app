@@ -13,13 +13,13 @@ class RemindersViewBodyBuilder extends StatelessWidget {
       builder: (context, state) {
         if (state is RemindersSuccussState) {
           return TabBarView(children: [
-            RemindersListView(
+            SoonRemindersListView(
               reminders: state.soonReminders,
             ),
-            RemindersListView(
+            SoonRemindersListView(
               reminders: state.futureReminders,
             ),
-            RemindersListView(
+            SoonRemindersListView(
               reminders: state.passedReminders,
             )
           ]);

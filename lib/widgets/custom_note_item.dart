@@ -8,7 +8,7 @@ import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
 import 'package:note_app/views/edit_sub_note_view.dart';
 
-import '../helper/edit_note_enum.dart';
+import '../helper/enums.dart';
 
 class CustomNoteItem extends StatelessWidget {
   final NoteModel note;

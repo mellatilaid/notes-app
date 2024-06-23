@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/widgets/slidable_reminder_item.dart';
 
-class RemindersListView extends StatelessWidget {
+class SoonRemindersListView extends StatelessWidget {
   final List<ReminderModel> reminders;
-  const RemindersListView({super.key, required this.reminders});
+  const SoonRemindersListView({super.key, required this.reminders});
 
   @override
   Widget build(BuildContext context) {

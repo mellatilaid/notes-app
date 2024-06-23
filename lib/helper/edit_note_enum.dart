@@ -1,4 +1,0 @@
-enum EditNote {
-  editNoteView,
-  editSubNoteView,
-}

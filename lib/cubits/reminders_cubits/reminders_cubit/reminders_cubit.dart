@@ -3,10 +3,11 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminder_cubit_states.dart';
+import 'package:note_app/event/event_bus.dart';
 import 'package:note_app/event/reminder_triggred_event.dart';
 import 'package:note_app/helper/basic_class.dart';
 import 'package:note_app/helper/const.dart';
-import 'package:note_app/helper/event_bus.dart';
+import 'package:note_app/helper/enums.dart';
 import 'package:note_app/models/reminder_model.dart';
 
 class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
@@ -40,8 +41,21 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
   }
 
   @override
-  addToList({required int index, required model}) {
-    revReminders!.insert(index, model);
+  addToList(
+      {required int index, required model, ReminderSource? reminderSource}) {
+    switch (reminderSource) {
+      case ReminderSource.soonReminders:
+        soonReminders.insert(index, model);
+        break;
+      case ReminderSource.futureReminders:
+        futureReminders.insert(index, model);
+        break;
+      case ReminderSource.passedReminders:
+        passedReminders.insert(index, model);
+        break;
+      default:
+    }
+    //revReminders!.insert(index, model);
     emit(RemindersSuccussState(
       soonReminders: soonReminders,
       futureReminders: futureReminders,
@@ -50,8 +64,20 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
   }
 
   @override
-  removeFromList({required int index}) {
-    revReminders!.removeAt(index);
+  removeFromList({required int index, ReminderSource? reminderSource}) {
+    //revReminders!.removeAt(index);
+    switch (reminderSource) {
+      case ReminderSource.soonReminders:
+        soonReminders.removeAt(index);
+        break;
+      case ReminderSource.futureReminders:
+        futureReminders.removeAt(index);
+        break;
+      case ReminderSource.passedReminders:
+        passedReminders.removeAt(index);
+        break;
+      default:
+    }
     emit(RemindersSuccussState(
       soonReminders: soonReminders,
       futureReminders: futureReminders,
@@ -85,10 +111,9 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
                 ));
 
     soonReminders.remove(movedReminder);
-    futureReminders.remove(movedReminder);
 
     // Add the reminder to passed reminders
-    passedReminders.add(movedReminder);
+    passedReminders.insert(0, movedReminder);
 
     // Emit the updated state
     emit(RemindersSuccussState(

@@ -3,8 +3,8 @@ import 'dart:core';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:note_app/event/event_bus.dart';
 import 'package:note_app/event/reminder_triggred_event.dart';
-import 'package:note_app/helper/event_bus.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
