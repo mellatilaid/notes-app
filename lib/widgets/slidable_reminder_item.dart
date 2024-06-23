@@ -153,7 +153,9 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
       barrierDismissible: false,
       context: context,
       builder: (context) {
-        return const EditReminderAlertDialog();
+        return EditReminderAlertDialog(
+          reminder: widget.reminder,
+        );
       },
     );
   }

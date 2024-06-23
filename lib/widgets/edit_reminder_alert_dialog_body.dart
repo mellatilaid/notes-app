@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
@@ -14,7 +15,8 @@ import '../helper/const.dart';
 import 'custom_picker_text_field.dart';
 
 class EditReminderAlertDialogBody extends StatefulWidget {
-  const EditReminderAlertDialogBody({super.key});
+  final ReminderModel reminder;
+  const EditReminderAlertDialogBody({super.key, required this.reminder});
 
   @override
   State<EditReminderAlertDialogBody> createState() =>
@@ -34,8 +36,14 @@ class _EditReminderAlertDialogBodyState
   @override
   void initState() {
     super.initState();
-    _dateController.text =
-        DateTimeToString().dateToString(time: DateTime.now());
+    _setInitialValues();
+  }
+
+  _setInitialValues() {
+    DateTime dateTime = DateTime.parse(widget.reminder.date);
+    _reminderTitleController.text = widget.reminder.title;
+    _dateController.text = DateFormat('yyyy-MM-dd').format(dateTime);
+    _timeController.text = DateFormat('HH:mm').format(dateTime);
   }
 
   @override
