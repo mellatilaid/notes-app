@@ -68,17 +68,22 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               icon: Icons.done,
               label: 'Completed',
             ),
-            SlidableAction(
-              onPressed: (context) => _onSlidableActionTapped(
-                context,
-                ReminderSlidableAction.edit,
-              ),
-              borderRadius: BorderRadius.circular(8),
-              backgroundColor: kPrimaryColor,
-              foregroundColor: Colors.white,
-              icon: Icons.edit,
-              label: 'Edit',
-            ),
+            (widget.reminderSource == ReminderSource.passedReminders)
+                ? const SizedBox(
+                    width: null,
+                    height: null,
+                  )
+                : SlidableAction(
+                    onPressed: (context) => _onSlidableActionTapped(
+                      context,
+                      ReminderSlidableAction.edit,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                    backgroundColor: kPrimaryColor,
+                    foregroundColor: Colors.white,
+                    icon: Icons.edit,
+                    label: 'Edit',
+                  ),
           ]),
       child: ReminderItem(
         reminder: widget.reminder,

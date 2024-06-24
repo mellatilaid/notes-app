@@ -17,9 +17,7 @@ class AddNotesView extends StatelessWidget {
           centerTitle: true,
           elevation: 0,
           title: const Text('Add Note'),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          ],
+          actions: const [],
         ),
         body: AddNoteViewBody(
           textNoteTabController: textNoteTabController,

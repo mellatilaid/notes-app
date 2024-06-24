@@ -77,12 +77,12 @@ class _FolderContentViewState extends State<FolderContentView> {
             icon: const Icon(Icons.text_fields),
             label: 'Add Text',
           ),
-          customSpeedDialChild(
+          /*customSpeedDialChild(
               icon: const Icon(Icons.voice_chat), label: 'Add Voice'),
           customSpeedDialChild(
               icon: const Icon(Icons.image), label: 'Add Image'),
           customSpeedDialChild(
-              icon: const Icon(Icons.folder), label: 'Add SubFolder'),
+              icon: const Icon(Icons.folder), label: 'Add SubFolder'),*/
         ],
       ),
     );

@@ -18,7 +18,11 @@ class AddNoteViewBody extends StatelessWidget {
           Navigator.pop(context);
           textNoteTabController.animateTo(0);
         } else if (state is AddNoteFailure) {
-          print('oops there was a problem ${state.errMessage}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errMessage),
+            ),
+          );
         }
       },
       builder: (context, state) {

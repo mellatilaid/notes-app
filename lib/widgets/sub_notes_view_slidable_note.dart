@@ -107,6 +107,8 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
     });
     final snackBar = SnackBar(
       duration: const Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       backgroundColor: Colors.grey.withOpacity(0.4),
       content: const Text(
         'Note Was deleted',
