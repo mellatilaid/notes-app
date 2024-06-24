@@ -44,7 +44,7 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
           dismissible: DismissiblePane(
             onDismissed: () => _onDismissed(),
           ),
-          extentRatio: 0.8,
+          extentRatio: 0.6,
           motion: const StretchMotion(),
           children: [
             SlidableAction(

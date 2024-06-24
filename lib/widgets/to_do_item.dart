@@ -66,12 +66,12 @@ class _ToDoItemState extends State<ToDoItem> {
                 ),
               _isShowDots(tasksListLength: widget.tasksList.tasksList.length)
                   ? const Padding(
-                      padding: EdgeInsets.only(left: 24, bottom: 8),
+                      padding: EdgeInsets.only(left: 24, bottom: 4),
                       child: Text(
-                        '...',
+                        'See more',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          color: Colors.grey,
+                          fontSize: 10,
                         ),
                       ),
                     )
@@ -87,8 +87,8 @@ class _ToDoItemState extends State<ToDoItem> {
   //so if the taskslist greate length greater than 2 set length to 2
   //otherways let it as it is
   _setLoopLength({required int taskListLength}) {
-    if (taskListLength > 2) {
-      return 2;
+    if (taskListLength > 1) {
+      return 1;
     } else {
       return taskListLength;
     }
@@ -98,7 +98,7 @@ class _ToDoItemState extends State<ToDoItem> {
 //to tell the user there is more tasks
 //otherways return false
   bool _isShowDots({required int tasksListLength}) {
-    if (tasksListLength > 2) {
+    if (tasksListLength > 1) {
       return true;
     } else {
       return false;
