@@ -38,8 +38,11 @@ class _BottomNavPageState extends State<BottomNavPage> {
         unselectedItemColor: Colors.grey,
         currentIndex: _pageSelected,
         onTap: (index) {
-          _pageController.animateToPage(index,
-              duration: const Duration(milliseconds: 200), curve: Curves.ease);
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+          );
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.note), label: 'My Notes'),
