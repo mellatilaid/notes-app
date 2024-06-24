@@ -130,15 +130,6 @@ class _AddReminderAlertDialogBodyState
                 const SizedBox(
                   height: 16,
                 ),
-                PickerTextField(
-                  hintText: 'Choose Righntoon',
-                  onTap: () async {
-                    await pickReminderSound();
-                  },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
                 ColorPicker(onColorSelected: _handleColorSelection),
               ],
             ),

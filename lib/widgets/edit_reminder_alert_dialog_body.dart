@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/cubits/reminders_cubits/reminders_cubit/reminders_cubit.dart';
 import 'package:note_app/helper/add_sheduled_notification.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
@@ -36,11 +35,12 @@ class _EditReminderAlertDialogBodyState
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   bool isButtonEnabled = false;
-
+  int colorIndex = 0;
   @override
   void initState() {
     super.initState();
     _setInitialValues();
+    colorIndex = kColors.indexOf(Color(widget.reminder.color!));
   }
 
   _setInitialValues() {
@@ -65,7 +65,8 @@ class _EditReminderAlertDialogBodyState
   }
 
   void _handleColorSelection(Color color) {
-    BlocProvider.of<AddReminderCubit>(context).reminderColor = color;
+    widget.reminder.color = color.value;
+    widget.reminder.save();
   }
 
   @override
@@ -91,25 +92,23 @@ class _EditReminderAlertDialogBodyState
                       icon: const Icon(Icons.close),
                     ),
                     ElevatedButton(
-                      onPressed: isButtonEnabled
-                          ? () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
 
-                                _editReminder(
-                                  context: context,
-                                  reminderModel: widget.reminder,
-                                );
-                                Navigator.pop(context);
-                                _updateRemindersList(context);
-                              } else {
-                                setState(() {
-                                  autovalidateMode = AutovalidateMode.always;
-                                });
-                              }
-                              DateTimePicker().resetSelectedDate();
-                            }
-                          : null,
+                          _editReminder(
+                            context: context,
+                            reminderModel: widget.reminder,
+                          );
+                          Navigator.pop(context);
+                          _updateRemindersList(context);
+                        } else {
+                          setState(() {
+                            autovalidateMode = AutovalidateMode.always;
+                          });
+                        }
+                        DateTimePicker().resetSelectedDate();
+                      },
                       child: const Text(
                         'Save',
                         style: TextStyle(color: kPrimaryColor),
@@ -147,7 +146,10 @@ class _EditReminderAlertDialogBodyState
                 const SizedBox(
                   height: 16,
                 ),
-                ColorPicker(onColorSelected: _handleColorSelection),
+                ColorPicker(
+                  onColorSelected: _handleColorSelection,
+                  selectedColor: colorIndex,
+                ),
               ],
             ),
           ),

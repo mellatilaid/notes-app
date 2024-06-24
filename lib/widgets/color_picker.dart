@@ -7,14 +7,24 @@ typedef OnColorSelected = void Function(Color color);
 
 class ColorPicker extends StatefulWidget {
   final OnColorSelected onColorSelected;
-  const ColorPicker({super.key, required this.onColorSelected});
+  final int selectedColor;
+  const ColorPicker(
+      {super.key, required this.onColorSelected, this.selectedColor = 0});
 
   @override
   State<ColorPicker> createState() => _ColorPickerState();
 }
 
 class _ColorPickerState extends State<ColorPicker> {
-  int itemSelected = 0;
+  late int itemSelected;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    itemSelected = widget.selectedColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
