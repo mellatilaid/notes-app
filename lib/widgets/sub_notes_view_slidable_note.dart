@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/helper/enums.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../helper/slidable_enums.dart';
 import '../models/note_model.dart';
@@ -96,7 +97,9 @@ class _SubNotesViewSlidableNoteState extends State<SubNotesViewSlidableNote> {
     }
   }
 
-  _shareNote() {}
+  _shareNote() async {
+    await Share.share('${widget.note.title} \n\n ${widget.note.content}');
+  }
 
   _deleteNote(BuildContext context) {
     final NoteModel note = widget.note;

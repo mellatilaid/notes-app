@@ -16,6 +16,7 @@ import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/image_note_item.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../models/note_model.dart';
 import 'custom_note_item.dart';
@@ -95,19 +96,21 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
                 icon: Icons.delete,
                 label: 'Delete',
               ),
-              SlidableAction(
-                onPressed: (context) => _onSlidableActionTapped(
-                  context,
-                  widget.index,
-                  NoteSlidableAction.share,
-                  note,
-                ),
-                borderRadius: BorderRadius.circular(8),
-                backgroundColor: const Color(0xFF21B7CA),
-                foregroundColor: Colors.white,
-                icon: Icons.share,
-                label: 'Share',
-              ),
+              (note is NoteModel)
+                  ? SlidableAction(
+                      onPressed: (context) => _onSlidableActionTapped(
+                        context,
+                        widget.index,
+                        NoteSlidableAction.share,
+                        note,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                      backgroundColor: const Color(0xFF21B7CA),
+                      foregroundColor: Colors.white,
+                      icon: Icons.share,
+                      label: 'Share',
+                    )
+                  : const SizedBox(),
               SlidableAction(
                 onPressed: (context) {
                   context.toView(const NotePassCodeView());
@@ -139,18 +142,21 @@ class _NotesViewSlidableNoteState<T> extends State<NotesViewSlidableNote> {
       BuildContext context, int index, NoteSlidableAction action, var note) {
     switch (action) {
       case NoteSlidableAction.delete:
-        _deleteReminder(context, note);
+        _deleteNote(context, note);
         break;
       case NoteSlidableAction.share:
-        _shareReminder();
+        _shareNote();
         break;
       default:
     }
   }
 
-  _shareReminder() {}
+  _shareNote() async {
+    await Share.share(
+        '${widget.noteModel.title} \n\n ${widget.noteModel.content}');
+  }
 
-  _deleteReminder(BuildContext context, var note) {
+  _deleteNote(BuildContext context, var note) {
     final note = widget.noteModel;
 
     notesCubit.removeFromList(index: widget.index);

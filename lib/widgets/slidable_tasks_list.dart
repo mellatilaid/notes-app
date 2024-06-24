@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
-import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/tasks_list_model.dart';
-import 'package:note_app/views/note_pass_code_view.dart';
 import 'package:note_app/widgets/to_do_item.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../helper/const.dart';
 
@@ -52,24 +51,27 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
               onPressed: (context) => _onSlidableActionTapped(
                 context,
                 widget.index,
+                NoteSlidableAction.delete,
+                widget.tasksListModel,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              icon: Icons.delete,
+              label: 'Delete',
+            ),
+            SlidableAction(
+              onPressed: (context) => _onSlidableActionTapped(
+                context,
+                widget.index,
                 NoteSlidableAction.share,
                 widget.tasksListModel,
               ),
               borderRadius: BorderRadius.circular(8),
               backgroundColor: const Color(0xFF21B7CA),
               foregroundColor: Colors.white,
-              icon: Icons.share,
-              label: 'Share',
-            ),
-            SlidableAction(
-              onPressed: (context) {
-                context.toView(const NotePassCodeView());
-              },
-              borderRadius: BorderRadius.circular(8),
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.white,
               icon: Icons.lock_outline,
-              label: 'Lock',
+              label: 'Share',
             ),
           ]),
       child: ToDoItem(
@@ -92,7 +94,10 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
     }
   }
 
-  _shareNote() {}
+  _shareNote() async {
+    final tasks = _extracTasks();
+    await Share.share('${widget.tasksListModel.title} \n\n $tasks');
+  }
 
   _deleteNote(BuildContext context, TasksListModel tasksList) {
     final taskList = widget.tasksListModel;
@@ -129,5 +134,13 @@ class _SlidableTasksListState extends State<SlidableTasksList> {
   _onDismissed() {
     widget.tasksListModel.delete();
     fetchTasksListCubit.fetchAllTasksLists();
+  }
+
+  List<String> _extracTasks() {
+    final List<String> tasks = [];
+    for (var task in widget.tasksListModel.tasksList) {
+      tasks.add(task.title);
+    }
+    return tasks;
   }
 }
