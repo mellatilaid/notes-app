@@ -6,7 +6,7 @@ import 'package:note_app/helper/enums.dart';
 import 'package:note_app/widgets/rounded_text_field.dart';
 import 'package:note_app/widgets/search_resaults_list_view.dart';
 
-import '../helper/const.dart';
+import 'signle_choice_ship_buttons.dart';
 
 class SearchViewBody extends StatefulWidget {
   const SearchViewBody({super.key});
@@ -17,7 +17,16 @@ class SearchViewBody extends StatefulWidget {
 
 class _SearchViewBodyState extends State<SearchViewBody> {
   SearchType searchType = SearchType.notes;
-  String selectedChoice = "Notes";
+  String query = '';
+  _search(SearchType searchType) {
+    this.searchType = searchType;
+    if (query.isEmpty) {
+      BlocProvider.of<SearchCubit>(context).emitEmptyState();
+    } else {
+      BlocProvider.of<SearchCubit>(context).search(query, searchType);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,44 +37,11 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             RoundedTextField(
               hintText: 'Search Notes',
               onChanged: (data) {
-                if (data.isEmpty) {
-                  BlocProvider.of<SearchCubit>(context).emitEmptyState();
-                } else {
-                  BlocProvider.of<SearchCubit>(context)
-                      .search(data, searchType);
-                }
+                query = data;
+                _search(searchType);
               },
             ),
-            SizedBox(
-              height: 50,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: SearchType.values.map((choice) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: ChoiceChip(
-                      label: Text(choice.name),
-                      selected: searchType == choice,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          if (selected) {
-                            searchType = choice;
-                            // Perform action based on the selected choice
-                            //_performSearchBasedOnChoice(selectedChoice);
-                          }
-                        });
-                      },
-                      selectedColor: kPrimaryColor,
-                      backgroundColor: Colors.grey[200],
-                      labelStyle: TextStyle(
-                        color:
-                            searchType == choice ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
+            SingleChoiceShipButtons(onSelected: _search),
             const SizedBox(
               height: 32,
             ),
