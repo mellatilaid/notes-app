@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/add_notes_view.dart';
-import 'package:note_app/views/search_notes_view.dart';
+import 'package:note_app/views/search_view.dart';
 import 'package:note_app/widgets/add_image_note_bottom_sheet.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/add_voice_note_bottom_sheet.dart';
@@ -44,7 +44,7 @@ class _NotesViewState extends State<NotesView>
           actions: [
             IconButton(
               onPressed: () {
-                context.toView(const SearchNotesView());
+                context.toView(const SearchView());
               },
               icon: const Icon(Icons.search),
             ),

@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:note_app/cubits/search_cubit/search_note_state.dart';
+import 'package:note_app/cubits/search_cubit/search_state.dart';
 import 'package:note_app/helper/enums.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/models/reminder_model.dart';
@@ -23,6 +25,7 @@ class SearchCubit extends Cubit<SearchState> {
             .where((note) =>
                 note.title.contains(query) || note.content.contains(query))
             .toList();
+        results = results as List<NoteModel>;
         break;
       case SearchType.folders:
         var folderBox = Hive.box<FolderModel>(kFoldersBox);
@@ -56,18 +59,7 @@ class SearchCubit extends Cubit<SearchState> {
         final input = query.toLowerCase();
         return noteTitle.contains(input);
       }).toList();*/
-
+    log(results[0].toString());
     emit(SearchSecussState(resualt: results));
   }
 }
-
- /* addToNotes({required int index, required NoteModel note}) {
-    notes!.insert(index, note);
-    emit(SearchSecussState(notes: notes!));
-  }
-
-  removeFromNotes({required int index}) {
-    notes!.removeAt(index);
-    emit(SearchSecussState(notes: notes!));
-  }
-}*/
