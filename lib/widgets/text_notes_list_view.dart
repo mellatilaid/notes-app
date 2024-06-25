@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
-class TextNotesListview extends StatefulWidget {
-  final NotesCubitSource notesCubitSource;
+class NotesListview extends StatefulWidget {
   final List<dynamic> textNotes;
 
-  const TextNotesListview({
+  const NotesListview({
     super.key,
     required this.textNotes,
-    required this.notesCubitSource,
   });
 
   @override
-  State<TextNotesListview> createState() => _TextNotesListviewState();
+  State<NotesListview> createState() => _NotesListviewState();
 }
 
-class _TextNotesListviewState extends State<TextNotesListview> {
+class _NotesListviewState extends State<NotesListview> {
   @override
   void initState() {
     // TODO: implement initState

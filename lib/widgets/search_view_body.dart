@@ -28,7 +28,12 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             RoundedTextField(
               hintText: 'Search Notes',
               onChanged: (data) {
-                BlocProvider.of<SearchCubit>(context).search(data, searchType);
+                if (data.isEmpty) {
+                  BlocProvider.of<SearchCubit>(context).emitEmptyState();
+                } else {
+                  BlocProvider.of<SearchCubit>(context)
+                      .search(data, searchType);
+                }
               },
             ),
             SizedBox(
@@ -76,9 +81,9 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                       searchType: searchType,
                       searchResault: state.resualt,
                     );
-                  } else if (state is SearchFailedState) {
-                    return Center(
-                      child: Text(state.errMessage),
+                  } else if (state is SearchEmptyState) {
+                    return const Center(
+                      child: Text('there is no resault'),
                     );
                   } else {
                     return const Center(

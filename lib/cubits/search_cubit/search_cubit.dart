@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:note_app/cubits/search_cubit/search_state.dart';
@@ -48,18 +46,13 @@ class SearchCubit extends Cubit<SearchState> {
         break;
       default:
     }
+    //emit state baced on results list content
+    results.isNotEmpty
+        ? emit(SearchSecussState(resualt: results))
+        : emit(SearchEmptyState());
+  }
 
-    /* var notesBox = Hive.box<NoteModel>(kTextNoteBox);
-
-    List<NoteModel> notesFromBox = notesBox.values.toList();
-
-    if (query.isNotEmpty) {
-      notes = notesFromBox.where((note) {
-        final noteTitle = note.title.toLowerCase();
-        final input = query.toLowerCase();
-        return noteTitle.contains(input);
-      }).toList();*/
-    log(results[0].toString());
-    emit(SearchSecussState(resualt: results));
+  emitEmptyState() {
+    emit(SearchEmptyState());
   }
 }

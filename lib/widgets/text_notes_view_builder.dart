@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
-import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/empty_widget.dart';
 
@@ -32,8 +31,7 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
               imagePath: 'assets/note_taking.png',
             );
           }
-          return TextNotesListview(
-            notesCubitSource: NotesCubitSource.notesCubit,
+          return NotesListview(
             textNotes: state.notes,
           );
         } else {

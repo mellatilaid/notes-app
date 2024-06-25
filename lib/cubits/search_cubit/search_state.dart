@@ -7,7 +7,4 @@ class SearchSecussState extends SearchState {
   SearchSecussState({required this.resualt});
 }
 
-class SearchFailedState extends SearchState {
-  final String errMessage;
-  SearchFailedState({required this.errMessage});
-}
+class SearchEmptyState extends SearchState {}
