@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:note_app/cubits/text_notes_cubits_folder/search_note_cubit/search_note_cubit.dart';
-import 'package:note_app/cubits/text_notes_cubits_folder/search_note_cubit/search_note_state.dart';
+import 'package:note_app/cubits/search_cubit/search_note_cubit.dart';
+import 'package:note_app/cubits/search_cubit/search_note_state.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/rounded_text_field.dart';
@@ -29,7 +29,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
             RoundedTextField(
               hintText: 'Search Notes',
               onChanged: (data) {
-                BlocProvider.of<SearchNoteCubit>(context).searchNotes(data);
+                BlocProvider.of<SearchCubit>(context).search(data);
               },
             ),
             SegmentedButton(
@@ -49,7 +49,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
               height: 32,
             ),
             Expanded(
-              child: BlocBuilder<SearchNoteCubit, SearchNoteState>(
+              child: BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   if (state is SearchInitialState) {
                     return const Center(

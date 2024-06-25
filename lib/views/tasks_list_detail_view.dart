@@ -47,7 +47,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
           );
           return true;
         }
-        saveTitleChangesToHive();
+        _saveChangesToHive();
         return true;
       },
       child: Scaffold(
@@ -71,7 +71,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
 
   //save title changes to hive
   //when navigating back
-  void saveTitleChangesToHive() {
+  void _saveChangesToHive() {
     editTasksListCubit.saveChangesToHive();
     fetchTasksListCubit.fetchAllTasksLists();
   }

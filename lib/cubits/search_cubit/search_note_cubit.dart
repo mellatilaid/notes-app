@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:note_app/cubits/text_notes_cubits_folder/search_note_cubit/search_note_state.dart';
+import 'package:note_app/cubits/search_cubit/search_note_state.dart';
 
-import '../../../helper/const.dart';
-import '../../../models/note_model.dart';
+import '../../helper/const.dart';
+import '../../models/note_model.dart';
 
-class SearchNoteCubit extends Cubit<SearchNoteState> {
-  SearchNoteCubit() : super(SearchInitialState());
+class SearchCubit extends Cubit<SearchState> {
+  SearchCubit() : super(SearchInitialState());
   List<NoteModel>? notes;
-  searchNotes(String query) {
+  search(String query) {
     emit(SearchInitialState());
 
     var notesBox = Hive.box<NoteModel>(kTextNoteBox);

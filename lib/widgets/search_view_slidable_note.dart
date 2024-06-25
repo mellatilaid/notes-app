@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:note_app/cubits/search_cubit/search_note_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
-import 'package:note_app/cubits/text_notes_cubits_folder/search_note_cubit/search_note_cubit.dart';
 import 'package:note_app/helper/enums.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 
@@ -26,13 +26,13 @@ class SearchViewSlidbleNote extends StatefulWidget {
 }
 
 class _SearchViewSlidbleNoteState extends State<SearchViewSlidbleNote> {
-  late SearchNoteCubit searchNoteCubit;
+  late SearchCubit searchNoteCubit;
   late NotesCubit notesCubit;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    searchNoteCubit = context.read<SearchNoteCubit>();
+    searchNoteCubit = context.read<SearchCubit>();
     notesCubit = context.read<NotesCubit>();
   }
 
