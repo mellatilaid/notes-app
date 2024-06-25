@@ -58,7 +58,7 @@ class _SearchNotesViewBodyState extends State<SearchNotesViewBody> {
                   } else if (state is SearchSecussState) {
                     return TextNotesListview(
                         notesCubitSource: NotesCubitSource.searchCubit,
-                        textNotes: state.notes);
+                        textNotes: state.resualt);
                   } else if (state is SearchFailedState) {
                     return Center(
                       child: Text(state.errMessage),

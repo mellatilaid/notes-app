@@ -1,12 +1,10 @@
-import 'package:note_app/models/note_model.dart';
-
 class SearchState {}
 
 class SearchInitialState extends SearchState {}
 
 class SearchSecussState extends SearchState {
-  final List<NoteModel> notes;
-  SearchSecussState({required this.notes});
+  final List<dynamic> resualt;
+  SearchSecussState({required this.resualt});
 }
 
 class SearchFailedState extends SearchState {
