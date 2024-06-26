@@ -39,6 +39,8 @@ class _SingleChoiceShipButtonsState extends State<SingleChoiceShipButtons> {
                   widget.onSelected(searchType);
                 });
               },
+              selectedShadowColor: kPrimaryColor.withOpacity(0.5),
+              elevation: 5,
               selectedColor: kPrimaryColor,
               backgroundColor: Colors.grey[200],
               labelStyle: TextStyle(

@@ -26,7 +26,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'models/note_model.dart';
 
 void main() async {
-  Bloc.observer = AddNoteObserver();
+  Bloc.observer = SimpleBlocObserver();
   await Hive.initFlutter();
   Hive.registerAdapter(NoteModelAdapter());
   await Hive.openBox<NoteModel>(kTextNoteBox);
