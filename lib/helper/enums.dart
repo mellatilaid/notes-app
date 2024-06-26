@@ -15,7 +15,6 @@ enum ReminderSource {
 //baces on it the search method call the right box
 enum SearchType {
   notes,
-  folders,
-  tasks,
-  reminders,
+  voices,
+  images,
 }

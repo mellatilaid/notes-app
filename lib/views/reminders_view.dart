@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/views/search_view.dart';
 import 'package:note_app/widgets/add_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/reminder_view_body.dart';
 
@@ -19,7 +21,11 @@ class RemindersView extends StatelessWidget {
           elevation: 0,
           title: const Text('Reminders'),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+            IconButton(
+                onPressed: () {
+                  context.toView(const SearchView());
+                },
+                icon: const Icon(Icons.search)),
           ],
           bottom: const TabBar(
               labelColor: kPrimaryColor,

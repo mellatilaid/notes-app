@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/views/search_view.dart';
 import 'package:note_app/widgets/folders_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
@@ -16,7 +18,11 @@ class FoldersView extends StatelessWidget {
         elevation: 0,
         title: const Text('My Collections'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          IconButton(
+              onPressed: () {
+                context.toView(const SearchView());
+              },
+              icon: const Icon(Icons.search)),
         ],
       ),
       drawer: const Drawer(),
