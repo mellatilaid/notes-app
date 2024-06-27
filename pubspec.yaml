@@ -66,6 +66,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   feedback: ^3.1.0
+  salomon_bottom_bar: ^3.3.2
   
   
   

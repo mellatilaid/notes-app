@@ -1,5 +1,6 @@
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -57,18 +58,13 @@ void main() async {
     },
     appRunner: () => runApp(
       const NotesApp(),
-      /*BetterFeedback(
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalFeedbackLocalizationsDelegate(),
-        ],
-        localeOverride: const Locale('en'),
-        child: const NotesApp(),
-      ),*/
     ),
   );
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: kPrimaryColor, // Use your custom color here
+    systemNavigationBarIconBrightness:
+        Brightness.light, // Adjust icon brightness as needed
+  ));
   //runApp(const NotesApp());
 }
 
