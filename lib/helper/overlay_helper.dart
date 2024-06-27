@@ -70,13 +70,16 @@ class OverlayHelper {
     return Material(
       key: GlobalKey(),
       elevation: 20,
-      color: const Color.fromARGB(255, 48, 48, 48),
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(0),
-        topRight: Radius.circular(16),
-        bottomLeft: Radius.circular(16),
-        bottomRight: Radius.circular(16),
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(color: Color.fromARGB(255, 224, 224, 224)),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(0),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
       ),
+      color: const Color.fromARGB(255, 48, 48, 48),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

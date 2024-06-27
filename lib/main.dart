@@ -60,8 +60,9 @@ void main() async {
       const NotesApp(),
     ),
   );
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    systemNavigationBarColor: kPrimaryColor, // Use your custom color here
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor:
+        const Color(0xFF6D9EBD).withOpacity(0.5), // Use your custom color here
     systemNavigationBarIconBrightness:
         Brightness.light, // Adjust icon brightness as needed
   ));

@@ -3,6 +3,7 @@ import 'package:note_app/views/folders_view.dart';
 import 'package:note_app/views/notes_view.dart';
 import 'package:note_app/views/reminders_view.dart';
 import 'package:note_app/views/to_do_view.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
@@ -33,9 +34,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
         },
         children: _pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
+      bottomNavigationBar: SalomonBottomBar(
+        selectedItemColor: const Color(0xFF6D9EBD),
+        unselectedItemColor: Colors.white,
         currentIndex: _pageSelected,
         onTap: (index) {
           _pageController.animateToPage(
@@ -44,13 +45,21 @@ class _BottomNavPageState extends State<BottomNavPage> {
             curve: Curves.easeInOut,
           );
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'My Notes'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.collections), label: 'My Folders'),
-          BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'To Do'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_alert_rounded), label: 'Remider Me'),
+        items: [
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.note),
+            title: const Text('My Notes'),
+          ),
+          SalomonBottomBarItem(
+              icon: const Icon(Icons.collections),
+              title: const Text('My Folders')),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.checklist),
+            title: const Text('To Do'),
+          ),
+          SalomonBottomBarItem(
+              icon: const Icon(Icons.add_alert_rounded),
+              title: const Text('Remider Me')),
         ],
       ),
     );
