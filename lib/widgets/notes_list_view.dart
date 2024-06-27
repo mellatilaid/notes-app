@@ -4,10 +4,12 @@ import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
 class NotesListview extends StatefulWidget {
   final List<dynamic> textNotes;
+  final WidgetLocation widgetLocation;
 
   const NotesListview({
     super.key,
     required this.textNotes,
+    required this.widgetLocation,
   });
 
   @override
@@ -30,7 +32,7 @@ class _NotesListviewState extends State<NotesListview> {
       itemCount: widget.textNotes.length,
       itemBuilder: (context, index) {
         return NotesViewSlidableNote(
-          widgetLocation: WidgetLocation.textNotesViewBody,
+          widgetLocation: widget.widgetLocation,
           noteModel: widget.textNotes[index],
           index: index,
         );

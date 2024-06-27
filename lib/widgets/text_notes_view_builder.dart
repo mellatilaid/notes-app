@@ -5,7 +5,8 @@ import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/empty_widget.dart';
 
-import 'text_notes_list_view.dart';
+import '../helper/slidable_enums.dart';
+import 'notes_list_view.dart';
 
 class TextNotesViewBuilder extends StatefulWidget {
   const TextNotesViewBuilder({
@@ -32,6 +33,7 @@ class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
             );
           }
           return NotesListview(
+            widgetLocation: WidgetLocation.textNotesViewBody,
             textNotes: state.notes,
           );
         } else {

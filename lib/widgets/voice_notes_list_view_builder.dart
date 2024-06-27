@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app/widgets/voice_notes_list_view.dart';
+import 'package:note_app/helper/slidable_enums.dart';
+import 'package:note_app/widgets/notes_list_view.dart';
 
 import '../cubits/folders_cubits/add_folder_cubit/add_folder_states.dart';
 import '../cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
@@ -26,8 +27,9 @@ class VoiceNotesBuilder extends StatelessWidget {
               imagePath: 'assets/podcaster-28.png',
             );
           }
-          return VoiceNotesListView(
-            voiceNotes: state.voiceNotes,
+          return NotesListview(
+            textNotes: state.voiceNotes,
+            widgetLocation: WidgetLocation.voiceNotesViewBody,
           );
         } else {
           return const Center(

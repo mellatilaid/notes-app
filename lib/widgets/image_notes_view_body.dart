@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
+import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/widgets/empty_widget.dart';
-
-import 'image_notes_list_view.dart';
+import 'package:note_app/widgets/notes_list_view.dart';
 
 class ImageNotesViewBody extends StatefulWidget {
   const ImageNotesViewBody({super.key});
@@ -42,8 +42,9 @@ class ImageNotesViewBuilder extends StatelessWidget {
               imagePath: 'assets/image_note (2).png',
             );
           } else {
-            return ImageNotesListView(
-              imageNotes: state.imageNotes,
+            return NotesListview(
+              textNotes: state.imageNotes,
+              widgetLocation: WidgetLocation.imageNotesViewBody,
             );
           }
         } else {
