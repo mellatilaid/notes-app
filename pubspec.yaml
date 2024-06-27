@@ -62,6 +62,11 @@ dependencies:
   sentry_flutter: ^8.3.0
   event_bus: ^2.0.0
   share_plus: ^9.0.0
+  feedback_sentry: ^3.0.1
+  flutter_localizations:
+    sdk: flutter
+  feedback: ^3.1.0
+  
   
   
  

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/views/search_view.dart';
+import 'package:note_app/widgets/custom_drawer.dart';
 import 'package:note_app/widgets/folders_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
@@ -25,7 +26,7 @@ class FoldersView extends StatelessWidget {
               icon: const Icon(Icons.search)),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: const CustomDrawer(),
       body: const FoldersViewBody(),
       floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),

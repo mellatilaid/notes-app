@@ -1,9 +1,15 @@
+import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -36,8 +42,7 @@ class CustomDrawer extends StatelessWidget {
             leading: const Icon(Icons.feed),
             title: const Text("Report issue or feedback"),
             onTap: () {
-              // Handle navigation here
-              Navigator.pop(context);
+              BetterFeedback.of(context).showAndUploadToSentry();
             },
           ),
           ListTile(

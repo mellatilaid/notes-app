@@ -43,6 +43,10 @@ class _ToDoItemState extends State<ToDoItem> {
       child: SizedBox(
         width: double.infinity,
         child: Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.white.withOpacity(0.5)),
+            borderRadius: BorderRadius.circular(8),
+          ),
           elevation: 5,
           child: Column(
             mainAxisSize: MainAxisSize.min,

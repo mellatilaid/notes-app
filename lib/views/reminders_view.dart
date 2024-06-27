@@ -3,6 +3,7 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/views/search_view.dart';
 import 'package:note_app/widgets/add_reminder_alert_dialog.dart';
+import 'package:note_app/widgets/custom_drawer.dart';
 import 'package:note_app/widgets/reminder_view_body.dart';
 
 import '../widgets/custom_floating_action_button.dart';
@@ -36,7 +37,7 @@ class RemindersView extends StatelessWidget {
                 Text('Passed'),
               ]),
         ),
-        drawer: const Drawer(),
+        drawer: const CustomDrawer(),
         body: const RemindersViewBody(),
         floatingActionButton: CustomFlaotingActionButton(
           child: const Icon(Icons.add),

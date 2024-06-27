@@ -1,5 +1,7 @@
+import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:note_app/bottom_navigation_bar.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
@@ -53,7 +55,19 @@ void main() async {
       // Setting to 1.0 will profile 100% of sampled transactions:
       options.profilesSampleRate = 1.0;
     },
-    appRunner: () => runApp(const NotesApp()),
+    appRunner: () => runApp(
+      const NotesApp(),
+      /*BetterFeedback(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalFeedbackLocalizationsDelegate(),
+        ],
+        localeOverride: const Locale('en'),
+        child: const NotesApp(),
+      ),*/
+    ),
   );
   //runApp(const NotesApp());
 }
@@ -63,43 +77,52 @@ class NotesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => NotesCubit(),
-        ),
-        BlocProvider(
-          create: (context) => FoldersCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SubNotesCubit(),
-        ),
-        BlocProvider(
-          create: (context) => AddSubNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => EditSubNoteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => VoiceNotesCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ImageNotesCubit(),
-        ),
-        BlocProvider(
-          create: (context) => FetchTasksListCubit(),
-        ),
-        BlocProvider(
-          create: (context) => EditTasksListCubit(),
-        ),
-        BlocProvider(
-          create: (context) => RemindersCubit(),
-        ),
+    return BetterFeedback(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalFeedbackLocalizationsDelegate(),
       ],
-      child: MaterialApp(
-        theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
-        debugShowCheckedModeBanner: false,
-        home: const BottomNavPage(),
+      localeOverride: const Locale('en'),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => NotesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FoldersCubit(),
+          ),
+          BlocProvider(
+            create: (context) => SubNotesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => AddSubNoteCubit(),
+          ),
+          BlocProvider(
+            create: (context) => EditSubNoteCubit(),
+          ),
+          BlocProvider(
+            create: (context) => VoiceNotesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ImageNotesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => FetchTasksListCubit(),
+          ),
+          BlocProvider(
+            create: (context) => EditTasksListCubit(),
+          ),
+          BlocProvider(
+            create: (context) => RemindersCubit(),
+          ),
+        ],
+        child: MaterialApp(
+          theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
+          debugShowCheckedModeBanner: false,
+          home: const BottomNavPage(),
+        ),
       ),
     );
   }

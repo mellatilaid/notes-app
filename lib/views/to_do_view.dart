@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/views/search_view.dart';
+import 'package:note_app/widgets/custom_drawer.dart';
 import 'package:note_app/widgets/custom_floating_action_button.dart';
 import 'package:note_app/widgets/to_do_view_body.dart';
 
@@ -25,7 +26,7 @@ class ToDoView extends StatelessWidget {
               icon: const Icon(Icons.search)),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: const CustomDrawer(),
       body: const ToDoViewBody(),
       floatingActionButton: CustomFlaotingActionButton(
         child: const Icon(Icons.add),
