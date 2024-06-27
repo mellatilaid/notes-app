@@ -34,7 +34,10 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                 _search(searchType);
               },
             ),
-            SingleChoiceShipButtons(onSelected: _search),
+            SingleChoice(
+              onSelected: _search,
+            ),
+            //SingleChoiceShipButtons(onSelected: _search),
             const SizedBox(
               height: 32,
             ),
@@ -54,7 +57,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                     );
                   } else if (state is SearchEmptyState) {
                     return const EmptyWidget(
-                      title: 'Search Your Notes',
+                      title: 'There is no resault for this',
                       message: '',
                       imagePath: 'assets/search.png',
                     );

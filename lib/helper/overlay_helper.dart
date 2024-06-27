@@ -36,14 +36,24 @@ class OverlayHelper {
     entry = OverlayEntry(
       builder: (context) {
         setOverlayOffset();
-        return Positioned(
-          width: 200,
-          height: 130,
-          child: CompositedTransformFollower(
-            link: layerLink,
-            showWhenUnlinked: false,
-            offset: Offset(-dx, dy),
-            child: buildOverlay(),
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            hideOverlay();
+          },
+          child: Stack(
+            children: [
+              Positioned(
+                width: 200,
+                height: 130,
+                child: CompositedTransformFollower(
+                  link: layerLink,
+                  showWhenUnlinked: false,
+                  offset: Offset(-dx, dy),
+                  child: buildOverlay(),
+                ),
+              ),
+            ],
           ),
         );
       },
