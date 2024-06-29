@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:note_app/Notification_listener.dart';
 import 'package:note_app/bottom_navigation_bar.dart';
 import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
@@ -24,6 +25,8 @@ import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/models/to_do_item_model.dart';
 import 'package:note_app/models/voice_note_model.dart';
 import 'package:note_app/services/local_notifications_service.dart';
+import 'package:note_app/views/reminders_view.dart';
+import 'package:note_app/views/to_do_view.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'models/note_model.dart';
@@ -118,7 +121,14 @@ class NotesApp extends StatelessWidget {
         child: MaterialApp(
           theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
           debugShowCheckedModeBanner: false,
-          home: const BottomNavPage(),
+          home: NotificationsListener(
+              child: BottomNavPage(
+            key: NotificationsListener.mainScreenKey,
+          )),
+          routes: {
+            '/tasks': (context) => const ToDoView(),
+            '/reminders': (context) => const RemindersView(),
+          },
         ),
       ),
     );

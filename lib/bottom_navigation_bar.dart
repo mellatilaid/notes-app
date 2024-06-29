@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:note_app/views/folders_view.dart';
 import 'package:note_app/views/notes_view.dart';
@@ -9,11 +11,11 @@ class BottomNavPage extends StatefulWidget {
   const BottomNavPage({super.key});
   static String id = 'bottomNavigationPage';
   @override
-  State<BottomNavPage> createState() => _BottomNavPageState();
+  State<BottomNavPage> createState() => BottomNavPageState();
 }
 
-class _BottomNavPageState extends State<BottomNavPage> {
-  int _pageSelected = 0;
+class BottomNavPageState extends State<BottomNavPage> {
+  int pageSelected = 0;
   final _pageController = PageController();
 
   final _pages = [
@@ -22,6 +24,19 @@ class _BottomNavPageState extends State<BottomNavPage> {
     const ToDoView(),
     const RemindersView(),
   ];
+
+  selecTab(int index) {
+    log('mellati laid laid laid');
+    setState(() {
+      pageSelected = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +44,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
         controller: _pageController,
         onPageChanged: (index) {
           setState(() {
-            _pageSelected = index;
+            pageSelected = index;
           });
         },
         children: _pages,
@@ -37,14 +52,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
       bottomNavigationBar: SalomonBottomBar(
         selectedItemColor: const Color(0xFF6D9EBD),
         unselectedItemColor: Colors.white,
-        currentIndex: _pageSelected,
-        onTap: (index) {
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut,
-          );
-        },
+        currentIndex: pageSelected,
+        onTap: selecTab,
         items: [
           SalomonBottomBarItem(
             icon: const Icon(Icons.note),

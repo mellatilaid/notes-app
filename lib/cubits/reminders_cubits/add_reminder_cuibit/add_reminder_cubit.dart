@@ -17,7 +17,8 @@ class AddReminderCubit extends Cubit<AddReminderState> {
       var remindersBox = Hive.box<ReminderModel>(kRemindersBox);
       reminderModel.color = reminderColor.value;
       await remindersBox.add(reminderModel);
-      addSheduledNotification(reminderModel: reminderModel);
+      addSheduledNotification(
+          reminderModel: reminderModel, notificationSource: 'reminders');
       emit(AddReminderSuccuss());
     } catch (e) {
       AddReminderFailure(errMessage: e.toString());

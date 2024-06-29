@@ -162,7 +162,8 @@ class _EditReminderAlertDialogBodyState
       {required BuildContext context, required ReminderModel reminderModel}) {
     LocalNotifications().cancelNotification(widget.reminder.id);
     _saveEdits();
-    addSheduledNotification(reminderModel: reminderModel);
+    addSheduledNotification(
+        reminderModel: reminderModel, notificationSource: 'reminders');
   }
 
   _saveEdits() {

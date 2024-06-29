@@ -4,12 +4,14 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
+import 'package:note_app/helper/add_sheduled_notification.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/widgets/custom_picker_text_field.dart';
+import 'package:note_app/widgets/rounded_text_field.dart';
 
 import '../../helper/const.dart';
 
@@ -100,6 +102,13 @@ class _AddTasksReminderAlertDialogBodyState
                 const SizedBox(
                   height: 8,
                 ),
+                RoundedTextField(
+                  controller: _reminderTitleController,
+                  hintText: 'Reminder Title',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 PickerTextField(
                   controller: _dateController,
                   onTap: () async {
@@ -118,6 +127,9 @@ class _AddTasksReminderAlertDialogBodyState
                     log(_timeController.text);
                   },
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
               ],
             ),
           ),
@@ -130,8 +142,7 @@ class _AddTasksReminderAlertDialogBodyState
   ReminderModel _assembleReminderModel() {
     //genereate unique id for each reminder
     int id = generateUniqueId();
-    log(_dateController.text);
-    log(_timeController.text);
+
     return ReminderModel(
       id: id,
       title: _reminderTitleController.text,
@@ -142,8 +153,10 @@ class _AddTasksReminderAlertDialogBodyState
 
   void _createReminder(
       {required BuildContext context, required ReminderModel reminderModel}) {
-    BlocProvider.of<AddReminderCubit>(context)
-        .addReminder(reminderModel: reminderModel);
+    addSheduledNotification(
+      reminderModel: reminderModel,
+      notificationSource: 'tasks',
+    );
   }
 
   _setReminderDate() async {

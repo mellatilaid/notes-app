@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -114,9 +115,15 @@ class LocalNotifications {
             UILocalNotificationDateInterpretation.absoluteTime,
       );
       //call the on notification received function when it is triggred
-      Timer(scheduledDate.difference(now), () {
-        onNotificationReceived(id);
-      });
+      //but just when notification is from reminders screen
+      Map<String, dynamic> data = jsonDecode(payload);
+
+      String screen = data['screen'];
+      if (screen == 'reminders') {
+        Timer(scheduledDate.difference(now), () {
+          onNotificationReceived(id);
+        });
+      }
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
