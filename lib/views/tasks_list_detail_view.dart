@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/models/tasks_list_model.dart';
+import 'package:note_app/widgets/add_tasks_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/simple_alert_dialag_message.dart';
 
 import '../cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
@@ -52,8 +53,20 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          //automaticallyImplyLeading: false,
           actions: [
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return const AddTasksReminderAlertDialog();
+                  },
+                );
+              },
+              icon: const Icon(Icons.alarm),
+            ),
             IconButton(
               onPressed: () {
                 _deleteTasksList();
