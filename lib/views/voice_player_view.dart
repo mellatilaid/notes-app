@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/voice_notes_cubits_folder/voice_notes_cubit/voice_notes_cubit.dart';
 import 'package:note_app/helper/local_file_manager.dart';
 import 'package:note_app/models/voice_note_model.dart';
+import 'package:note_app/widgets/app_bar_icon_button.dart';
 
 import '../widgets/voice_player_view_body.dart';
 
@@ -39,35 +40,28 @@ class _VoicePlayerViewState extends State<VoicePlayerView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         leading: !isReadOnly
-            ? IconButton(
+            ? AppBarIconButton(
+                icon: Icons.done,
                 onPressed: () {
                   _onEditSaved();
                 },
-                icon: const Icon(
-                  Icons.done,
-                ),
               )
             : const SizedBox(),
         actions: [
-          IconButton(
+          AppBarIconButton(
             onPressed: () {
               setState(() {
                 isReadOnly = !isReadOnly;
               });
             },
-            icon: const Icon(
-              Icons.edit,
-            ),
+            icon: Icons.edit,
           ),
-          IconButton(
+          AppBarIconButton(
             onPressed: () {
               _deleteNote(context: context);
             },
-            icon: const Icon(
-              Icons.delete_forever,
-            ),
+            icon: Icons.delete_outline,
           ),
         ],
       ),

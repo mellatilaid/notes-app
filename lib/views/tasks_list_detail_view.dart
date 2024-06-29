@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/widgets/add_tasks_reminder_alert_dialog.dart';
+import 'package:note_app/widgets/app_bar_icon_button.dart';
 import 'package:note_app/widgets/simple_alert_dialag_message.dart';
 
 import '../cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
@@ -55,7 +56,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
         appBar: AppBar(
           //automaticallyImplyLeading: false,
           actions: [
-            IconButton(
+            AppBarIconButton(
               onPressed: () {
                 showDialog(
                   barrierDismissible: false,
@@ -67,13 +68,13 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
                   },
                 );
               },
-              icon: const Icon(Icons.alarm),
+              icon: Icons.alarm,
             ),
-            IconButton(
+            AppBarIconButton(
               onPressed: () {
                 _deleteTasksList();
               },
-              icon: const Icon(Icons.delete_forever),
+              icon: Icons.delete_outline,
             ),
           ],
         ),

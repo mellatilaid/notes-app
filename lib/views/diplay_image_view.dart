@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
 import 'package:note_app/models/image_note_model.dart';
+import 'package:note_app/widgets/app_bar_icon_button.dart';
 
 import '../helper/local_file_manager.dart';
 import '../widgets/display_image_view_body.dart';
@@ -38,35 +39,28 @@ class _DisplayImageViewState extends State<DisplayImageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         leading: !isReadOnly
-            ? IconButton(
+            ? AppBarIconButton(
                 onPressed: () {
                   _onEditSaved();
                 },
-                icon: const Icon(
-                  Icons.done,
-                ),
+                icon: Icons.done,
               )
             : const SizedBox(),
         actions: [
-          IconButton(
+          AppBarIconButton(
             onPressed: () {
               setState(() {
                 isReadOnly = !isReadOnly;
               });
             },
-            icon: const Icon(
-              Icons.edit,
-            ),
+            icon: Icons.edit,
           ),
-          IconButton(
+          AppBarIconButton(
             onPressed: () {
               _deleteNote();
             },
-            icon: const Icon(
-              Icons.delete_forever,
-            ),
+            icon: Icons.delete_outline,
           ),
         ],
       ),
