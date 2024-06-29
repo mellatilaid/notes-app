@@ -61,7 +61,9 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
                   barrierDismissible: false,
                   context: context,
                   builder: (context) {
-                    return const AddTasksReminderAlertDialog();
+                    return AddTasksReminderAlertDialog(
+                      title: widget.tasksList.title,
+                    );
                   },
                 );
               },

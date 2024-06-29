@@ -16,7 +16,8 @@ import 'package:note_app/widgets/rounded_text_field.dart';
 import '../../helper/const.dart';
 
 class AddTasksReminderAlertDialogBody extends StatefulWidget {
-  const AddTasksReminderAlertDialogBody({super.key});
+  final String? title;
+  const AddTasksReminderAlertDialogBody({super.key, this.title});
 
   @override
   State<AddTasksReminderAlertDialogBody> createState() =>
@@ -38,6 +39,7 @@ class _AddTasksReminderAlertDialogBodyState
     super.initState();
     _dateController.text =
         DateTimeToString().dateToString(time: DateTime.now());
+    _reminderTitleController.text = widget.title ?? '';
   }
 
   @override
