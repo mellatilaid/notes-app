@@ -1,6 +1,8 @@
 import 'package:feedback_sentry/feedback_sentry.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/Notification_listener.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/widgets/custom_list_tile.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -30,35 +32,52 @@ class _CustomDrawerState extends State<CustomDrawer> {
               color: kPrimaryColor,
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.share),
-            title: const Text("Share app"),
+          CustomListTile(
+            title: 'Notes',
+            leading: Icons.note,
             onTap: () {
-              // Handle navigation here
               Navigator.pop(context);
+              NotificationsListener.mainScreenKey.currentState?.selecTab(0);
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.feed),
-            title: const Text("Report issue or feedback"),
+          CustomListTile(
+            title: 'Folders',
+            leading: Icons.folder,
+            onTap: () {
+              Navigator.pop(context);
+              NotificationsListener.mainScreenKey.currentState?.selecTab(1);
+            },
+          ),
+          CustomListTile(
+            title: 'Tasks',
+            leading: Icons.task,
+            onTap: () {
+              Navigator.pop(context);
+              NotificationsListener.mainScreenKey.currentState?.selecTab(2);
+            },
+          ),
+          CustomListTile(
+            title: 'Reminders',
+            leading: Icons.alarm,
+            onTap: () {
+              Navigator.pop(context);
+              NotificationsListener.mainScreenKey.currentState?.selecTab(3);
+            },
+          ),
+          CustomListTile(
+              title: 'Share app', leading: Icons.share, onTap: () {}),
+          CustomListTile(
+            title: 'Report issue or feedback',
+            leading: Icons.report,
             onTap: () {
               BetterFeedback.of(context).showAndUploadToSentry();
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text("About app"),
-            onTap: () {
-              // Handle navigation here
-              Navigator.pop(context);
-            },
-          ),
           const Spacer(),
-          ListTile(
-            leading: const Icon(Icons.stacked_line_chart),
-            title: const Text("Version 1.0.0"),
+          CustomListTile(
+            title: 'Version 1.0.0',
+            leading: Icons.shape_line,
             onTap: () {
-              // Handle navigation here
               Navigator.pop(context);
             },
           ),
