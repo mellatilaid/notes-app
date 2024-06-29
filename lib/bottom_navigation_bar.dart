@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:note_app/views/folders_view.dart';
 import 'package:note_app/views/notes_view.dart';
@@ -26,7 +24,6 @@ class BottomNavPageState extends State<BottomNavPage> {
   ];
 
   selecTab(int index) {
-    log('mellati laid laid laid');
     setState(() {
       pageSelected = index;
     });
