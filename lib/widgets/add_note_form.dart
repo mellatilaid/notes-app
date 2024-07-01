@@ -39,6 +39,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
         InvisibleTextField(
           controller: titleController,
           hintText: 'Title',
+          textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           height: 4,

@@ -4,12 +4,12 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fetch_sub_notes_states.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
-import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/views/add_sub_note_view.dart';
 import 'package:note_app/widgets/add_note_options_speed_dial.dart';
 import 'package:note_app/widgets/empty_widget.dart';
 
+import '../animation/fade_animated_text.dart';
 import '../widgets/folder_subnotes_body.dart';
 
 class FolderContentView extends StatefulWidget {
@@ -38,14 +38,7 @@ class _FolderContentViewState extends State<FolderContentView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          widget.folder.title,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: kSecondryColor,
-          ),
-        ),
+        title: FadeAnimatedText(title: widget.folder.title),
         centerTitle: true,
       ),
       body: BlocBuilder<SubNotesCubit, SubNotesState>(
