@@ -31,10 +31,13 @@ class ImageNoteItem extends StatelessWidget {
                 alignment: Alignment.center,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.file(
-                    File(imageNote.imagePath),
-                    width: 80,
-                    fit: BoxFit.cover,
+                  child: Hero(
+                    tag: 'image_note_${imageNote.imagePath}',
+                    child: Image.file(
+                      File(imageNote.imagePath),
+                      width: 80,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

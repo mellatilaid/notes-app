@@ -54,9 +54,12 @@ class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.file(
-                    File(widget.imageNote.imagePath),
-                    fit: BoxFit.fill,
+                  child: Hero(
+                    tag: 'image_note_${widget.imageNote.imagePath}',
+                    child: Image.file(
+                      File(widget.imageNote.imagePath),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),

@@ -155,29 +155,32 @@ class VoicePlayerViewBodyState extends State<VoicePlayerViewBody> {
           const Spacer(
             flex: 2,
           ),
-          CustomRoundedIcon(
-            onTap: () async {
-              if (isPlaying) {
-                await audioPlayer.pause();
-                setState(() {
-                  isPlaying = false;
-                });
-              } else {
-                if (_isCompleted) {
-                  await audioPlayer.seek(
-                      Duration.zero); // Reset the audio position to the start
-                  _isCompleted = false; // Reset the completion flag
+          Hero(
+            tag: 'voice_note_${widget.voiceNote.voicePath}',
+            child: CustomRoundedIcon(
+              onTap: () async {
+                if (isPlaying) {
+                  await audioPlayer.pause();
+                  setState(() {
+                    isPlaying = false;
+                  });
+                } else {
+                  if (_isCompleted) {
+                    await audioPlayer.seek(
+                        Duration.zero); // Reset the audio position to the start
+                    _isCompleted = false; // Reset the completion flag
+                  }
+                  await audioPlayer.resume();
+                  setState(
+                    () {
+                      isPlaying = true;
+                    },
+                  );
                 }
-                await audioPlayer.resume();
-                setState(
-                  () {
-                    isPlaying = true;
-                  },
-                );
-              }
-            },
-            size: 60,
-            icon: isPlaying ? Icons.stop : Icons.play_arrow,
+              },
+              size: 60,
+              icon: isPlaying ? Icons.stop : Icons.play_arrow,
+            ),
           ),
           const Spacer(
             flex: 1,

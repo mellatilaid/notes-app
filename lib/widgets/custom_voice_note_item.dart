@@ -44,9 +44,12 @@ class CustomVoiceNoteItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CustomRoundedIcon(
-                    icon: Icons.play_arrow,
-                    size: 30,
+                  Hero(
+                    tag: 'voice_note_${voiceNote.voicePath}',
+                    child: const CustomRoundedIcon(
+                      icon: Icons.play_arrow,
+                      size: 30,
+                    ),
                   ),
                   Text(
                     voiceNote.date!,
