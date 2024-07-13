@@ -36,22 +36,5 @@ class FoldersGridView extends StatelessWidget {
         );
       },
     ));
-    return GridView.builder(
-      key: UniqueKey(),
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 30,
-        childAspectRatio: 0.6,
-      ),
-      itemCount: folders.length,
-      itemBuilder: (context, index) {
-        return FolderOverlayOptions(
-          folderIndex: index,
-          folder: folders[index],
-        );
-      },
-    );
   }
 }

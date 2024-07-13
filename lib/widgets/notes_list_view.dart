@@ -52,19 +52,5 @@ class NotesListviewState extends State<NotesListview>
         },
       ),
     );
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      //key: listKey,
-      key: UniqueKey(),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      itemCount: widget.textNotes.length,
-      itemBuilder: (context, index) {
-        return NotesViewSlidableNote(
-          widgetLocation: widget.widgetLocation,
-          noteModel: widget.textNotes[index],
-          index: index,
-        );
-      },
-    );
   }
 }
