@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:note_app/helper/slidable_enums.dart';
 import 'package:note_app/widgets/notes_view_slidable_note.dart';
 
@@ -13,48 +14,55 @@ class NotesListview extends StatefulWidget {
   });
 
   @override
-  State<NotesListview> createState() => _NotesListviewState();
+  State<NotesListview> createState() => NotesListviewState();
 }
 
-class _NotesListviewState extends State<NotesListview>
+class NotesListviewState extends State<NotesListview>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
-  final List textNotes = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _inserToAnimatedList();
-    });
   }
 
-  _inserToAnimatedList() {
-    for (var i = 0; i < widget.textNotes.length; i++) {
-      textNotes.add(widget.textNotes[i]);
-      listKey.currentState?.insertItem(i);
-    }
-  }
-
-  final Tween<Offset> _offset =
-      Tween(begin: const Offset(1, 0), end: const Offset(0, 0));
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
+    return AnimationLimiter(
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: widget.textNotes.length,
+        key: UniqueKey(),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        itemBuilder: (BuildContext context, int index) {
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            delay: const Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 375),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: NotesViewSlidableNote(
+                  widgetLocation: widget.widgetLocation,
+                  noteModel: widget.textNotes[index],
+                  index: index,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      key: listKey,
-      //key: UniqueKey(),
+      //key: listKey,
+      key: UniqueKey(),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      initialItemCount: textNotes.length,
-      itemBuilder: (context, index, animation) {
-        return SlideTransition(
-          position: animation.drive(_offset),
-          child: NotesViewSlidableNote(
-            widgetLocation: widget.widgetLocation,
-            noteModel: textNotes[index],
-            index: index,
-          ),
+      itemCount: widget.textNotes.length,
+      itemBuilder: (context, index) {
+        return NotesViewSlidableNote(
+          widgetLocation: widget.widgetLocation,
+          noteModel: widget.textNotes[index],
+          index: index,
         );
       },
     );

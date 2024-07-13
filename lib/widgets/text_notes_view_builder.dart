@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit_states.dart';
-import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/empty_widget.dart';
 
 import '../helper/slidable_enums.dart';
@@ -18,44 +17,8 @@ class TextNotesViewBuilder extends StatefulWidget {
 }
 
 class _TextNotesViewBuilderState extends State<TextNotesViewBuilder> {
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
-
-  void _onNewNoteAdded(int index, NoteModel note) {
-    listKey.currentState?.insertItem(index);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NotesCubit, NotesState>(
-      listener: (context, state) {
-        if (state is NotesSuccuss) {
-          if (state.isAdded != null && state.index != null) {
-            _onNewNoteAdded(state.index!, state.notes[state.index!]);
-          } else if (state.isDeleted != null && state.index != null) {
-            //_onNoteRemoved(state.index!);
-          } else {}
-        }
-      },
-      builder: (context, state) {
-        if (state is NotesSuccuss) {
-          if (state.notes.isEmpty) {
-            return const EmptyWidget(
-              title: 'Text notes is empty',
-              message: 'Add your first text note',
-              imagePath: 'assets/note_taking.png',
-            );
-          }
-          return NotesListview(
-            widgetLocation: WidgetLocation.textNotesViewBody,
-            textNotes: state.notes,
-          );
-        } else {
-          return const Center(
-            child: Text('oops there was a problem'),
-          );
-        }
-      },
-    );
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
         if (state is NotesSuccuss) {

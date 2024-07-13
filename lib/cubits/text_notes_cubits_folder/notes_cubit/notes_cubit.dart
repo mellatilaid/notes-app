@@ -17,6 +17,7 @@ class NotesCubit extends Cubit<NotesState> implements BaseCubit {
     emit(
       NotesSuccuss(
         notes: revNotes!,
+        isAdded: true,
       ),
     );
   }
