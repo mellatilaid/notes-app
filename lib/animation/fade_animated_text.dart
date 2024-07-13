@@ -13,6 +13,7 @@ class FadeAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       duration: const Duration(seconds: 1),
+      curve: Curves.slowMiddle,
       tween: Tween<double>(begin: 0, end: 1),
       builder: (BuildContext context, double val, Widget? child) {
         return Opacity(

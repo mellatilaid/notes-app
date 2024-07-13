@@ -24,12 +24,12 @@ class NotesCubit extends Cubit<NotesState> implements BaseCubit {
   @override
   addToList({required int index, required var model}) {
     revNotes!.insert(index, model);
-    emit(NotesSuccuss(notes: revNotes!));
+    emit(NotesSuccuss(notes: revNotes!, isAdded: true, index: index));
   }
 
   @override
   removeFromList({required int index}) {
     revNotes!.removeAt(index);
-    emit(NotesSuccuss(notes: revNotes!));
+    emit(NotesSuccuss(notes: revNotes!, isDeleted: true, index: index));
   }
 }

@@ -16,25 +16,45 @@ class NotesListview extends StatefulWidget {
   State<NotesListview> createState() => _NotesListviewState();
 }
 
-class _NotesListviewState extends State<NotesListview> {
+class _NotesListviewState extends State<NotesListview>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  final List textNotes = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _inserToAnimatedList();
+    });
   }
 
+  _inserToAnimatedList() {
+    for (var i = 0; i < widget.textNotes.length; i++) {
+      textNotes.add(widget.textNotes[i]);
+      listKey.currentState?.insertItem(i);
+    }
+  }
+
+  final Tween<Offset> _offset =
+      Tween(begin: const Offset(1, 0), end: const Offset(0, 0));
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return AnimatedList(
       physics: const BouncingScrollPhysics(),
-      key: UniqueKey(),
+      key: listKey,
+      //key: UniqueKey(),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      itemCount: widget.textNotes.length,
-      itemBuilder: (context, index) {
-        return NotesViewSlidableNote(
-          widgetLocation: widget.widgetLocation,
-          noteModel: widget.textNotes[index],
-          index: index,
+      initialItemCount: textNotes.length,
+      itemBuilder: (context, index, animation) {
+        return SlideTransition(
+          position: animation.drive(_offset),
+          child: NotesViewSlidableNote(
+            widgetLocation: widget.widgetLocation,
+            noteModel: textNotes[index],
+            index: index,
+          ),
         );
       },
     );
