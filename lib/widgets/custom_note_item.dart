@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
 import 'package:note_app/helper/set_border.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
@@ -77,6 +78,9 @@ class CustomNoteItem extends StatelessWidget {
                       ? Colors.white
                       : kforeGroundColor,
                 ),
+                textDirection: hasAnyRtl(note.title)
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
               ),
               const SizedBox(
                 height: 16,
