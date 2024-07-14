@@ -10,7 +10,9 @@ import 'add_reminder_cubit_states.dart';
 class AddReminderCubit extends Cubit<AddReminderState> {
   AddReminderCubit() : super(AddReminderInitial());
   Color reminderColor = kColors[0];
-  addReminder({required ReminderModel reminderModel}) async {
+  addReminder(
+      {required ReminderModel reminderModel,
+      required String notificationSource}) async {
     emit(AddReminderLoading());
 
     try {

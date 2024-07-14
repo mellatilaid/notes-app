@@ -155,8 +155,10 @@ class _AddReminderAlertDialogBodyState
 
   void _createReminder(
       {required BuildContext context, required ReminderModel reminderModel}) {
-    BlocProvider.of<AddReminderCubit>(context)
-        .addReminder(reminderModel: reminderModel);
+    BlocProvider.of<AddReminderCubit>(context).addReminder(
+      reminderModel: reminderModel,
+      notificationSource: 'reminders',
+    );
   }
 
   _setReminderDate() async {

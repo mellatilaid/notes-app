@@ -32,7 +32,7 @@ class DateTimePicker {
       } else if (pickedTime != selectedTime &&
           (pickedTime.hour > now.hour ||
               (pickedTime.hour == now.hour &&
-                  pickedTime.minute >= (now.minute)))) {
+                  pickedTime.minute >= (now.minute + 3)))) {
         return pickedTime;
       } else {
         return null;

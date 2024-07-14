@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
@@ -126,7 +124,6 @@ class _AddTasksReminderAlertDialogBodyState
                   hintText: 'Reminder Time',
                   onTap: () async {
                     _setReminderTime();
-                    log(_timeController.text);
                   },
                 ),
                 const SizedBox(
@@ -159,6 +156,7 @@ class _AddTasksReminderAlertDialogBodyState
 
     BlocProvider.of<AddReminderCubit>(context).addReminder(
       reminderModel: reminderModel,
+      notificationSource: 'tasks',
     );
   }
 
@@ -178,7 +176,7 @@ class _AddTasksReminderAlertDialogBodyState
         isButtonEnabled = true;
       });
     } else {
-      _timeController.text = 'Pick future time >= 5 min later';
+      _timeController.text = 'Pick future time >= 3 min later';
     }
   }
 }
