@@ -69,9 +69,12 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
               label: 'Completed',
             ),
             (widget.reminderSource == ReminderSource.passedReminders)
-                ? const SizedBox(
-                    width: null,
-                    height: null,
+                ? const Flexible(
+                    flex: 0,
+                    child: SizedBox(
+                      width: null,
+                      height: null,
+                    ),
                   )
                 : SlidableAction(
                     onPressed: (context) => _onSlidableActionTapped(
@@ -169,6 +172,9 @@ class _SlidableReminderItemState extends State<SlidableReminderItem> {
   _onDismissed() {
     LocalNotifications().cancelNotification(widget.reminder.id);
     widget.reminder.delete();
-    _remindersCubit.removeFromList(index: widget.index);
+    _remindersCubit.removeFromList(
+      index: widget.index,
+      reminderSource: widget.reminderSource,
+    );
   }
 }

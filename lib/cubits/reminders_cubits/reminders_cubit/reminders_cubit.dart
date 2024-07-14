@@ -86,15 +86,24 @@ class RemindersCubit extends Cubit<RemindersStates> implements BaseCubit {
   }
 
   void seperateReminderList() {
+    final now = DateTime.now();
     for (var reminder in revReminders!) {
       final reminderDate = DateTime.parse(reminder.date);
 
       if (reminderDate.isAfter(DateTime.now())) {
-        futureReminders.add(reminder);
-      } else if (reminderDate.isBefore(DateTime.now())) {
-        passedReminders.add(reminder);
+        if (reminderDate.year > now.year ||
+            (reminderDate.year == now.year && reminderDate.month > now.month) ||
+            (reminderDate.year == now.year &&
+                reminderDate.month == now.month &&
+                reminderDate.day > now.day)) {
+          futureReminders.add(reminder);
+        } else if (reminderDate.year == now.year &&
+            reminderDate.month == now.month &&
+            reminderDate.day == now.day) {
+          soonReminders.add(reminder);
+        }
       } else {
-        soonReminders.add(reminder);
+        passedReminders.add(reminder);
       }
     }
   }
