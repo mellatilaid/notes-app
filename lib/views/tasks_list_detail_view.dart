@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/models/tasks_list_model.dart';
+import 'package:note_app/services/local_notifications_service.dart';
 import 'package:note_app/widgets/add_tasks_reminder_alert_dialog.dart';
 import 'package:note_app/widgets/app_bar_icon_button.dart';
 import 'package:note_app/widgets/simple_alert_dialag_message.dart';
@@ -63,7 +64,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
                   context: context,
                   builder: (context) {
                     return AddTasksReminderAlertDialog(
-                      title: widget.tasksList.title,
+                      tasksListModel: widget.tasksList,
                     );
                   },
                 );
@@ -93,6 +94,7 @@ class TasksListDetailViewState extends State<TasksListDetailView> {
   }
 
   _deleteTasksList() {
+    LocalNotifications().cancelNotification(widget.tasksList.id);
     widget.tasksList.delete();
     Navigator.pop(context);
 

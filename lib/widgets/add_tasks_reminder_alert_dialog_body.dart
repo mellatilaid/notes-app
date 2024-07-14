@@ -7,16 +7,17 @@ import 'package:note_app/helper/add_sheduled_notification.dart';
 import 'package:note_app/helper/convert_to_datetime.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
 import 'package:note_app/helper/datetimepicker.dart';
-import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
+import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/widgets/custom_picker_text_field.dart';
 import 'package:note_app/widgets/rounded_text_field.dart';
 
 import '../../helper/const.dart';
 
 class AddTasksReminderAlertDialogBody extends StatefulWidget {
-  final String? title;
-  const AddTasksReminderAlertDialogBody({super.key, this.title});
+  final TasksListModel tasksListModel;
+  const AddTasksReminderAlertDialogBody(
+      {super.key, required this.tasksListModel});
 
   @override
   State<AddTasksReminderAlertDialogBody> createState() =>
@@ -38,7 +39,7 @@ class _AddTasksReminderAlertDialogBodyState
     super.initState();
     _dateController.text =
         DateTimeToString().dateToString(time: DateTime.now());
-    _reminderTitleController.text = widget.title ?? '';
+    _reminderTitleController.text = widget.tasksListModel.title ?? '';
   }
 
   @override
@@ -141,11 +142,8 @@ class _AddTasksReminderAlertDialogBodyState
 
   //takes seperate parameters for reminder model
   ReminderModel _assembleReminderModel() {
-    //genereate unique id for each reminder
-    int id = generateUniqueId();
-
     return ReminderModel(
-      id: id,
+      id: widget.tasksListModel.id,
       title: _reminderTitleController.text,
       date: convertToDateTime(_dateController.text, _timeController.text),
       color: kColors.first.value,

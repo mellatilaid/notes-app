@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit_states.dart';
 import 'package:note_app/helper/show_snak_bar.dart';
+import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/widgets/add_tasks_reminder_alert_dialog_body.dart';
 
 class AddTasksReminderAlertDialog extends StatelessWidget {
-  final String? title;
-  const AddTasksReminderAlertDialog({super.key, this.title});
+  final TasksListModel tasksListModel;
+  const AddTasksReminderAlertDialog({super.key, required this.tasksListModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class AddTasksReminderAlertDialog extends StatelessWidget {
           }
         },
         child: AddTasksReminderAlertDialogBody(
-          title: title,
+          tasksListModel: tasksListModel,
         ),
       ),
     );
