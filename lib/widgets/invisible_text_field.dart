@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:note_app/helper/detect_text_direction.dart';
 
 import '../helper/const.dart';
@@ -35,21 +34,10 @@ class InvisibleTextField extends StatefulWidget {
 }
 
 class _InvisibleTextFieldState extends State<InvisibleTextField> {
-  TextDirection? _textDirection;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.controller.addListener(_updateTextDirection);
-  }
-
-  void _updateTextDirection() {
-    final text = widget.controller.text;
-    final textDirection =
-        intl.Bidi.hasAnyRtl(text) ? TextDirection.rtl : TextDirection.ltr;
-    setState(() {
-      _textDirection = textDirection as TextDirection?;
-    });
   }
 
   @override
