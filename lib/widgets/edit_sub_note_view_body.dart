@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/widgets/color_picker.dart';
 
 import '../helper/const.dart';
@@ -47,6 +48,7 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
         children: [
           InvisibleTextField(
             controller: titleController,
+            textStyle: Styles.textStyle24,
           ),
           const SizedBox(
             height: 4,
@@ -55,6 +57,7 @@ class _EditSubNoteViewBodyState extends State<EditSubNoteViewBody> {
             child: InvisibleTextField(
               controller: contentController,
               isExpand: true,
+              textStyle: Styles.textStyle16,
             ),
           ),
           ColorPicker(onColorSelected: _handleColorSelection),

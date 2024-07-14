@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/tasks_list_model.dart';
 import 'package:note_app/views/tasks_list_detail_view.dart';
 
@@ -57,7 +59,10 @@ class _ToDoItemState extends State<ToDoItem> {
                       padding: const EdgeInsets.only(left: 20, top: 8),
                       child: Text(
                         widget.tasksList.title ?? '',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: Styles.textStyle18,
+                        textDirection: hasAnyRtl(widget.tasksList.title ?? '')
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
                       ),
                     )
                   : const SizedBox(),

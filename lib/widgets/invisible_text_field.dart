@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:note_app/helper/detect_text_direction.dart';
 
 import '../helper/const.dart';
 
@@ -54,7 +55,9 @@ class _InvisibleTextFieldState extends State<InvisibleTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textDirection: _textDirection,
+      textDirection: hasAnyRtl(widget.controller.text)
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       focusNode: widget.focusNode,
       readOnly: widget.readOnly,
       autofocus: widget.readOnly,

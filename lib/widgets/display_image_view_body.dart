@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/image_notes_cubits_folder/image_notes_cubit/image_notes_cubit_cubit.dart';
 import 'package:note_app/helper/date_time_to_%20string.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 
@@ -70,13 +71,13 @@ class DisplayImageViewBodyState extends State<DisplayImageViewBody> {
             InvisibleTextField(
               readOnly: widget.isReadOnly,
               controller: _titleController,
-              textStyle: Theme.of(context).textTheme.headlineSmall,
+              textStyle: Styles.textStyle24,
               hintText: 'Title',
             ),
             InvisibleTextField(
               readOnly: widget.isReadOnly,
               controller: _contentController,
-              textStyle: Theme.of(context).textTheme.bodyLarge,
+              textStyle: Styles.textStyle16,
               hintText: 'Note',
             ),
           ],

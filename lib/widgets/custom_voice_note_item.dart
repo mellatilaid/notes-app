@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/views/voice_player_view.dart';
 import 'package:note_app/widgets/custom_rounded_icon.dart';
 
@@ -33,10 +35,10 @@ class CustomVoiceNoteItem extends StatelessWidget {
               Text(
                 voiceNote.title,
                 textAlign: TextAlign.start,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style: Styles.textStyle18,
+                textDirection: hasAnyRtl(voiceNote.title)
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
               ),
               const SizedBox(
                 height: 8,

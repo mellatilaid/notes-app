@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
 import 'package:note_app/helper/set_border.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/reminder_model.dart';
 
 class ReminderItem extends StatelessWidget {
@@ -39,15 +41,18 @@ class ReminderItem extends StatelessWidget {
           const SizedBox(width: 16.0),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: hasAnyRtl(reminder.title)
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 Text(
                   reminder.title,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                  style: Styles.textStyle18.copyWith(
                     color: _setItemColor(context),
                   ),
+                  textDirection: hasAnyRtl(reminder.title)
+                      ? TextDirection.rtl
+                      : TextDirection.ltr,
                 ),
                 const SizedBox(height: 8.0),
                 Text(

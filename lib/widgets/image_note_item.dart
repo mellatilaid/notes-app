@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/image_note_model.dart';
 import 'package:note_app/views/diplay_image_view.dart';
 
@@ -50,12 +52,14 @@ class ImageNoteItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        alignment: Alignment.centerLeft,
+                        alignment: hasAnyRtl(imageNote.title)
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: Text(
                           imageNote.title.isEmpty
                               ? 'Image title'
                               : imageNote.title,
-                          style: Theme.of(context).textTheme.labelLarge,
+                          style: Styles.textStyle18,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),

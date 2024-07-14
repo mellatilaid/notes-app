@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/widgets/add_task_alert_dialog.dart';
 import 'package:note_app/widgets/invisible_text_field.dart';
 import 'package:note_app/widgets/tasks_list_view.dart';
@@ -53,7 +54,7 @@ class _TasksListDetailViewBodyState extends State<TasksListDetailViewBody> {
                 },
                 controller: title,
                 hintText: 'Title',
-                textStyle: Theme.of(context).textTheme.headlineSmall,
+                textStyle: Styles.textStyle24,
               ),
               Expanded(
                   child: BlocBuilder<EditTasksListCubit, EditTasksListState>(

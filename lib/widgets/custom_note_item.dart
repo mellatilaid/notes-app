@@ -5,6 +5,7 @@ import 'package:note_app/extensions/push_navigation_extension.dart';
 import 'package:note_app/helper/const.dart';
 import 'package:note_app/helper/detect_text_direction.dart';
 import 'package:note_app/helper/set_border.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/views/edit_note_view.dart';
 import 'package:note_app/views/edit_sub_note_view.dart';
@@ -71,9 +72,7 @@ class CustomNoteItem extends StatelessWidget {
               Text(
                 note.title,
                 textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                style: Styles.textStyle18.copyWith(
                   color: (Color(note.color) == Colors.transparent)
                       ? Colors.white
                       : kforeGroundColor,

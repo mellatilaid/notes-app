@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/text_notes_cubits_folder/notes_cubit/notes_cubit.dart';
+import 'package:note_app/helper/styles.dart';
 import 'package:note_app/models/note_model.dart';
 import 'package:note_app/widgets/color_picker.dart';
 import 'package:note_app/widgets/simple_alert_dialag_message.dart';
@@ -55,10 +56,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
           InvisibleTextField(
             readOnly: widget.isReadOnly,
             controller: titleController,
-            textStyle: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            textStyle: Styles.textStyle24,
           ),
           const SizedBox(
             height: 4,
@@ -68,6 +66,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
               readOnly: widget.isReadOnly,
               controller: contentController,
               isExpand: true,
+              textStyle: Styles.textStyle16,
             ),
           ),
           !widget.isReadOnly
