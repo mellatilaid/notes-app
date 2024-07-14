@@ -18,8 +18,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
       child: Column(
         children: <Widget>[
           const UserAccountsDrawerHeader(
-            accountName: Text("John Doe"),
-            accountEmail: Text("johndoe@example.com"),
+            accountName: null,
+            accountEmail: null,
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage("assets/image_note (2).png"),
             ),

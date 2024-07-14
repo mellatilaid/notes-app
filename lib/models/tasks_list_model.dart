@@ -13,11 +13,14 @@ class TasksListModel extends HiveObject {
   int color;
   @HiveField(3)
   String date;
+  @HiveField(4)
+  int id;
 
   TasksListModel({
     this.title,
     required this.tasksList,
     required this.color,
     required this.date,
+    required this.id,
   });
 }

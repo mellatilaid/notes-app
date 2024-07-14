@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/reminders_cubits/add_reminder_cuibit/add_reminder_cubit.dart';
@@ -159,6 +158,10 @@ class _AddTasksReminderAlertDialogBodyState
       reminderModel: reminderModel,
       notificationSource: 'tasks',
     );
+
+    BlocProvider.of<AddReminderCubit>(context).addReminder(
+      reminderModel: reminderModel,
+    );
   }
 
   _setReminderDate() async {
@@ -179,18 +182,5 @@ class _AddTasksReminderAlertDialogBodyState
     } else {
       _timeController.text = 'Pick future time >= 5 min later';
     }
-  }
-}
-
-Future<String?> pickReminderSound() async {
-  FilePickerResult? result =
-      await FilePicker.platform.pickFiles(type: FileType.audio);
-
-  if (result != null) {
-    return result
-        .files.single.path; // Return the path of the selected audio file
-  } else {
-    // User canceled the picker
-    return null;
   }
 }

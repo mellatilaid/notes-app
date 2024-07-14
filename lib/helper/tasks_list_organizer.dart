@@ -21,13 +21,14 @@ class TasksListOrganize {
 
 // Function to create the tasks list model
   TasksListModel createTasksListModel(
-      {required List<String> toDoItems, String? title}) {
+      {required List<String> toDoItems, String? title, required int id}) {
     final List<ToDoItemModel> tasksList = _assembleTasksList(toDoItems);
     return TasksListModel(
       title: title,
       tasksList: tasksList,
       color: Colors.blue.value,
       date: DateTimeToString().dateToString(time: DateTime.now()),
+      id: id,
     );
   }
 }
