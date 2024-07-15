@@ -1,9 +1,9 @@
 flutter_native_splash:
-  color: "#42a5f5"
-  image: assets/audio.png
+  color: "#282C34"
+  image: assets\app_icon.png
   android: true
   ios: true
-  web: true
+  web: false
   android_gravity: center
   ios_content_mode: scaleAspectFill
   web_image_mode: scale
