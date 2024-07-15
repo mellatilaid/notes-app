@@ -6,12 +6,12 @@ class EmptyWidget extends StatefulWidget {
   final String imagePath;
   final VoidCallback? onTap;
   const EmptyWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.imagePath,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<EmptyWidget> createState() => _EmptyWidgetState();

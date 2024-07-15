@@ -12,10 +12,10 @@ class DisplayImageViewBody extends StatefulWidget {
   final ImageNoteModel imageNote;
   final bool isReadOnly;
   const DisplayImageViewBody({
-    Key? key,
+    super.key,
     required this.imageNote,
     required this.isReadOnly,
-  }) : super(key: key);
+  });
 
   @override
   State<DisplayImageViewBody> createState() => DisplayImageViewBodyState();

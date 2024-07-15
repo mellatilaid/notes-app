@@ -33,7 +33,7 @@ class ImageHelper {
       CropStyle cropStyle = CropStyle.rectangle}) async {
     final croppedImage = await _imageCroper.cropImage(
       sourcePath: sourcePath,
-      cropStyle: cropStyle,
+      //cropStyle: cropStyle,
       compressQuality: 100,
     );
     return croppedImage;

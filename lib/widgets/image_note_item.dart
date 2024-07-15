@@ -11,9 +11,9 @@ class ImageNoteItem extends StatelessWidget {
   final ImageNoteModel imageNote;
 
   const ImageNoteItem({
-    Key? key,
+    super.key,
     required this.imageNote,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -14,10 +14,10 @@ class EditNoteViewBody extends StatefulWidget {
   final NoteModel note;
   final bool isReadOnly;
   const EditNoteViewBody({
-    Key? key,
+    super.key,
     required this.note,
     required this.isReadOnly,
-  }) : super(key: key);
+  });
 
   @override
   State<EditNoteViewBody> createState() => _EditNoteViewBodyState();

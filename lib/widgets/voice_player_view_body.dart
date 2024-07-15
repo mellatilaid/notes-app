@@ -14,11 +14,11 @@ class VoicePlayerViewBody extends StatefulWidget {
   final bool isReadOnly;
   final VoidCallback? onDoneClicked;
   const VoicePlayerViewBody({
-    Key? key,
+    super.key,
     required this.voiceNote,
     this.isReadOnly = true,
     this.onDoneClicked,
-  }) : super(key: key);
+  });
 
   @override
   State<VoicePlayerViewBody> createState() => VoicePlayerViewBodyState();
