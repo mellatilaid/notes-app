@@ -41,18 +41,21 @@ class ReminderItem extends StatelessWidget {
           const SizedBox(width: 16.0),
           Expanded(
             child: Column(
-              crossAxisAlignment: hasAnyRtl(reminder.title)
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  reminder.title,
-                  style: Styles.textStyle18.copyWith(
-                    color: _setItemColor(context),
+                Align(
+                  alignment: hasAnyRtl(reminder.title)
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Text(
+                    reminder.title,
+                    style: Styles.textStyle18.copyWith(
+                      color: _setItemColor(context),
+                    ),
+                    textDirection: hasAnyRtl(reminder.title)
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
                   ),
-                  textDirection: hasAnyRtl(reminder.title)
-                      ? TextDirection.rtl
-                      : TextDirection.ltr,
                 ),
                 const SizedBox(height: 8.0),
                 Text(

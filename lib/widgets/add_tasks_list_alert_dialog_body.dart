@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/fetch_tasks_list_cubit/fetch_tasks_list_cubit.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/helper/show_snak_bar.dart';
 import 'package:note_app/helper/tasks_list_organizer.dart';
@@ -60,7 +61,12 @@ class _AddTasksListAlertDialogBodyState
                         );
                       }
                     },
-                    title: Text(toDoItems[i]),
+                    title: Text(
+                      toDoItems[i],
+                      textDirection: hasAnyRtl(toDoItems[i])
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
+                    ),
                   ),
                 TextField(
                   focusNode: foucusNode,

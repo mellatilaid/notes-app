@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/cubits/tasks_lists_cubits/edit_tasks_list_cubit/edit_tasks_list_cubit.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
 
 import '../models/to_do_item_model.dart';
 
@@ -58,6 +59,9 @@ class _SlidabletoDoItemState extends State<SlidabletoDoItem> {
             });
           },
           title: Text(
+            textDirection: hasAnyRtl(widget.task.title)
+                ? TextDirection.rtl
+                : TextDirection.ltr,
             widget.task.title,
             style: TextStyle(
               decoration:
