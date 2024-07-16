@@ -10,7 +10,7 @@ import 'package:note_app/helper/datetimepicker.dart';
 import 'package:note_app/helper/generate_unique_id.dart';
 import 'package:note_app/models/reminder_model.dart';
 import 'package:note_app/widgets/color_picker.dart';
-import 'package:note_app/widgets/rounded_text_field.dart';
+import 'package:note_app/widgets/dual_action_text_field.dart';
 
 import '../helper/const.dart';
 import 'custom_picker_text_field.dart';
@@ -102,7 +102,7 @@ class _AddReminderAlertDialogBodyState
                 const SizedBox(
                   height: 8,
                 ),
-                RoundedTextField(
+                DualActionTextField(
                   controller: _reminderTitleController,
                   hintText: 'Reminder Title',
                 ),

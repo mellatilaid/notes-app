@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
 
-class RoundedTextField extends StatelessWidget {
+class RoundedTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? hintText;
   final TextEditingController? controller;
@@ -13,6 +13,11 @@ class RoundedTextField extends StatelessWidget {
   });
 
   @override
+  State<RoundedTextField> createState() => _RoundedTextFieldState();
+}
+
+class _RoundedTextFieldState extends State<RoundedTextField> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (value) {
@@ -21,13 +26,13 @@ class RoundedTextField extends StatelessWidget {
         }
         return null;
       },
-      controller: controller,
-      onChanged: onChanged,
+      controller: widget.controller,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.withOpacity(0.1),
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-        hintText: hintText,
+        hintText: widget.hintText,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
