@@ -34,18 +34,32 @@ class InvisibleTextField extends StatefulWidget {
 }
 
 class _InvisibleTextFieldState extends State<InvisibleTextField> {
+  TextDirection _textDirection = TextDirection.ltr;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    widget.controller.addListener(() {
+      updateTextDirection(widget.controller.text);
+    });
+  }
+
+  updateTextDirection(String text) {
+    if (hasAnyRtl(text)) {
+      setState(() {
+        _textDirection = TextDirection.rtl;
+      });
+    } else {
+      setState(() {
+        _textDirection = TextDirection.ltr;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textDirection: hasAnyRtl(widget.controller.text)
-          ? TextDirection.rtl
-          : TextDirection.ltr,
+      textDirection: _textDirection,
       focusNode: widget.focusNode,
       readOnly: widget.readOnly,
       autofocus: widget.readOnly,

@@ -24,7 +24,6 @@ class _RecordAudioViewState extends State<RecordAudioView> {
     if (!isRecorderReady) return;
     final recorderPath = await recorder.stopRecorder();
     final audioFile = File(recorderPath!);
-    print('audio path is $audioFile');
   }
 
   @override

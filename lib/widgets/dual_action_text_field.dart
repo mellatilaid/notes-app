@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/helper/detect_text_direction.dart';
 
 import '../helper/const.dart';
 
@@ -18,7 +19,8 @@ class DualActionTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _controller,
-
+      textDirection:
+          hasAnyRtl(_controller.text) ? TextDirection.rtl : TextDirection.ltr,
       //if the text field is user in adding new folder
       //call the validator function otherwise not
       validator: isNewFolder

@@ -12,7 +12,7 @@ class AddVoiceNoteCubit extends Cubit<AddVoiceNotesState> {
 
     try {
       var voiceNoteBox = Hive.box<VoiceNoteModel>(kVoiceNoteBox);
-      print('voice note path is ${voiceNoteModel.voicePath}');
+
       await voiceNoteBox.add(voiceNoteModel);
       emit(AddVoiceNoteSuccuss());
     } catch (e) {

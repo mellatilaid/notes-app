@@ -22,7 +22,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
   TextEditingController contentController = TextEditingController(text: '');
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     titleController.dispose();
     contentController.dispose();

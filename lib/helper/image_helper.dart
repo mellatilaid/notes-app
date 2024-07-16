@@ -23,9 +23,8 @@ class ImageHelper {
         return null;
       }
     } on PlatformException catch (e) {
-      print('Failed to pick image ${e.toString()}');
+      throw Exception(e.toString());
     }
-    return null;
   }
 
   Future<CroppedFile?> cropImage(
