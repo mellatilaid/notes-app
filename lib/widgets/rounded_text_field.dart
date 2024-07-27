@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/helper/const.dart';
 
+import '../helper/detect_text_direction.dart';
+
 class RoundedTextField extends StatefulWidget {
   final Function(String)? onChanged;
   final String? hintText;
@@ -17,6 +19,31 @@ class RoundedTextField extends StatefulWidget {
 }
 
 class _RoundedTextFieldState extends State<RoundedTextField> {
+  TextDirection _textDirection = TextDirection.ltr;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateTextDirection(widget.controller?.text);
+    widget.controller?.addListener(() {
+      updateTextDirection(widget.controller?.text);
+    });
+  }
+
+  updateTextDirection(String? text) {
+    if (text != null) {
+      if (hasAnyRtl(text)) {
+        setState(() {
+          _textDirection = TextDirection.rtl;
+        });
+      } else {
+        setState(() {
+          _textDirection = TextDirection.ltr;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -28,6 +55,7 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
       },
       controller: widget.controller,
       onChanged: widget.onChanged,
+      textDirection: _textDirection,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey.withOpacity(0.1),

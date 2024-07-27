@@ -39,6 +39,7 @@ class _InvisibleTextFieldState extends State<InvisibleTextField> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    updateTextDirection(widget.controller.text);
     widget.controller.addListener(() {
       updateTextDirection(widget.controller.text);
     });

@@ -5,6 +5,7 @@ import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc
 import 'package:note_app/widgets/color_picker.dart';
 
 import '../helper/const.dart';
+import '../helper/styles.dart';
 import '../models/note_model.dart';
 import 'custom_action_button.dart';
 import 'invisible_text_field.dart';
@@ -35,41 +36,47 @@ class _AddSubNoteViewBodyState extends State<AddSubNoteViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InvisibleTextField(
-          controller: _titleController,
-          hintText: 'Title',
-        ),
-        const SizedBox(
-          height: 4,
-        ),
-        Expanded(
-          child: InvisibleTextField(
-            controller: _contentController,
-            hintText: 'Content',
-            isExpand: true,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          InvisibleTextField(
+            controller: _titleController,
+            hintText: 'Title',
+            textStyle: Styles.textStyle24,
           ),
-        ),
-        ColorPicker(onColorSelected: _handleColorSelection),
-        CustomActionButton(
-          title: 'Save Note',
-          onPressed: () {
-            //if the title and content of note is empty
-            //then go back to the previus page
-            if (_titleController.text.isEmpty &&
-                _contentController.text.isEmpty) {
-              Navigator.pop(context);
-            }
-            NoteModel? note = _addNote();
-            if (note != null) {
-              BlocProvider.of<AddSubNoteCubit>(context).addSubNote(note: note);
-              BlocProvider.of<SubNotesCubit>(context).fetchSubNotes();
-            }
-          },
-          backGroundColor: kPrimaryColor,
-        ),
-      ],
+          const SizedBox(
+            height: 4,
+          ),
+          Expanded(
+            child: InvisibleTextField(
+              controller: _contentController,
+              hintText: 'Content',
+              isExpand: true,
+              textStyle: Styles.textStyle16,
+            ),
+          ),
+          ColorPicker(onColorSelected: _handleColorSelection),
+          CustomActionButton(
+            title: 'Save Note',
+            onPressed: () {
+              //if the title and content of note is empty
+              //then go back to the previus page
+              if (_titleController.text.isEmpty &&
+                  _contentController.text.isEmpty) {
+                Navigator.pop(context);
+              }
+              NoteModel? note = _addNote();
+              if (note != null) {
+                BlocProvider.of<AddSubNoteCubit>(context)
+                    .addSubNote(note: note);
+                BlocProvider.of<SubNotesCubit>(context).fetchSubNotes();
+              }
+            },
+            backGroundColor: kPrimaryColor,
+          ),
+        ],
+      ),
     );
   }
 

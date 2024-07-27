@@ -25,6 +25,7 @@ class _DualActionTextFieldState extends State<DualActionTextField> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    updateTextDirection(widget._controller.text);
     widget._controller.addListener(() {
       updateTextDirection(widget._controller.text);
     });

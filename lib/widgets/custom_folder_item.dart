@@ -6,6 +6,7 @@ import 'package:note_app/cubits/folders_cubits/add_sub_note_cubit/add_sub_note_c
 import 'package:note_app/cubits/folders_cubits/edit_sub_notes_cubit/edit_sub_note_cubit.dart';
 import 'package:note_app/cubits/folders_cubits/fetch_folder_subnotes_cubit/fethc_sub_notes_cubit.dart';
 import 'package:note_app/extensions/push_navigation_extension.dart';
+import 'package:note_app/helper/const.dart';
 import 'package:note_app/models/folder_model.dart';
 import 'package:note_app/views/folder_content_view.dart';
 
@@ -59,7 +60,9 @@ class CustomFolderItem extends StatelessWidget {
                     bottomRight: Radius.circular(16),
                   ),
                   border: Border.all(
-                    color: Color(folder.color),
+                    color: (folder.color == kColors[0].value)
+                        ? Colors.white
+                        : Color(folder.color),
                   )),
             ),
           ),
