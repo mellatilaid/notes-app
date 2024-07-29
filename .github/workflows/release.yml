@@ -1,0 +1,64 @@
+name: Build and Deploy
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      PLAY_STORE_JSON: ${{ secrets.PLAY_STORE_JSON }}
+      KEYSTORE: ${{ secrets.KEYSTORE }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.0'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Decode keystore
+        run: echo $KEYSTORE | base64 --decode > release-keystore.jks
+
+      - name: Sign APK
+        run: |
+          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 \
+            -keystore release-keystore.jks \
+            -storepass $KEYSTORE_PASSWORD \
+            -keypass $KEY_PASSWORD \
+            build/app/outputs/flutter-apk/app-release.apk $KEY_ALIAS
+
+      - name: Align APK
+        run: |
+          $ANDROID_HOME/build-tools/30.0.3/zipalign -v -p 4 \
+            build/app/outputs/flutter-apk/app-release.apk \
+            build/app/outputs/flutter-apk/app-release-aligned.apk
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_JSON }}
+          packageName: com.yourcompany.yourapp
+          releaseFile: build/app/outputs/flutter-apk/app-release-aligned.apk
+          track: production
+          status: completed
