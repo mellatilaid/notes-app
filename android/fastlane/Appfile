@@ -1,0 +1,2 @@
+json_key_file("D:/laid/app_google_colud_sevice_account_keys/notefolio-bfe35ef6cb7c.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.laid.note_app") # e.g. com.krausefx.app
