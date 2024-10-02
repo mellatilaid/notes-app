@@ -45,4 +45,10 @@ app.*.map.json
 
 
 #fastlane folder
-/android/fastlane/*
+/android/fastlane/
+
+android/fastlane/Fastfile
+android/fastlane/Fastfile
+git rm --cached android/fastlane/Fastfile
+git rm --cached android/fastlane/Appfile
+
